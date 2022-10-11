@@ -25,52 +25,64 @@ public class PlayerScript : MonoBehaviour
     void CheckMvmt() {
         Vector2 movement = new Vector2(0, 0);
 
+        // Not moving
         if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
             !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) && 
             !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.W) &&
             !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.S)) {
             movement = Vector2.zero;
         }
+        // Only moving vertically
         else if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
                  !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D)){
             movement.x = 0;
+            // Up
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
                 movement.y = speed;
             }
+            // Down
             else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
                 movement.y = -speed;
             }
         }
+        // Only moving horizontally
         else if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.W) &&
                  !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.S)){
             movement.y = 0;
+            // Left
             if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
                 movement.x = -speed;
             }
+            // Right
             else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
             movement.x = speed;
             }
-        }        
+        }   
+        // Moving diagonally     
         else {
+            // Up and left
             if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && 
                 (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
                     movement.x = -diagSpeed;
                     movement.y = diagSpeed;
             }
+            // Up and right
             else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
                     (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
                     movement.x = diagSpeed;
                     movement.y = diagSpeed;
             }
+            // Down and left
             else if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && 
                     (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
                     movement.x = -diagSpeed;
                     movement.y = -diagSpeed;
             }
+            // Down and right
             else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
                     (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
                     movement.x = diagSpeed;
@@ -87,6 +99,11 @@ public class PlayerScript : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
+            // Doesn't work for diagonals moving up?????
+            Vector2 movement = new Vector2(rigidBody.velocity.x, rigidBody.velocity.y);
+            movement.x *= 2;
+            movement.y *= 2;
+            rigidBody.velocity = movement;
             // Dash
         }
         else if (Input.GetKey(KeyCode.C))
