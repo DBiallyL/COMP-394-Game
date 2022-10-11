@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public int dashes = 3;
     float speed = 2f;
     float diagSpeed;
+    float dashTimer = -1f;
+    float dashReloadTime = -1f;
     Rigidbody2D rigidBody;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +23,7 @@ public class PlayerScript : MonoBehaviour
     {
         CheckMvmt();
         CheckAction();
+        DashTimers();
     }
 
     void CheckMvmt() {
@@ -97,21 +101,44 @@ public class PlayerScript : MonoBehaviour
         {
             // Attack
         }
-        else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
-            // Doesn't work for diagonals moving up?????
-            Vector2 movement = new Vector2(rigidBody.velocity.x, rigidBody.velocity.y);
-            movement.x *= 2;
-            movement.y *= 2;
-            rigidBody.velocity = movement;
-            // Dash
-        }
         else if (Input.GetKey(KeyCode.C))
         {
             // Purify
         }
+
+        // Dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        {
+            if (dashes > 0 && (rigidBody.velocity.x == 0 || rigidBody.velocity.y == 0)) {
+                speed *= 2;
+                dashTimer = Time.time;
+                dashes--;
+                dashReloadTime = dashTimer;
+            }
+        }
     }
 
+    void DashTimers() {
+        if (dashTimer != -1f) {
+            float elapsedTime = Time.time - dashTimer;
+            if (elapsedTime >= 0.4f) {
+                speed /= 2f;
+                dashTimer = -1f;
+            }
+        }
+        if (dashReloadTime != -1f) {
+            float elapsedTime = Time.time - dashReloadTime;
+            if (elapsedTime >= 5f) {
+                dashes++;
+                if (dashes < 3) {
+                    dashReloadTime = Time.time;
+                }
+                else {
+                    dashReloadTime = -1f;
+                }
+            }
+        }
+    }
     // For attacks/healing there will probably be separate game object to handle collisions
     // attacks can be sword object (visible), purifier can be invisible object always in front of player?
     void OnCollisionEnter2D(Collision2D collision) {
