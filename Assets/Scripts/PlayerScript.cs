@@ -1,39 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    float speed = 2f;
+    float diagSpeed;
+    Rigidbody2D rigidBody;
     // Start is called before the first frame update
     void Start()
-    {
-        
+    {        
+        rigidBody = GetComponent<Rigidbody2D>();  
+        diagSpeed = (float) Math.Sqrt((speed * speed) / 2); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckMovement();
+        CheckMvmt();
         CheckAction();
     }
 
-    void CheckMovement() {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        {
-            
+    void CheckMvmt() {
+        Vector2 movement = new Vector2(0, 0);
+
+        if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
+            !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D) && 
+            !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.W) &&
+            !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.S)) {
+            movement = Vector2.zero;
         }
-        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        {
-           
+        else if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
+                 !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D)){
+            movement.x = 0;
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+            {
+                movement.y = speed;
+            }
+            else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            {
+                movement.y = -speed;
+            }
         }
-        else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-        {
-            
+        else if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.W) &&
+                 !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.S)){
+            movement.y = 0;
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                movement.x = -speed;
+            }
+            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+            movement.x = speed;
+            }
+        }        
+        else {
+            if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && 
+                (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
+                    movement.x = -diagSpeed;
+                    movement.y = diagSpeed;
+            }
+            else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
+                    (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
+                    movement.x = diagSpeed;
+                    movement.y = diagSpeed;
+            }
+            else if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && 
+                    (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
+                    movement.x = -diagSpeed;
+                    movement.y = -diagSpeed;
+            }
+            else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
+                    (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
+                    movement.x = diagSpeed;
+                    movement.y = -diagSpeed;
+            }
         }
-        else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-        {
-            
-        }
+        rigidBody.velocity = movement;
     }
 
     void CheckAction() {
@@ -51,14 +95,15 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    // For attacks/healing will it be handled with collisions or is there a better way to do it?
+    // For attacks/healing there will probably be separate game object to handle collisions
+    // attacks can be sword object (visible), purifier can be invisible object always in front of player?
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Enemy")) {
-            // Check if in attack position or not (maybe?)
-            // if in attack position enemy loses health/dies
-            // else if in healing position instantiate healing process (maybe? does the player always win out then? does the enemy need
-                // a special condition (back turned) for this to work?)
-            // else player loses health
+            // Check if shielded or not
+            // if not player loses health
+        }
+        if (collision.collider.CompareTag("Wall")) {
+            rigidBody.velocity = Vector2.zero;
         }
     }
 
