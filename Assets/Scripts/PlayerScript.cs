@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     float dashTimer = -1f;
     float dashReloadTime = -1f;
     Rigidbody2D rigidBody;
+    public GameObject weapon;
     // Start is called before the first frame update
     void Start()
     {        
@@ -99,6 +100,10 @@ public class PlayerScript : MonoBehaviour
     void CheckAction() {
         if (Input.GetKey(KeyCode.Z))
         {
+            weapon.transform.position = new Vector2(transform.position.x + .1f, transform.position.y + .1f);
+            weapon.GetComponent<Rigidbody2D>().velocity = rigidBody.velocity;
+            weapon.SetActive(true);
+            
             // Attack
         }
         else if (Input.GetKey(KeyCode.C))
