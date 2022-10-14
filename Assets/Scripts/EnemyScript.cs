@@ -9,6 +9,8 @@ public class EnemyScript : MonoBehaviour
     public Transform[] waypoints;
     public float speed = 0.02f;
     int waypointIndex = 1;
+    bool pausing = false;
+    float pauseTime = -1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,21 +19,31 @@ public class EnemyScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (waypointIndex >= waypoints.Length) {
-            waypointIndex = 0;
-        }
-        Vector3 target = waypoints[waypointIndex].position;
+    {   
+        WalkPath();
+    }
 
-        transform.position = Vector2.MoveTowards(transform.position, target, (speed * Time.deltaTime));
-        print("target: " + target + " actual: " + transform.position);
-        if (transform.position.x == target.x && transform.position.y == target.y) {
-            print(waypointIndex);
-            waypointIndex++;
+    void WalkPath() {
+        if (!pausing) {
+            if (waypointIndex >= waypoints.Length) {
+                waypointIndex = 0;
+                pausing = true;
+                pauseTime = Time.time;
+            }
+            Vector3 target = waypoints[waypointIndex].position;
+
+            transform.position = Vector2.MoveTowards(transform.position, target, (speed * Time.deltaTime));
+            if (transform.position.x == target.x && transform.position.y == target.y) {
+                waypointIndex++;
+            }
         }
-        // if not frozen
-        // continue along walk path
-        // check if can see player
+        else {
+            float elapsedTime = Time.time - pauseTime;
+            if (elapsedTime > 3) {
+                pausing = false;
+                pauseTime = -1f;
+            }
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
@@ -41,10 +53,6 @@ public class EnemyScript : MonoBehaviour
         if (collision.collider.CompareTag("Purifier")) {
             // Freeze enemy (?)
             // Maybe start timer for purification
-        }
-        if (collision.collider.CompareTag("Waypoint")) {
-            // print("happening");
-            // waypointIndex++;
         }
     }
 }
