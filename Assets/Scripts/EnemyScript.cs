@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 
 // Paths coded with help from: https://www.youtube.com/watch?v=KoFDDp5W5p0 
-// Animation coded with help from: https://www.youtube.com/watch?v=nBkiSJ5z-hE 
+// Animation coded with help from: https://www.youtube.com/watch?v=nBkiSJ5z-hE, https://answers.unity.com/questions/952558/how-to-flip-sprite-horizontally-in-unity-2d.html
 
 public class EnemyScript : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class EnemyScript : MonoBehaviour
     float pauseTime = -1f;
 
     Animator animator;
+    SpriteRenderer spriteRenderer;
 
     string currentState;
     Vector3 lastPos;
@@ -23,6 +24,7 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         transform.position = waypoints[0].position;
         lastPos = transform.position;
     }
@@ -35,6 +37,12 @@ public class EnemyScript : MonoBehaviour
         float yChange = transform.position.y - lastPos.y;
         if (Math.Abs(xChange) > Math.Abs(yChange)) {
             ChangeAnimationState("EnemyWalkLeft");
+            if(xChange > 0) {
+                spriteRenderer.flipX = true;
+            }
+            else {
+                spriteRenderer.flipX = false;
+            }
         }
         else {
             ChangeAnimationState("EnemyWalkUp");

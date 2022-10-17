@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+// Some animation help from: https://www.youtube.com/watch?v=hkaysu1Z-N8 
+
 public class PlayerScript : MonoBehaviour
 {
     public int dashes = 3;
