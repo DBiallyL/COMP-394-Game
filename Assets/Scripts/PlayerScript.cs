@@ -14,16 +14,19 @@ public class PlayerScript : MonoBehaviour
 
     Rigidbody2D rigidBody;
     Animator animator;
+    SpriteRenderer spriteRenderer;
 
     float diagSpeed;
     string currentState;
 
     public GameObject weapon;
+    string lastDirection;
     // Start is called before the first frame update
     void Start()
     {        
         rigidBody = GetComponent<Rigidbody2D>();  
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         diagSpeed = (float) Math.Sqrt((speed * speed) / 2); 
     }
@@ -45,6 +48,21 @@ public class PlayerScript : MonoBehaviour
             !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.W) &&
             !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.S)) {
             movement = Vector2.zero;
+            if (lastDirection == "up") {
+                ChangeAnimationState("PlayerIdleUp");
+            }
+            else if (lastDirection == "down") {
+                ChangeAnimationState("PlayerIdleDown");
+            }
+            else {
+                ChangeAnimationState("PlayerIdleLeft");
+                if (lastDirection == "right") {
+                    spriteRenderer.flipX = true;
+                }
+                else {
+                    spriteRenderer.flipX = false;
+                }
+            }  
         }
         // Only moving vertically
         else if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
@@ -54,11 +72,13 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
                 movement.y = speed;
+                lastDirection = "up";
             }
             // Down
             else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
                 movement.y = -speed;
+                lastDirection = "down";
             }
         }
         // Only moving horizontally
@@ -69,11 +89,13 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
                 movement.x = -speed;
+                lastDirection = "left";
             }
             // Right
             else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
-            movement.x = speed;
+                movement.x = speed;
+                lastDirection = "right";
             }
         }   
         // Moving diagonally     
@@ -83,24 +105,28 @@ public class PlayerScript : MonoBehaviour
                 (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
                     movement.x = -diagSpeed;
                     movement.y = diagSpeed;
+                    lastDirection = "left";
             }
             // Up and right
             else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
                     (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
                     movement.x = diagSpeed;
                     movement.y = diagSpeed;
+                    lastDirection = "right";
             }
             // Down and left
             else if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && 
                     (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
                     movement.x = -diagSpeed;
                     movement.y = -diagSpeed;
+                    lastDirection = "left";
             }
             // Down and right
             else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
                     (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
                     movement.x = diagSpeed;
                     movement.y = -diagSpeed;
+                    lastDirection = "right";
             }
         }
         rigidBody.velocity = movement;
@@ -165,4 +191,10 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void ChangeAnimationState(string state) {
+        if (currentState != state) {
+            animator.Play(state);
+            currentState = state;
+        }
+    }
 }

@@ -25,6 +25,7 @@ public class EnemyScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        
         transform.position = waypoints[0].position;
         lastPos = transform.position;
     }
