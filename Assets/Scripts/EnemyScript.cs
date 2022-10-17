@@ -19,13 +19,14 @@ public class EnemyScript : MonoBehaviour
 
     string currentState;
     Vector3 lastPos;
+    string lastDirection;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
+
         transform.position = waypoints[0].position;
         lastPos = transform.position;
     }
@@ -36,28 +37,54 @@ public class EnemyScript : MonoBehaviour
         WalkPath();   
         float xChange = transform.position.x - lastPos.x;
         float yChange = transform.position.y - lastPos.y;
-        if (Math.Abs(xChange) > Math.Abs(yChange)) {
+        if (xChange == 0 && yChange == 0) {
+            if (lastDirection == "up") {
+                ChangeAnimationState("EnemyIdleUp");
+            }
+            if (lastDirection == "down") {
+                ChangeAnimationState("EnemyIdleDown");
+            }
+            else {
+                ChangeAnimationState("EnemyIdleLeft");
+                if (lastDirection == "left") {
+                    spriteRenderer.flipX = false;
+                }
+                if (lastDirection == "right") {
+                    spriteRenderer.flipX = true;
+                }
+            }
+
+        }
+        else if (Math.Abs(xChange) > Math.Abs(yChange)) {
             ChangeAnimationState("EnemyWalkLeft");
             if(xChange > 0) {
                 spriteRenderer.flipX = true;
+                lastDirection = "right";
             }
             else {
                 spriteRenderer.flipX = false;
+                lastDirection = "left";
             }
         }
         else {
             ChangeAnimationState("EnemyWalkUp");
+            if (yChange > 0) {
+                lastDirection = "up";
+            }
+            else {
+                lastDirection = "down";
+            }
         }
         lastPos = transform.position;
     }
 
     void WalkPath() {
+        if (waypointIndex >= waypoints.Length) {
+            waypointIndex = 0;
+            pausing = true;
+            pauseTime = Time.time;
+        }
         if (!pausing) {
-            if (waypointIndex >= waypoints.Length) {
-                waypointIndex = 0;
-                pausing = true;
-                pauseTime = Time.time;
-            }
             Vector3 target = waypoints[waypointIndex].position;
 
             transform.position = Vector2.MoveTowards(transform.position, target, (speed * Time.deltaTime));
