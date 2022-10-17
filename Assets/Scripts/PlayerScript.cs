@@ -7,15 +7,22 @@ public class PlayerScript : MonoBehaviour
 {
     public int dashes = 3;
     float speed = 2f;
-    float diagSpeed;
     float dashTimer = -1f;
     float dashReloadTime = -1f;
+
     Rigidbody2D rigidBody;
+    Animator animator;
+
+    float diagSpeed;
+    string currentState;
+
     public GameObject weapon;
     // Start is called before the first frame update
     void Start()
     {        
         rigidBody = GetComponent<Rigidbody2D>();  
+        animator = GetComponent<Animator>();
+
         diagSpeed = (float) Math.Sqrt((speed * speed) / 2); 
     }
 
