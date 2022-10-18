@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(FieldOfView))]
-public class FoVEditor : MonoBehaviour
+[CustomEditor(typeof(EnemyView))]
+public class FoVEditor : Editor
 {
     void onSceneGUI() {
-        FieldOfView fow = (FieldOfView) target;
+        EnemyView fow = (EnemyView) target;
         Handles.color = Color.White;
-        // Handles.DrawWireArc(fow.transform.position);
+        Handles.DrawWireArc(fow.transform.position);
     }
 }
