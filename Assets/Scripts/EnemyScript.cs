@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
+// using System;
 using UnityEngine;
 
 // Paths coded with help from: https://www.youtube.com/watch?v=KoFDDp5W5p0 
@@ -55,7 +55,7 @@ public class EnemyScript : MonoBehaviour
             }
 
         }
-        else if (Math.Abs(xChange) > Math.Abs(yChange)) {
+        else if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
             ChangeAnimationState("EnemyWalkLeft");
             if(xChange > 0) {
                 spriteRenderer.flipX = true;

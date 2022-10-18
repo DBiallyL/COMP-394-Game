@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
+// using System;
 using UnityEngine;
 
 // Some animation help from: https://www.youtube.com/watch?v=hkaysu1Z-N8 
@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        diagSpeed = (float) Math.Sqrt((speed * speed) / 2); 
+        diagSpeed = (float) Mathf.Sqrt((speed * speed) / 2); 
     }
 
     // Update is called once per frame
