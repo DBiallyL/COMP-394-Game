@@ -26,9 +26,12 @@ public class EnemyScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Transform child = transform.Find("Light2D");
 
         transform.position = waypoints[0].position;
         lastPos = transform.position;
+        Material viewLight = child.GetComponent<Material>();
+        print(child.name);
     }
 
     // Update is called once per frame

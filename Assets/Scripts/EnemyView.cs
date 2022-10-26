@@ -8,6 +8,11 @@ public class EnemyView : MonoBehaviour
 {
     public float viewRadius;
     public float viewAngle;
+
+    public Vector3 DirecFromAngle(float angle) {
+        return new Vector3(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +47,4 @@ public class EnemyView : MonoBehaviour
         
     }
 
-    public Vector3 DirecFromAngle(float angle) {
-        return new Vector3(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
-    }
 }

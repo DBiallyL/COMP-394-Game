@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(EnemyView))]
+[CustomEditor (typeof (EnemyView))]
 public class FoVEditor : Editor
 {
     void onSceneGUI() {
         EnemyView fow = (EnemyView) target;
-        Handles.color = Color.White;
-        Handles.DrawWireArc(fow.transform.position);
+        Handles.color = Color.white;
+        // Handles.DrawWireArc(fow.transform.position);
     }
 }
