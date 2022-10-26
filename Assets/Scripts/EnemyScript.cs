@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
+    public Texture leftLight, upLight, rightLight, downLight;
     public Transform[] waypoints;
     public float speed = 0.01f;
     int waypointIndex = 1;
@@ -16,6 +17,7 @@ public class EnemyScript : MonoBehaviour
 
     Animator animator;
     SpriteRenderer spriteRenderer;
+    Material lightMaterial;
 
     string currentState;
     Vector3 lastPos;
@@ -30,8 +32,7 @@ public class EnemyScript : MonoBehaviour
 
         transform.position = waypoints[0].position;
         lastPos = transform.position;
-        Material viewLight = child.GetComponent<Material>();
-        print(child.name);
+        lightMaterial = child.GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame
@@ -43,17 +44,21 @@ public class EnemyScript : MonoBehaviour
         if (xChange == 0 && yChange == 0) {
             if (lastDirection == "up") {
                 ChangeAnimationState("EnemyIdleUp");
+                lightMaterial.SetTexture("_MainTex", upLight);
             }
             if (lastDirection == "down") {
                 ChangeAnimationState("EnemyIdleDown");
+                lightMaterial.SetTexture("_MainTex", downLight);
             }
             else {
                 ChangeAnimationState("EnemyIdleLeft");
                 if (lastDirection == "left") {
                     spriteRenderer.flipX = false;
+                    lightMaterial.SetTexture("_MainTex", leftLight);
                 }
                 if (lastDirection == "right") {
                     spriteRenderer.flipX = true;
+                    lightMaterial.SetTexture("_MainTex", rightLight);
                 }
             }
 
@@ -63,19 +68,23 @@ public class EnemyScript : MonoBehaviour
             if(xChange > 0) {
                 spriteRenderer.flipX = true;
                 lastDirection = "right";
+                lightMaterial.SetTexture("_MainTex", rightLight);
             }
             else {
                 spriteRenderer.flipX = false;
                 lastDirection = "left";
+                lightMaterial.SetTexture("_MainTex", leftLight);
             }
         }
         else {
             ChangeAnimationState("EnemyWalkUp");
             if (yChange > 0) {
                 lastDirection = "up";
+                lightMaterial.SetTexture("_MainTex", upLight);
             }
             else {
                 lastDirection = "down";
+                lightMaterial.SetTexture("_MainTex", downLight);
             }
         }
         lastPos = transform.position;
