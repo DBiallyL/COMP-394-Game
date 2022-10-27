@@ -5,21 +5,25 @@ using UnityEngine;
 
 // Paths coded with help from: https://www.youtube.com/watch?v=KoFDDp5W5p0 
 // Animation coded with help from: https://www.youtube.com/watch?v=nBkiSJ5z-hE, https://answers.unity.com/questions/952558/how-to-flip-sprite-horizontally-in-unity-2d.html
+// Enemy light cone uses asset HardLight2D: https://assetstore.unity.com/packages/tools/particles-effects/hard-light-2d-152208
 
 public class EnemyScript : MonoBehaviour
 {
-    public Texture leftLight, upLight, rightLight, downLight;
+    // Global variables used to handle path walking
     public Transform[] waypoints;
     public float speed = 0.01f;
     int waypointIndex = 1;
     bool pausing = false;
     float pauseTime = -1f;
-
-    Animator animator;
-    SpriteRenderer spriteRenderer;
+    
+    // Global variables used to handle light cone
+    public Texture leftLight, upLight, rightLight, downLight;
     Material lightMaterial;
     Transform lightCollider;
 
+    // Global variables used to keep track of direction and animation states
+    Animator animator;
+    SpriteRenderer spriteRenderer;
     string currentState;
     Vector3 lastPos;
     string lastDirection;
@@ -29,6 +33,7 @@ public class EnemyScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
         Transform lightChild = transform.Find("Light2D");
         lightCollider = transform.Find("EnemyLight_Collider");
 
@@ -41,73 +46,112 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         WalkPath();   
+        ChangeWalkSprites();
+        ChangeLightRotation();
+    }
+
+    /**
+    * Changes the sprites to be idle or walk sprites based on the change in position in update
+    */
+    void ChangeWalkSprites() {
         float xChange = transform.position.x - lastPos.x;
         float yChange = transform.position.y - lastPos.y;
+
         // Idle Sprites
         if (xChange == 0 && yChange == 0) {
+            // Up
             if (lastDirection == "up") {
                 ChangeAnimationState("EnemyIdleUp");
-                lightMaterial.SetTexture("_MainTex", upLight);
-                lightCollider.Rotate(0f, 0f, 0f, Space.World);
             }
+            // Down
             if (lastDirection == "down") {
                 ChangeAnimationState("EnemyIdleDown");
-                lightMaterial.SetTexture("_MainTex", downLight);
-                lightCollider.Rotate(0f, 0f, 180f, Space.World);
             }
             else {
                 ChangeAnimationState("EnemyIdleLeft");
-                if (lastDirection == "left") {
-                    spriteRenderer.flipX = false;
-                    lightMaterial.SetTexture("_MainTex", leftLight);
-                    lightCollider.Rotate(0f, 0f, 90f, Space.World);
-                }
+                // Right
                 if (lastDirection == "right") {
                     spriteRenderer.flipX = true;
-                    lightMaterial.SetTexture("_MainTex", rightLight);
-                    lightCollider.Rotate(0f, 0f, 270f, Space.World);
+                }
+                // Left
+                if (lastDirection == "left") {
+                    spriteRenderer.flipX = false;
                 }
             }
-
         }
+
         // Walking Sprites
         else if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
             ChangeAnimationState("EnemyWalkLeft");
+            // Right
             if(xChange > 0) {
                 spriteRenderer.flipX = true;
                 lastDirection = "right";
-                lightMaterial.SetTexture("_MainTex", rightLight);
-                lightCollider.Rotate(0f, 0f, 270f, Space.World);
             }
+            // Left
             else {
                 spriteRenderer.flipX = false;
                 lastDirection = "left";
-                lightMaterial.SetTexture("_MainTex", leftLight);
-                lightCollider.Rotate(0f, 0f, 90f, Space.World);
             }
         }
         else {
-            ChangeAnimationState("EnemyWalkUp");
+            // Up
             if (yChange > 0) {
+                ChangeAnimationState("EnemyWalkUp");
                 lastDirection = "up";
-                lightMaterial.SetTexture("_MainTex", upLight);
-                lightCollider.Rotate(0f, 0f, 0f, Space.World);
             }
+            // Down
             else {
+                // TODO: Change once enemy walk down exists
+                ChangeAnimationState("EnemyWalkUp");
                 lastDirection = "down";
-                lightMaterial.SetTexture("_MainTex", downLight);
-                lightCollider.Rotate(0f, 0f, 180f, Space.World);
             }
         }
+
         lastPos = transform.position;
     }
 
+    /**
+    * Changes the rotation of the HardLight2D light and the light collider in update
+    */
+    void ChangeLightRotation() {
+        // Up
+        if (lastDirection == "up") {
+            lightMaterial.SetTexture("_MainTex", upLight);
+            if (lightCollider.rotation != Quaternion.Euler(0f,0f,0f))
+                lightCollider.rotation = Quaternion.Euler(0f,0f,0f);
+        }
+        // Down
+        if (lastDirection == "down") {
+            lightMaterial.SetTexture("_MainTex", downLight);
+            if (lightCollider.rotation != Quaternion.Euler(0f,0f,180f))
+                lightCollider.rotation = Quaternion.Euler(0f,0f,180f);
+        }
+        // Right
+        if (lastDirection == "right") {
+            lightMaterial.SetTexture("_MainTex", rightLight);
+            if (lightCollider.rotation != Quaternion.Euler(0f,0f,-90f))
+                lightCollider.rotation = Quaternion.Euler(0f,0f,-90f);
+        }
+        // Left
+        if (lastDirection == "left") {
+            lightMaterial.SetTexture("_MainTex", leftLight);
+            if (lightCollider.rotation != Quaternion.Euler(0f,0f,90f))
+                lightCollider.rotation = Quaternion.Euler(0f,0f,90f);
+        }
+    }
+
+    /**
+    * Moves the enemy along the waypoints in a pre-created path
+    */
     void WalkPath() {
+        // Reach first waypoint
         if (waypointIndex >= waypoints.Length) {
             waypointIndex = 0;
             pausing = true;
             pauseTime = Time.time;
         }
+        // Walk to next waypoint
         if (!pausing) {
             Vector3 target = waypoints[waypointIndex].position;
 
@@ -116,6 +160,7 @@ public class EnemyScript : MonoBehaviour
                 waypointIndex++;
             }
         }
+        // Count down pause on first waypoint
         else {
             float elapsedTime = Time.time - pauseTime;
             if (elapsedTime > 3) {
@@ -135,6 +180,9 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    /**
+    * Changes which animation the enemy is using
+    */
     void ChangeAnimationState(string state) {
         if (currentState != state) {
             animator.Play(state);
