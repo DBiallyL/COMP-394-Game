@@ -18,6 +18,7 @@ public class EnemyScript : MonoBehaviour
     Animator animator;
     SpriteRenderer spriteRenderer;
     Material lightMaterial;
+    Transform lightCollider;
 
     string currentState;
     Vector3 lastPos;
@@ -28,11 +29,12 @@ public class EnemyScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        Transform child = transform.Find("Light2D");
+        Transform lightChild = transform.Find("Light2D");
+        lightCollider = transform.Find("EnemyLight_Collider");
 
         transform.position = waypoints[0].position;
         lastPos = transform.position;
-        lightMaterial = child.GetComponent<Renderer>().material;
+        lightMaterial = lightChild.GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame
@@ -41,39 +43,47 @@ public class EnemyScript : MonoBehaviour
         WalkPath();   
         float xChange = transform.position.x - lastPos.x;
         float yChange = transform.position.y - lastPos.y;
+        // Idle Sprites
         if (xChange == 0 && yChange == 0) {
             if (lastDirection == "up") {
                 ChangeAnimationState("EnemyIdleUp");
                 lightMaterial.SetTexture("_MainTex", upLight);
+                lightCollider.Rotate(0f, 0f, 0f, Space.World);
             }
             if (lastDirection == "down") {
                 ChangeAnimationState("EnemyIdleDown");
                 lightMaterial.SetTexture("_MainTex", downLight);
+                lightCollider.Rotate(0f, 0f, 180f, Space.World);
             }
             else {
                 ChangeAnimationState("EnemyIdleLeft");
                 if (lastDirection == "left") {
                     spriteRenderer.flipX = false;
                     lightMaterial.SetTexture("_MainTex", leftLight);
+                    lightCollider.Rotate(0f, 0f, 90f, Space.World);
                 }
                 if (lastDirection == "right") {
                     spriteRenderer.flipX = true;
                     lightMaterial.SetTexture("_MainTex", rightLight);
+                    lightCollider.Rotate(0f, 0f, 270f, Space.World);
                 }
             }
 
         }
+        // Walking Sprites
         else if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
             ChangeAnimationState("EnemyWalkLeft");
             if(xChange > 0) {
                 spriteRenderer.flipX = true;
                 lastDirection = "right";
                 lightMaterial.SetTexture("_MainTex", rightLight);
+                lightCollider.Rotate(0f, 0f, 270f, Space.World);
             }
             else {
                 spriteRenderer.flipX = false;
                 lastDirection = "left";
                 lightMaterial.SetTexture("_MainTex", leftLight);
+                lightCollider.Rotate(0f, 0f, 90f, Space.World);
             }
         }
         else {
@@ -81,10 +91,12 @@ public class EnemyScript : MonoBehaviour
             if (yChange > 0) {
                 lastDirection = "up";
                 lightMaterial.SetTexture("_MainTex", upLight);
+                lightCollider.Rotate(0f, 0f, 0f, Space.World);
             }
             else {
                 lastDirection = "down";
                 lightMaterial.SetTexture("_MainTex", downLight);
+                lightCollider.Rotate(0f, 0f, 180f, Space.World);
             }
         }
         lastPos = transform.position;
