@@ -7,20 +7,24 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public int dashes = 3;
+    // Global variables used to handle path walking
     float speed = 2f;
+    float diagSpeed;
+    Rigidbody2D rigidBody;
+
+    // Global variables used to handle dashes
+    public int dashes = 3;
     float dashTimer = -1f;
     float dashReloadTime = -1f;
 
-    Rigidbody2D rigidBody;
+    // Global variables used to handle dashes
     Animator animator;
     SpriteRenderer spriteRenderer;
-
-    float diagSpeed;
     string currentState;
+    string lastDirection;
 
     public GameObject weapon;
-    string lastDirection;
+
     // Start is called before the first frame update
     void Start()
     {        
@@ -137,6 +141,9 @@ public class PlayerScript : MonoBehaviour
         rigidBody.velocity = movement;
     }
 
+    /**
+    * Checks if the player hit a key for some non-movement action
+    */
     void CheckAction() {
         if (Input.GetKey(KeyCode.Z))
         {
@@ -163,6 +170,10 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    /**
+    * Keeps track of the timers for the dash duration and dash reloading
+    * TODO: Test if it's good timing for actual gameplay
+    */
     void DashTimers() {
         if (dashTimer != -1f) {
             float elapsedTime = Time.time - dashTimer;
@@ -184,6 +195,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+
     // For attacks/healing there will probably be separate game object to handle collisions
     // attacks can be sword object (visible), purifier can be invisible object always in front of player?
     void OnCollisionEnter2D(Collision2D collision) {
@@ -196,6 +208,9 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    /**
+    * Changes which animation the enemy is using
+    */
     void ChangeAnimationState(string state) {
         if (currentState != state) {
             animator.Play(state);

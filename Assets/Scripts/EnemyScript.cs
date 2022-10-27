@@ -5,21 +5,25 @@ using UnityEngine;
 
 // Paths coded with help from: https://www.youtube.com/watch?v=KoFDDp5W5p0 
 // Animation coded with help from: https://www.youtube.com/watch?v=nBkiSJ5z-hE, https://answers.unity.com/questions/952558/how-to-flip-sprite-horizontally-in-unity-2d.html
+// Enemy light cone uses asset HardLight2D: https://assetstore.unity.com/packages/tools/particles-effects/hard-light-2d-152208
 
 public class EnemyScript : MonoBehaviour
 {
-    public Texture leftLight, upLight, rightLight, downLight;
+    // Global variables used to handle path walking
     public Transform[] waypoints;
     public float speed = 0.01f;
     int waypointIndex = 1;
     bool pausing = false;
     float pauseTime = -1f;
-
-    Animator animator;
-    SpriteRenderer spriteRenderer;
+    
+    // Global variables used to handle light cone
+    public Texture leftLight, upLight, rightLight, downLight;
     Material lightMaterial;
     Transform lightCollider;
 
+    // Global variables used to keep track of direction and animation states
+    Animator animator;
+    SpriteRenderer spriteRenderer;
     string currentState;
     Vector3 lastPos;
     string lastDirection;
@@ -29,6 +33,7 @@ public class EnemyScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
         Transform lightChild = transform.Find("Light2D");
         lightCollider = transform.Find("EnemyLight_Collider");
 
@@ -45,9 +50,13 @@ public class EnemyScript : MonoBehaviour
         ChangeLightRotation();
     }
 
+    /**
+    * Changes the sprites to be idle or walk sprites based on the change in position in update
+    */
     void ChangeWalkSprites() {
         float xChange = transform.position.x - lastPos.x;
         float yChange = transform.position.y - lastPos.y;
+
         // Idle Sprites
         if (xChange == 0 && yChange == 0) {
             // Up
@@ -70,6 +79,7 @@ public class EnemyScript : MonoBehaviour
                 }
             }
         }
+
         // Walking Sprites
         else if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
             ChangeAnimationState("EnemyWalkLeft");
@@ -97,10 +107,15 @@ public class EnemyScript : MonoBehaviour
                 lastDirection = "down";
             }
         }
+
         lastPos = transform.position;
     }
 
+    /**
+    * Changes the rotation of the HardLight2D light and the light collider in update
+    */
     void ChangeLightRotation() {
+        // Up
         if (lastDirection == "up") {
             lightMaterial.SetTexture("_MainTex", upLight);
             if (lightCollider.rotation != Quaternion.Euler(0f,0f,0f))
