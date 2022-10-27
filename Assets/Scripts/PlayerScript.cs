@@ -71,12 +71,14 @@ public class PlayerScript : MonoBehaviour
             // Up
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
+                // ChangeAnimationState("PlayerRunningUp");
                 movement.y = speed;
                 lastDirection = "up";
             }
             // Down
             else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
+                ChangeAnimationState("PlayerRunningDown");
                 movement.y = -speed;
                 lastDirection = "down";
             }
@@ -85,15 +87,18 @@ public class PlayerScript : MonoBehaviour
         else if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.W) &&
                  !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.S)){
             movement.y = 0;
+            ChangeAnimationState("PlayerRunningRight");
             // Left
             if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
+                spriteRenderer.flipX = true;
                 movement.x = -speed;
                 lastDirection = "left";
             }
             // Right
             else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
+                spriteRenderer.flipX = false;
                 movement.x = speed;
                 lastDirection = "right";
             }
