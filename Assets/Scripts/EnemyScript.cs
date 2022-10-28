@@ -102,8 +102,7 @@ public class EnemyScript : MonoBehaviour
             }
             // Down
             else {
-                // TODO: Change once enemy walk down exists
-                ChangeAnimationState("EnemyWalkUp");
+                ChangeAnimationState("EnemyWalkDown");
                 lastDirection = "down";
             }
         }
