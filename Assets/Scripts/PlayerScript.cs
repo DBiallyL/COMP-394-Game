@@ -75,21 +75,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // Set Animation State
-        if (lastDirection == "up") {
-            ChangeAnimationState(spritePath + "Up");
-        }
-        else if (lastDirection == "down") {
-            ChangeAnimationState(spritePath + "Down");
-        }
-        else {
-            ChangeAnimationState(spritePath + "Right");
-            if (lastDirection == "left") { 
-                spriteRenderer.flipX = !michaelJacksonMode; 
-            }
-            else {
-                spriteRenderer.flipX = michaelJacksonMode;
-            }
-        } 
+        ChangeToDirectionalAnimation(spritePath);
 
         rigidBody.velocity = movement;
     }
@@ -180,11 +166,13 @@ public class PlayerScript : MonoBehaviour
             // Attack
         }
         else if (!Input.GetKey(KeyCode.C)) {
-            canMove = true;
+            // canMove = true;
+            // ChangeToDirectionalAnimation("PlayerIdle");
         }
         else if (Input.GetKey(KeyCode.C))
         {
             canMove = false;
+            ChangeAnimationState("PlayerRitualStartUp");
             
             // Purify
         }
@@ -241,6 +229,24 @@ public class PlayerScript : MonoBehaviour
         if (collision.collider.CompareTag("Wall")) {
             rigidBody.velocity = Vector2.zero;
         }
+    }
+
+    void ChangeToDirectionalAnimation(string spritePath) {
+        if (lastDirection == "up") {
+            ChangeAnimationState(spritePath + "Up");
+        }
+        else if (lastDirection == "down") {
+            ChangeAnimationState(spritePath + "Down");
+        }
+        else {
+            ChangeAnimationState(spritePath + "Right");
+            if (lastDirection == "left") { 
+                spriteRenderer.flipX = !michaelJacksonMode; 
+            }
+            else {
+                spriteRenderer.flipX = michaelJacksonMode;
+            }
+        } 
     }
 
     /**
