@@ -30,6 +30,7 @@ public class PlayerScript : MonoBehaviour
     bool michaelJacksonMode = false;
 
     public GameObject weapon;
+    bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +46,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckMvmt();
+        if (canMove) CheckMvmt();
         CheckAction();
         DashTimers();
     }
@@ -169,6 +170,7 @@ public class PlayerScript : MonoBehaviour
     * Checks if the player hit a key for some non-movement action
     */
     void CheckAction() {
+        
         if (Input.GetKey(KeyCode.Z))
         {
             weapon.transform.position = new Vector2(transform.position.x + .1f, transform.position.y + .1f);
@@ -177,8 +179,13 @@ public class PlayerScript : MonoBehaviour
             
             // Attack
         }
+        else if (!Input.GetKey(KeyCode.C)) {
+            canMove = true;
+        }
         else if (Input.GetKey(KeyCode.C))
         {
+            canMove = false;
+            
             // Purify
         }
 
