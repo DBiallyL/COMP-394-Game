@@ -56,54 +56,52 @@ public class EnemyScript : MonoBehaviour
     void ChangeWalkSprites() {
         float xChange = transform.position.x - lastPos.x;
         float yChange = transform.position.y - lastPos.y;
+        string spritePath = "Enemy";
 
         // Idle Sprites
         if (xChange == 0 && yChange == 0) {
-            // Up
-            if (lastDirection == "up") {
-                ChangeAnimationState("EnemyIdleUp");
-            }
-            // Down
-            if (lastDirection == "down") {
-                ChangeAnimationState("EnemyIdleDown");
-            }
-            else {
-                ChangeAnimationState("EnemyIdleLeft");
-                // Right
-                if (lastDirection == "right") {
-                    spriteRenderer.flipX = true;
-                }
-                // Left
-                if (lastDirection == "left") {
-                    spriteRenderer.flipX = false;
-                }
-            }
+            spritePath += "Idle";
         }
-
         // Walking Sprites
         else if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
-            ChangeAnimationState("EnemyWalkLeft");
+            spritePath += "Walking";
             // Right
             if(xChange > 0) {
-                spriteRenderer.flipX = true;
                 lastDirection = "right";
             }
             // Left
             else {
-                spriteRenderer.flipX = false;
                 lastDirection = "left";
             }
         }
         else {
             // Up
             if (yChange > 0) {
-                ChangeAnimationState("EnemyWalkUp");
                 lastDirection = "up";
             }
             // Down
             else {
-                ChangeAnimationState("EnemyWalkDown");
                 lastDirection = "down";
+            }
+        }
+
+        // Up
+        if (lastDirection == "up") {
+            ChangeAnimationState(spritePath + "Up");
+        }
+        // Down
+        if (lastDirection == "down") {
+            ChangeAnimationState(spritePath + "Down");
+        }
+        else {
+            ChangeAnimationState(spritePath + "Left");
+            // Right
+            if (lastDirection == "right") {
+                spriteRenderer.flipX = true;
+            }
+            // Left
+            if (lastDirection == "left") {
+                spriteRenderer.flipX = false;
             }
         }
 

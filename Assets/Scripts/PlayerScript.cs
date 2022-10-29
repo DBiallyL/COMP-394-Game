@@ -13,8 +13,12 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D rigidBody;
 
     // Global variables used to handle dashes
+    //                                                                                                TODO: Change back to 3 in Unity Editor
     public int dashes = 3;
+    int maxDashes;
+    // Will be greater than -1f if the player is dashing
     float dashTimer = -1f;
+    // Will be greater than -1f if the player has less than the maximum number of dashes
     float dashReloadTime = -1f;
 
     // Global variables used to handle dashes
@@ -33,6 +37,7 @@ public class PlayerScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         diagSpeed = (float) Mathf.Sqrt((speed * speed) / 2); 
+        maxDashes = dashes;
     }
 
     // Update is called once per frame
@@ -45,6 +50,7 @@ public class PlayerScript : MonoBehaviour
 
     void CheckMvmt() {
         Vector2 movement = new Vector2(0, 0);
+        string spritePath = "Player";
 
         // Not moving
         if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
@@ -52,37 +58,55 @@ public class PlayerScript : MonoBehaviour
             !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.W) &&
             !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.S)) {
             movement = Vector2.zero;
-            if (lastDirection == "up") {
-                ChangeAnimationState("PlayerIdleUp");
-            }
-            else if (lastDirection == "down") {
-                ChangeAnimationState("PlayerIdleDown");
+            spritePath += "Idle";
+        }
+        // Moving
+        else {
+            movement = AnimateRunning();
+            if (dashTimer == -1f) {
+                spritePath += "Running";
             }
             else {
-                ChangeAnimationState("PlayerIdleLeft");
-                if (lastDirection == "right") {
-                    spriteRenderer.flipX = true;
-                }
-                else {
-                    spriteRenderer.flipX = false;
-                }
-            }  
+                spritePath += "Dashing";
+            }
         }
+
+        // Set Animation State
+        if (lastDirection == "up") {
+            ChangeAnimationState(spritePath + "Up");
+        }
+        else if (lastDirection == "down") {
+            ChangeAnimationState(spritePath + "Down");
+        }
+        else {
+            ChangeAnimationState(spritePath + "Right");
+            if (lastDirection == "left") {
+                spriteRenderer.flipX = true;
+            }
+            else {
+                spriteRenderer.flipX = false;
+            }
+        } 
+
+        rigidBody.velocity = movement;
+    }
+
+    Vector2 AnimateRunning() {
+        Vector2 movement = new Vector2(0,0);
+
         // Only moving vertically
-        else if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
-                 !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D)){
+        if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
+            !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D)){
             movement.x = 0;
             // Up
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
-                // ChangeAnimationState("PlayerRunningUp");
                 movement.y = speed;
                 lastDirection = "up";
             }
             // Down
             else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
-                ChangeAnimationState("PlayerRunningDown");
                 movement.y = -speed;
                 lastDirection = "down";
             }
@@ -91,18 +115,15 @@ public class PlayerScript : MonoBehaviour
         else if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.W) &&
                  !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.S)){
             movement.y = 0;
-            ChangeAnimationState("PlayerRunningRight");
             // Left
             if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
-                spriteRenderer.flipX = true;
                 movement.x = -speed;
                 lastDirection = "left";
             }
             // Right
             else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
-                spriteRenderer.flipX = false;
                 movement.x = speed;
                 lastDirection = "right";
             }
@@ -138,7 +159,8 @@ public class PlayerScript : MonoBehaviour
                     lastDirection = "right";
             }
         }
-        rigidBody.velocity = movement;
+
+        return movement;
     }
 
     /**
@@ -186,7 +208,7 @@ public class PlayerScript : MonoBehaviour
             float elapsedTime = Time.time - dashReloadTime;
             if (elapsedTime >= 5f) {
                 dashes++;
-                if (dashes < 3) {
+                if (dashes < maxDashes) {
                     dashReloadTime = Time.time;
                 }
                 else {
