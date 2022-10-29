@@ -26,6 +26,8 @@ public class PlayerScript : MonoBehaviour
     SpriteRenderer spriteRenderer;
     string currentState;
     string lastDirection;
+    // Michael Jackson Mode
+    bool michaelJacksonMode = false;
 
     public GameObject weapon;
 
@@ -80,11 +82,11 @@ public class PlayerScript : MonoBehaviour
         }
         else {
             ChangeAnimationState(spritePath + "Right");
-            if (lastDirection == "left") {
-                spriteRenderer.flipX = true;
+            if (lastDirection == "left") { 
+                spriteRenderer.flipX = !michaelJacksonMode; 
             }
             else {
-                spriteRenderer.flipX = false;
+                spriteRenderer.flipX = michaelJacksonMode;
             }
         } 
 
@@ -189,6 +191,10 @@ public class PlayerScript : MonoBehaviour
                 dashes--;
                 dashReloadTime = dashTimer;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.M)) {
+            michaelJacksonMode = true;
         }
     }
 

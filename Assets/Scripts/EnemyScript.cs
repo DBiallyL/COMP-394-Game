@@ -63,25 +63,27 @@ public class EnemyScript : MonoBehaviour
             spritePath += "Idle";
         }
         // Walking Sprites
-        else if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
-            spritePath += "Walking";
-            // Right
-            if(xChange > 0) {
-                lastDirection = "right";
-            }
-            // Left
-            else {
-                lastDirection = "left";
-            }
-        }
         else {
-            // Up
-            if (yChange > 0) {
-                lastDirection = "up";
+            spritePath += "Walk";
+            if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
+                // Right
+                if(xChange > 0) {
+                    lastDirection = "right";
+                }
+                // Left
+                else {
+                    lastDirection = "left";
+                }
             }
-            // Down
             else {
-                lastDirection = "down";
+                // Up
+                if (yChange > 0) {
+                    lastDirection = "up";
+                }
+                // Down
+                else {
+                    lastDirection = "down";
+                }
             }
         }
 
@@ -90,7 +92,7 @@ public class EnemyScript : MonoBehaviour
             ChangeAnimationState(spritePath + "Up");
         }
         // Down
-        if (lastDirection == "down") {
+        else if (lastDirection == "down") {
             ChangeAnimationState(spritePath + "Down");
         }
         else {
