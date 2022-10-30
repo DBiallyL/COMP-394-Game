@@ -31,6 +31,7 @@ public class PlayerScript : MonoBehaviour
 
     public GameObject weapon;
     bool canMove = true;
+    bool pressedC = false;
 
     // Start is called before the first frame update
     void Start()
@@ -171,10 +172,17 @@ public class PlayerScript : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.C))
         {
-            canMove = false;
-            ChangeAnimationState("PlayerRitualStartUp");
-            
+            if (!pressedC) {
+                canMove = false;
+                ChangeAnimationState("PlayerRitualStartUp");
+                pressedC = true;
+            }
             // Purify
+        }
+
+        if (Input.GetKeyUp(KeyCode.C)) {
+            pressedC = false;
+            canMove = true;
         }
 
         // Dash
@@ -191,6 +199,10 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M)) {
             michaelJacksonMode = true;
         }
+    }
+
+    void EndRitualStartUp() {
+        ChangeAnimationState("PlayerRitualIdle");
     }
 
     /**
