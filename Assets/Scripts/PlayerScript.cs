@@ -161,6 +161,24 @@ public class PlayerScript : MonoBehaviour
         return movement;
     }
 
+    void ChangeToDirectionalAnimation(string spritePath) {
+        if (lastDirection == "up") {
+            ChangeAnimationState(spritePath + "Up");
+        }
+        else if (lastDirection == "down") {
+            ChangeAnimationState(spritePath + "Down");
+        }
+        else {
+            ChangeAnimationState(spritePath + "Right");
+            if (lastDirection == "left") { 
+                spriteRenderer.flipX = !michaelJacksonMode; 
+            }
+            else {
+                spriteRenderer.flipX = michaelJacksonMode;
+            }
+        } 
+    }
+
     /**
     * Checks if the player hit a key for some non-movement action
     */
@@ -172,6 +190,12 @@ public class PlayerScript : MonoBehaviour
             weapon.GetComponent<Rigidbody2D>().velocity = rigidBody.velocity;
             weapon.SetActive(true);
             
+            if (rigidBody.velocity != Vector2.zero) {
+                ChangeToDirectionalAnimation("PlayerRunningAttack");
+                // rigidBody.velocity = Vector2.zero;
+                canMove = false;
+            }
+                
             // Attack
         }
         else if (!Input.GetKey(KeyCode.C)) {
@@ -211,6 +235,22 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void SlowToStop() {
+        print("Called");
+        float newXVel = rigidBody.velocity.x / 1.5f;
+        float newYVel = rigidBody.velocity.y / 1.5f;
+        rigidBody.velocity = new Vector2(newXVel,newYVel);
+    }
+
+    void CanMoveTrue() {
+        canMove = true;
+    }
+
+    void EndRightRunAttack() {
+        canMove = true;
+        transform.position = new Vector2(transform.position.x - rigidBody.velocity.x, transform.position.y);
+    }
+
     /**
     * Keeps track of the timers for the dash duration and dash reloading
     * TODO: Test if it's good timing for actual gameplay
@@ -245,26 +285,9 @@ public class PlayerScript : MonoBehaviour
             // if not player loses health
         }
         if (collision.collider.CompareTag("Wall")) {
+            print("Colliding");
             rigidBody.velocity = Vector2.zero;
         }
-    }
-
-    void ChangeToDirectionalAnimation(string spritePath) {
-        if (lastDirection == "up") {
-            ChangeAnimationState(spritePath + "Up");
-        }
-        else if (lastDirection == "down") {
-            ChangeAnimationState(spritePath + "Down");
-        }
-        else {
-            ChangeAnimationState(spritePath + "Right");
-            if (lastDirection == "left") { 
-                spriteRenderer.flipX = !michaelJacksonMode; 
-            }
-            else {
-                spriteRenderer.flipX = michaelJacksonMode;
-            }
-        } 
     }
 
     /**
