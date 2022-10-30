@@ -8,11 +8,13 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     // Global variables used to handle path walking
-    float speed = 2f;
+
+    float speed = 3f;
     float diagSpeed;
     Rigidbody2D rigidBody;
 
     // Global variables used to handle dashes
+
     //                                                                                                TODO: Change back to 3 in Unity Editor
     public int dashes = 3;
     int maxDashes;
@@ -20,14 +22,20 @@ public class PlayerScript : MonoBehaviour
     float dashTimer = -1f;
     // Will be greater than -1f if the player has less than the maximum number of dashes
     float dashReloadTime = -1f;
+    int dashMultiplier = 3;
+    float dashLength = 0.3f;
+    float dashReloadLength = 4f;
 
     // Global variables used to handle dashes
+
     Animator animator;
     SpriteRenderer spriteRenderer;
     string currentState;
     string lastDirection;
     // Michael Jackson Mode
     bool michaelJacksonMode = false;
+
+    // Global variables used to handle weapons and rituals
 
     public GameObject weapon;
     bool canMove = true;
@@ -173,6 +181,7 @@ public class PlayerScript : MonoBehaviour
         else if (Input.GetKey(KeyCode.C))
         {
             if (!pressedC) {
+                print("Not pressed C");
                 canMove = false;
                 ChangeAnimationState("PlayerRitualStartUp");
                 pressedC = true;
@@ -180,6 +189,7 @@ public class PlayerScript : MonoBehaviour
             // Purify
         }
 
+        // Stop Ritual
         if (Input.GetKeyUp(KeyCode.C)) {
             pressedC = false;
             canMove = true;
@@ -189,7 +199,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             if (dashes > 0 && (rigidBody.velocity.x == 0 || rigidBody.velocity.y == 0)) {
-                speed *= 2;
+                speed *= dashMultiplier;
                 dashTimer = Time.time;
                 dashes--;
                 dashReloadTime = dashTimer;
@@ -201,10 +211,6 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void EndRitualStartUp() {
-        ChangeAnimationState("PlayerRitualIdle");
-    }
-
     /**
     * Keeps track of the timers for the dash duration and dash reloading
     * TODO: Test if it's good timing for actual gameplay
@@ -212,14 +218,14 @@ public class PlayerScript : MonoBehaviour
     void DashTimers() {
         if (dashTimer != -1f) {
             float elapsedTime = Time.time - dashTimer;
-            if (elapsedTime >= 0.4f) {
-                speed /= 2f;
+            if (elapsedTime >= dashLength) {
+                speed /= dashMultiplier;
                 dashTimer = -1f;
             }
         }
         if (dashReloadTime != -1f) {
             float elapsedTime = Time.time - dashReloadTime;
-            if (elapsedTime >= 5f) {
+            if (elapsedTime >= dashReloadLength) {
                 dashes++;
                 if (dashes < maxDashes) {
                     dashReloadTime = Time.time;

@@ -19,9 +19,9 @@ public class EnemyLightScript : MonoBehaviour
 
     // TODO: Finish code
     void OnTriggerEnter2D(Collider2D collider) {
-        print("Baller 1");
+        // print("Baller 1");
         if (collider.CompareTag("Player")) {
-            print("Baller player");
+            // print("Baller player");
         }
     }
 }
