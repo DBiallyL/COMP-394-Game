@@ -47,8 +47,14 @@ TagManager:
   - name: Background
     uniqueID: 2906423659
     locked: 0
+  - name: Obstacles
+    uniqueID: 3026824991
+    locked: 0
   - name: Foreground
     uniqueID: 1685588267
+    locked: 0
+  - name: Sprites
+    uniqueID: 644344147
     locked: 0
   - name: Top
     uniqueID: 98480691
