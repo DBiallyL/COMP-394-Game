@@ -26,7 +26,7 @@ public class EnemyScript : MonoBehaviour
     SpriteRenderer spriteRenderer;
     string currentState;
     Vector3 lastPos;
-    string lastDirection;
+    string lastDirection = "Left";
 
     // Start is called before the first frame update
     void Start()
@@ -68,45 +68,39 @@ public class EnemyScript : MonoBehaviour
             if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
                 // Right
                 if(xChange > 0) {
-                    lastDirection = "right";
+                    lastDirection = "Right";
                 }
                 // Left
                 else {
-                    lastDirection = "left";
+                    lastDirection = "Left";
                 }
             }
             else {
                 // Up
                 if (yChange > 0) {
-                    lastDirection = "up";
+                    lastDirection = "Up";
                 }
                 // Down
                 else {
-                    lastDirection = "down";
+                    lastDirection = "Down";
                 }
             }
         }
 
-        // Up
-        if (lastDirection == "up") {
-            ChangeAnimationState(spritePath + "Up");
-        }
-        // Down
-        else if (lastDirection == "down") {
-            ChangeAnimationState(spritePath + "Down");
-        }
-        else {
+        // Right
+        if (lastDirection == "Right") {
             ChangeAnimationState(spritePath + "Left");
-            // Right
-            if (lastDirection == "right") {
-                spriteRenderer.flipX = true;
-            }
-            // Left
-            if (lastDirection == "left") {
-                spriteRenderer.flipX = false;
-            }
+            spriteRenderer.flipX = true;
         }
-
+        // Left
+        else if (lastDirection == "Left") {
+            ChangeAnimationState(spritePath + "Left");
+            spriteRenderer.flipX = false;
+        }
+        // Up and Down
+        else {
+            ChangeAnimationState(spritePath + lastDirection);
+        }
         lastPos = transform.position;
     }
 
@@ -115,25 +109,25 @@ public class EnemyScript : MonoBehaviour
     */
     void ChangeLightRotation() {
         // Up
-        if (lastDirection == "up") {
+        if (lastDirection == "Up") {
             lightMaterial.SetTexture("_MainTex", upLight);
             if (lightCollider.rotation != Quaternion.Euler(0f,0f,0f))
                 lightCollider.rotation = Quaternion.Euler(0f,0f,0f);
         }
         // Down
-        if (lastDirection == "down") {
+        if (lastDirection == "Down") {
             lightMaterial.SetTexture("_MainTex", downLight);
             if (lightCollider.rotation != Quaternion.Euler(0f,0f,180f))
                 lightCollider.rotation = Quaternion.Euler(0f,0f,180f);
         }
         // Right
-        if (lastDirection == "right") {
+        if (lastDirection == "Right") {
             lightMaterial.SetTexture("_MainTex", rightLight);
             if (lightCollider.rotation != Quaternion.Euler(0f,0f,-90f))
                 lightCollider.rotation = Quaternion.Euler(0f,0f,-90f);
         }
         // Left
-        if (lastDirection == "left") {
+        if (lastDirection == "Left") {
             lightMaterial.SetTexture("_MainTex", leftLight);
             if (lightCollider.rotation != Quaternion.Euler(0f,0f,90f))
                 lightCollider.rotation = Quaternion.Euler(0f,0f,90f);
@@ -171,7 +165,7 @@ public class EnemyScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Weapon")) {
-            // Enemy lose health
+            print("Aaaah I'm dying!!!");
         }
         if (collision.collider.CompareTag("Purifier")) {
             // Freeze enemy (?)

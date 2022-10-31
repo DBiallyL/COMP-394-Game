@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
     Animator animator;
     SpriteRenderer spriteRenderer;
     string currentState;
-    string lastDirection;
+    string lastDirection = "Right";
     // Michael Jackson Mode
     bool michaelJacksonMode = false;
 
@@ -159,14 +159,17 @@ public class PlayerScript : MonoBehaviour
 
     void ChangeToDirectionalAnimation(string spritePath) {
         spriteRenderer.flipX = false;
+        // Left
         if (lastDirection == "Left") { 
             ChangeAnimationState(spritePath + "Right");
             spriteRenderer.flipX = !michaelJacksonMode; 
         }
+        // Right
         else if (lastDirection == "Right") {
             ChangeAnimationState(spritePath + "Right");
             spriteRenderer.flipX = michaelJacksonMode;
         }
+        // Up and Down
         else {
             ChangeAnimationState(spritePath + lastDirection);
         }
@@ -273,18 +276,18 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    // For attacks/healing there will probably be separate game object to handle collisions
-    // attacks can be sword object (visible), purifier can be invisible object always in front of player?
-    void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.CompareTag("Enemy")) {
-            // Check if shielded or not
-            // if not player loses health
-        }
-        if (collision.collider.CompareTag("Wall")) {
-            print("Colliding");
-            rigidBody.velocity = Vector2.zero;
-        }
-    }
+    // // For attacks/healing there will probably be separate game object to handle collisions
+    // // attacks can be sword object (visible), purifier can be invisible object always in front of player?
+    // void OnCollisionEnter2D(Collision2D collision) {
+    //     if (collision.collider.CompareTag("Enemy")) {
+    //         // Check if shielded or not
+    //         // if not player loses health
+    //     }
+    //     if (collision.collider.CompareTag("Wall")) {
+    //         print("Colliding");
+    //         rigidBody.velocity = Vector2.zero;
+    //     }
+    // }
 
     /**
     * Changes which animation the player is using
