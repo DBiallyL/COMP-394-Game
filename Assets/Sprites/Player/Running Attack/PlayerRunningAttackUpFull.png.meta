@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f0db600f3cb78af4f94fd61eb7b885f1
+guid: 22c70901964accf42b26b82f8d45ee1b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,7 +107,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerRunningAttackDown_0
+      name: PlayerRunningAttackUpFull_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,14 +121,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9869800cbbe3a0b4cbefba44a94ac70c
-      internalID: -1300103464
+      spriteID: 64d55ee63c61ec449bf0121fd91ecc5f
+      internalID: 1640377869
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackDown_1
+      name: PlayerRunningAttackUpFull_1
       rect:
         serializedVersion: 2
         x: 320
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7daf9979831920478fbb51a3f82317f
-      internalID: -1029701337
+      spriteID: c31b019301d953b42a8823d4b3fb4489
+      internalID: 485165645
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackDown_2
+      name: PlayerRunningAttackUpFull_2
       rect:
         serializedVersion: 2
         x: 640
@@ -163,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 651a5fc7aeeef894aadb55c07b3a0a0f
-      internalID: -1264754303
+      spriteID: 2f6b979af64c3444ab6cc6cc987bcebc
+      internalID: 979956758
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackDown_3
+      name: PlayerRunningAttackUpFull_3
       rect:
         serializedVersion: 2
         x: 960
@@ -184,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a4619dd940bedf4584393feddd5b726
-      internalID: -101957769
+      spriteID: 3a142a8c91ece9e428301cdb3bbd0861
+      internalID: 1162036295
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackDown_4
+      name: PlayerRunningAttackUpFull_4
       rect:
         serializedVersion: 2
         x: 0
@@ -205,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5ca56a3a5609f244aae155174787cfa
-      internalID: -1877184939
+      spriteID: 55a3c511246b5294db9332e198377e14
+      internalID: -1822115253
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackDown_5
+      name: PlayerRunningAttackUpFull_5
       rect:
         serializedVersion: 2
         x: 320
@@ -226,14 +226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fdbe9fca9f3be7a4e8307033e9ff7f23
-      internalID: 761679394
+      spriteID: 908942c2c7d2d884cb839296b4456359
+      internalID: -22487042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackDown_6
+      name: PlayerRunningAttackUpFull_6
       rect:
         serializedVersion: 2
         x: 640
@@ -247,8 +247,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54344421ea354eb4184725d57b8a459e
-      internalID: -502952243
+      spriteID: 749ae26d62fd47142ba8443846492e14
+      internalID: 941577931
       vertices: []
       indices: 
       edges: []
@@ -264,13 +264,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerRunningAttackDown_6: -502952243
-      PlayerRunningAttackDown_0: -1300103464
-      PlayerRunningAttackDown_3: -101957769
-      PlayerRunningAttackDown_5: 761679394
-      PlayerRunningAttackDown_1: -1029701337
-      PlayerRunningAttackDown_4: -1877184939
-      PlayerRunningAttackDown_2: -1264754303
+      PlayerRunningAttackUpFull_3: 1162036295
+      PlayerRunningAttackUpFull_1: 485165645
+      PlayerRunningAttackUpFull_2: 979956758
+      PlayerRunningAttackUpFull_0: 1640377869
+      PlayerRunningAttackUpFull_6: 941577931
+      PlayerRunningAttackUpFull_5: -22487042
+      PlayerRunningAttackUpFull_4: -1822115253
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

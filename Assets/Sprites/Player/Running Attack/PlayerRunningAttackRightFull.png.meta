@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f35d3165d978b5c42ba7d0793e04b07a
+guid: 765a957f5d7852442aeb2ffc36f412a5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,7 +107,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerRunningAttackRight_0
+      name: PlayerRunningAttackRightFull_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,14 +121,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: afb58002e1cc1084394d5c7749ac7b74
-      internalID: -2135103881
+      spriteID: d780463a4df1d594ea501e08151a9cd6
+      internalID: 176004362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackRight_1
+      name: PlayerRunningAttackRightFull_1
       rect:
         serializedVersion: 2
         x: 800
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34cd2c943b41c9d4ea11a306ce96f8ee
-      internalID: -219631858
+      spriteID: 785148b0efcac4944b0687b1c6c751a3
+      internalID: 1433364669
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackRight_2
+      name: PlayerRunningAttackRightFull_2
       rect:
         serializedVersion: 2
         x: 0
@@ -163,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4a54f7310135764b8615976f7e511e8
-      internalID: -505197402
+      spriteID: c6d72ca79130fff45b0e9326d32df455
+      internalID: 1533719609
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackRight_3
+      name: PlayerRunningAttackRightFull_3
       rect:
         serializedVersion: 2
         x: 800
@@ -184,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4f590c41a3659948bc96c6e0bd8b040
-      internalID: -1489097558
+      spriteID: 21643d8f9e566dc4dab08c4b351886ee
+      internalID: -1943109679
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackRight_4
+      name: PlayerRunningAttackRightFull_4
       rect:
         serializedVersion: 2
         x: 0
@@ -205,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1d85f137605eee42ba8042051689188
-      internalID: 2000263730
+      spriteID: a07dfcd90b685f64785790489322f983
+      internalID: -443829744
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackRight_5
+      name: PlayerRunningAttackRightFull_5
       rect:
         serializedVersion: 2
         x: 800
@@ -226,14 +226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 939be30a42883e7439b96d3833bd1abf
-      internalID: -1898439435
+      spriteID: 1b3e3ab9b1474a74aa9ba9ae2ff149cb
+      internalID: 1544965446
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerRunningAttackRight_6
+      name: PlayerRunningAttackRightFull_6
       rect:
         serializedVersion: 2
         x: 0
@@ -247,8 +247,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbadc4b32ef78a74f9264a861bf0a21d
-      internalID: 1966870431
+      spriteID: 10b000a298d0aad4eae1c91ea5b9dda8
+      internalID: -67813240
       vertices: []
       indices: 
       edges: []
@@ -264,13 +264,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerRunningAttackRight_3: -1489097558
-      PlayerRunningAttackRight_2: -505197402
-      PlayerRunningAttackRight_4: 2000263730
-      PlayerRunningAttackRight_1: -219631858
-      PlayerRunningAttackRight_6: 1966870431
-      PlayerRunningAttackRight_5: -1898439435
-      PlayerRunningAttackRight_0: -2135103881
+      PlayerRunningAttackRightFull_1: 1433364669
+      PlayerRunningAttackRightFull_4: -443829744
+      PlayerRunningAttackRightFull_3: -1943109679
+      PlayerRunningAttackRightFull_2: 1533719609
+      PlayerRunningAttackRightFull_0: 176004362
+      PlayerRunningAttackRightFull_5: 1544965446
+      PlayerRunningAttackRightFull_6: -67813240
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

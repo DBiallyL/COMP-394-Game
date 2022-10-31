@@ -7,14 +7,12 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    // Global variables used to handle path walking
-
+    // Global variables used to handle movement
     float speed = 3f;
     float diagSpeed;
     Rigidbody2D rigidBody;
 
     // Global variables used to handle dashes
-
     //                                                                                                TODO: Change back to 3 in Unity Editor
     public int dashes = 3;
     int maxDashes;
@@ -26,8 +24,7 @@ public class PlayerScript : MonoBehaviour
     float dashLength = 0.3f;
     float dashReloadLength = 4f;
 
-    // Global variables used to handle dashes
-
+    // Global variables used to handle animation
     Animator animator;
     SpriteRenderer spriteRenderer;
     string currentState;
@@ -36,7 +33,6 @@ public class PlayerScript : MonoBehaviour
     bool michaelJacksonMode = false;
 
     // Global variables used to handle weapons and rituals
-
     public GameObject weapon;
     bool canMove = true;
     bool pressedC = false;
@@ -100,13 +96,13 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
                 movement.y = speed;
-                lastDirection = "up";
+                lastDirection = "Up";
             }
             // Down
             else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
                 movement.y = -speed;
-                lastDirection = "down";
+                lastDirection = "Down";
             }
         }
         // Only moving horizontally
@@ -117,13 +113,13 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
                 movement.x = -speed;
-                lastDirection = "left";
+                lastDirection = "Left";
             }
             // Right
             else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
                 movement.x = speed;
-                lastDirection = "right";
+                lastDirection = "Right";
             }
         }   
         // Moving diagonally     
@@ -133,28 +129,28 @@ public class PlayerScript : MonoBehaviour
                 (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
                     movement.x = -diagSpeed;
                     movement.y = diagSpeed;
-                    lastDirection = "left";
+                    lastDirection = "Left";
             }
             // Up and right
             else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
                     (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
                     movement.x = diagSpeed;
                     movement.y = diagSpeed;
-                    lastDirection = "right";
+                    lastDirection = "Right";
             }
             // Down and left
             else if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && 
                     (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
                     movement.x = -diagSpeed;
                     movement.y = -diagSpeed;
-                    lastDirection = "left";
+                    lastDirection = "Left";
             }
             // Down and right
             else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
                     (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
                     movement.x = diagSpeed;
                     movement.y = -diagSpeed;
-                    lastDirection = "right";
+                    lastDirection = "Right";
             }
         }
 
@@ -162,55 +158,46 @@ public class PlayerScript : MonoBehaviour
     }
 
     void ChangeToDirectionalAnimation(string spritePath) {
-        if (lastDirection == "up") {
-            ChangeAnimationState(spritePath + "Up");
+        spriteRenderer.flipX = false;
+        if (lastDirection == "Left") { 
+            ChangeAnimationState(spritePath + "Right");
+            spriteRenderer.flipX = !michaelJacksonMode; 
         }
-        else if (lastDirection == "down") {
-            ChangeAnimationState(spritePath + "Down");
+        else if (lastDirection == "Right") {
+            ChangeAnimationState(spritePath + "Right");
+            spriteRenderer.flipX = michaelJacksonMode;
         }
         else {
-            ChangeAnimationState(spritePath + "Right");
-            if (lastDirection == "left") { 
-                spriteRenderer.flipX = !michaelJacksonMode; 
-            }
-            else {
-                spriteRenderer.flipX = michaelJacksonMode;
-            }
-        } 
+            ChangeAnimationState(spritePath + lastDirection);
+        }
     }
 
     /**
     * Checks if the player hit a key for some non-movement action
     */
     void CheckAction() {
-        
+        // Attack
         if (Input.GetKey(KeyCode.Z))
         {
-            weapon.transform.position = new Vector2(transform.position.x + .1f, transform.position.y + .1f);
-            weapon.GetComponent<Rigidbody2D>().velocity = rigidBody.velocity;
-            weapon.SetActive(true);
-            
+            string motion = "";
             if (rigidBody.velocity != Vector2.zero) {
-                ChangeToDirectionalAnimation("PlayerRunningAttack");
-                // rigidBody.velocity = Vector2.zero;
-                canMove = false;
+                motion = "Running";
             }
-                
-            // Attack
+            else {
+                motion = "Stationary";
+            }
+            ChangeToDirectionalAnimation("Player" + motion + "Attack");
+            weapon.SendMessage(motion + "Attack", lastDirection);
+            canMove = false;
         }
-        else if (!Input.GetKey(KeyCode.C)) {
-            // canMove = true;
-            // ChangeToDirectionalAnimation("PlayerIdle");
-        }
+        // Ritual
         else if (Input.GetKey(KeyCode.C))
         {
             if (!pressedC) {
-                print("Not pressed C");
                 canMove = false;
                 ChangeAnimationState("PlayerRitualStartUp");
                 pressedC = true;
             }
-            // Purify
         }
 
         // Stop Ritual
@@ -235,8 +222,10 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    /**
+    * Divides the velocity by 1.5
+    */
     void SlowToStop() {
-        print("Called");
         float newXVel = rigidBody.velocity.x / 1.5f;
         float newYVel = rigidBody.velocity.y / 1.5f;
         rigidBody.velocity = new Vector2(newXVel,newYVel);
@@ -246,9 +235,16 @@ public class PlayerScript : MonoBehaviour
         canMove = true;
     }
 
+    /**
+    * Used at the end of the horizontal running attack animation, allows the player to move and moves the player back a
+    * little so the animation looks smoother
+    *
+    * Looks good at least with base speed 3f
+    */
     void EndRightRunAttack() {
         canMove = true;
         transform.position = new Vector2(transform.position.x - rigidBody.velocity.x, transform.position.y);
+        weapon.SendMessage("ResetWeapon");
     }
 
     /**
@@ -291,7 +287,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     /**
-    * Changes which animation the enemy is using
+    * Changes which animation the player is using
     */
     void ChangeAnimationState(string state) {
         if (currentState != state) {
