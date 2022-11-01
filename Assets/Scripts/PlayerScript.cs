@@ -308,16 +308,16 @@ public class PlayerScript : MonoBehaviour
 
     // // For attacks/healing there will probably be separate game object to handle collisions
     // // attacks can be sword object (visible), purifier can be invisible object always in front of player?
-    // void OnCollisionEnter2D(Collision2D collision) {
-    //     if (collision.collider.CompareTag("Enemy")) {
-    //         // Check if shielded or not
-    //         // if not player loses health
-    //     }
-    //     if (collision.collider.CompareTag("Wall")) {
-    //         print("Colliding");
-    //         rigidBody.velocity = Vector2.zero;
-    //     }
-    // }
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.collider.CompareTag("Enemy")) {
+            // Check if shielded or not
+            // if not player loses health
+        }
+        if (collision.collider.CompareTag("Wall")) {
+            print("Colliding");
+            rigidBody.velocity = Vector2.zero;
+        }
+    }
 
     /**
     * Changes which animation the player is using
