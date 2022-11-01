@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerStationaryAttackScript : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+       animator.SendMessageUpwards("FixAttackPlacement");
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,6 +20,7 @@ public class PlayerStationaryAttackScript : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        animator.SendMessageUpwards("EndAttack");
+       animator.SendMessageUpwards("ResetAttackPlacement");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -226,6 +226,33 @@ public class PlayerScript : MonoBehaviour
     }
 
     /**
+    * Yes these are hard coded no I don't care. I'm tired.
+    */
+    void FixAttackPlacement() {
+        if (lastDirection == "Up") {
+            transform.Translate(new Vector3(.25f, .4f, 0f));
+        }
+        else if (lastDirection == "Right") {
+            transform.Translate(new Vector3(.4f, .2f, 0f));
+        }
+        else if (lastDirection == "Left") {
+            transform.Translate(new Vector3(-.4f, .2f, 0f));
+        }
+    }
+
+    void ResetAttackPlacement() {
+        if (lastDirection == "Up") {
+            transform.Translate(new Vector3(-.25f, -.4f, 0f));
+        }
+        else if (lastDirection == "Right") {
+            transform.Translate(new Vector3(-.4f, -.2f, 0f));
+        }
+        else if (lastDirection == "Left") {
+            transform.Translate(new Vector3(.4f, -.2f, 0f));
+        }
+    }
+
+    /**
     * Divides the velocity by 1.5
     */
     void SlowToStop() {
