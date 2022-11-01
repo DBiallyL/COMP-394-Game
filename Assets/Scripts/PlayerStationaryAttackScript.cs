@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRunningAttackScript : StateMachineBehaviour
+public class PlayerStationaryAttackScript : StateMachineBehaviour
 {
-    float timeRemaining = 0.25f;
-    float timeBetweenFrames = 0.25f;
-    float lastTime = -1f;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -14,27 +11,15 @@ public class PlayerRunningAttackScript : StateMachineBehaviour
     //}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        if (timeRemaining <= 0) {
-            animator.SendMessageUpwards("SlowToStop");
-            timeRemaining = timeBetweenFrames;
-            lastTime = Time.time;
-        }
-        else {
-            float timePassed = Time.time - lastTime;
-            timeRemaining -= timePassed;
-            lastTime = Time.time;
-        }
-       
-    }
+    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        lastTime = -1f;
-        timeRemaining = timeBetweenFrames;
-        animator.SendMessageUpwards("EndAttack");
+       animator.SendMessageUpwards("EndAttack");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

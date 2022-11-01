@@ -234,8 +234,12 @@ public class PlayerScript : MonoBehaviour
         rigidBody.velocity = new Vector2(newXVel,newYVel);
     }
 
-    void CanMoveTrue() {
+    /**
+    * Used at the end of any attack animation to re-allow movement and reset the weapon
+    */
+    void EndAttack() {
         canMove = true;
+        weapon.SendMessage("ResetWeapon");
     }
 
     /**
@@ -245,9 +249,8 @@ public class PlayerScript : MonoBehaviour
     * Looks good at least with base speed 3f
     */
     void EndRightRunAttack() {
-        canMove = true;
         transform.position = new Vector2(transform.position.x - rigidBody.velocity.x, transform.position.y);
-        weapon.SendMessage("ResetWeapon");
+        EndAttack();
     }
 
     /**

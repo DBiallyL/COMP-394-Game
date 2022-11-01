@@ -5,13 +5,13 @@ using UnityEngine;
 public class WeaponScript : MonoBehaviour
 {
     // Global variables used to handle animation
-    Collider2D weaponCollider;
+    BoxCollider2D weaponCollider;
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        weaponCollider = GetComponent<Collider2D>();
+        weaponCollider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -30,13 +30,32 @@ public class WeaponScript : MonoBehaviour
         else if (lastDirection == "Up") {
             weaponCollider.offset = new Vector2(0f, 0.25f);
         }
+        // Down
         else {
             weaponCollider.offset = new Vector2(0f, -0.15f);
         }
     }
 
+    void StationaryAttack(string lastDirection) {
+        if (lastDirection == "Right") {
+            weaponCollider.offset = new Vector2(0.2f, 0f);
+        }
+        else if (lastDirection == "Left") {
+            weaponCollider.offset = new Vector2(-0.2f, 0f);
+        }
+        else if (lastDirection == "Up") {
+            weaponCollider.offset = new Vector2(0f, 0.25f);
+        }
+        // Down
+        else {
+            weaponCollider.offset = new Vector2(0f, -0.15f);
+            weaponCollider.size = new Vector2(0.8f, 0.4f);
+        }
+    }
+
     void ResetWeapon() {
         weaponCollider.offset = Vector2.zero;
+        weaponCollider.size = new Vector2(0.5f, 0.4f);
     }
     
     void OnTriggerEnter2D(Collider2D coll) {
