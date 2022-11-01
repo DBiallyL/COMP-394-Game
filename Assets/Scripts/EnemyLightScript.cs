@@ -21,6 +21,7 @@ public class EnemyLightScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider) {
         // print("Baller 1");
         if (collider.CompareTag("Player")) {
+            transform.parent.SendMessage("GetAngry");
             // print("Baller player");
         }
     }

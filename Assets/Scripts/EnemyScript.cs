@@ -10,6 +10,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     // Global variables used to handle path walking
+    bool followingPlayer = false;
     public Transform[] waypoints;
     public float speed = 0.01f;
     int waypointIndex = 1;
@@ -33,6 +34,9 @@ public class EnemyScript : MonoBehaviour
     public int statAttackStrength = 1;
     public int runAttackStrength = 2;
 
+    // Global variables to handle attacking player
+    public GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,8 +54,9 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        WalkPath();   
-        ChangeWalkSprites();
+        if (!followingPlayer) WalkPath();  
+        else FollowPlayer(); 
+        ChangeWalkSprites(followingPlayer);
         ChangeLightRotation();
         CheckDead();
     }
@@ -59,7 +64,7 @@ public class EnemyScript : MonoBehaviour
     /**
     * Changes the sprites to be idle or walk sprites based on the change in position in update
     */
-    void ChangeWalkSprites() {
+    void ChangeWalkSprites(bool followingPlayer) {
         float xChange = transform.position.x - lastPos.x;
         float yChange = transform.position.y - lastPos.y;
         string spritePath = "Enemy";
@@ -93,6 +98,10 @@ public class EnemyScript : MonoBehaviour
             }
         }
 
+        if (followingPlayer) {
+            spritePath += "Enraged";
+        }
+
         // Right
         if (lastDirection == "Right") {
             ChangeAnimationState(spritePath + "Left");
@@ -107,6 +116,7 @@ public class EnemyScript : MonoBehaviour
         else {
             ChangeAnimationState(spritePath + lastDirection);
         }
+
         lastPos = transform.position;
     }
 
@@ -169,6 +179,10 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    void FollowPlayer() {
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
+    }
+
     void LoseHealth(bool isRunning) {
         if (isRunning) {
             health -= runAttackStrength;
@@ -184,10 +198,11 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    void GetAngry() {
+        followingPlayer = true;
+    }
+
     void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.CompareTag("Weapon")) {
-            print("Aaaah I'm dying!!!");
-        }
         if (collision.collider.CompareTag("Purifier")) {
             // Freeze enemy (?)
             // Maybe start timer for purification

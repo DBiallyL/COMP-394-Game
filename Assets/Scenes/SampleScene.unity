@@ -322,7 +322,7 @@ PrefabInstance:
     - target: {fileID: 1278962375649610277, guid: d95da88540d2d6e44a0c4c40c581b24a, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1118717786}
+      objectReference: {fileID: 1166922276}
     - target: {fileID: 1278962375649610280, guid: d95da88540d2d6e44a0c4c40c581b24a, type: 3}
       propertyPath: m_Name
       value: Light2D
@@ -1953,7 +1953,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!43 &1118717786
+--- !u!43 &1166922276
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8653,6 +8653,7 @@ MonoBehaviour:
   health: 2
   statAttackStrength: 1
   runAttackStrength: 2
+  player: {fileID: 371954681}
 --- !u!212 &2113704891
 SpriteRenderer:
   m_ObjectHideFlags: 0
