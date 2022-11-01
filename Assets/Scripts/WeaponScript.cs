@@ -38,13 +38,16 @@ public class WeaponScript : MonoBehaviour
 
     void StationaryAttack(string lastDirection) {
         if (lastDirection == "Right") {
-            weaponCollider.offset = new Vector2(0.2f, 0f);
+            weaponCollider.offset = new Vector2(0.15f, 0f);
+            weaponCollider.size = new Vector2(0.3f, 0.6f);
         }
         else if (lastDirection == "Left") {
-            weaponCollider.offset = new Vector2(-0.2f, 0f);
+            weaponCollider.offset = new Vector2(-0.15f, 0f);
+            weaponCollider.size = new Vector2(0.3f, 0.6f);
         }
         else if (lastDirection == "Up") {
-            weaponCollider.offset = new Vector2(0f, 0.25f);
+            weaponCollider.offset = new Vector2(0f, 0.1f);
+            weaponCollider.size = new Vector2(0.7f, 0.4f);
         }
         // Down
         else {
