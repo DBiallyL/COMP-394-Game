@@ -7,6 +7,7 @@ public class WeaponScript : MonoBehaviour
     // Global variables used to handle animation
     BoxCollider2D weaponCollider;
     SpriteRenderer spriteRenderer;
+    bool isRunning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class WeaponScript : MonoBehaviour
     }
 
     void RunningAttack(string lastDirection) {
+        weaponCollider.enabled = true;
         if (lastDirection == "Right") {
             weaponCollider.offset = new Vector2(0.2f, 0f);
         }
@@ -34,9 +36,11 @@ public class WeaponScript : MonoBehaviour
         else {
             weaponCollider.offset = new Vector2(0f, -0.15f);
         }
+        isRunning = true;
     }
 
     void StationaryAttack(string lastDirection) {
+        weaponCollider.enabled = true;
         if (lastDirection == "Right") {
             weaponCollider.offset = new Vector2(0.15f, 0f);
             weaponCollider.size = new Vector2(0.3f, 0.6f);
@@ -54,9 +58,11 @@ public class WeaponScript : MonoBehaviour
             weaponCollider.offset = new Vector2(0f, -0.15f);
             weaponCollider.size = new Vector2(0.8f, 0.4f);
         }
+        isRunning = false;
     }
 
     void ResetWeapon() {
+        weaponCollider.enabled = false;
         weaponCollider.offset = Vector2.zero;
         weaponCollider.size = new Vector2(0.5f, 0.4f);
     }
@@ -64,6 +70,7 @@ public class WeaponScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D coll) {
         if (coll.CompareTag("Enemy")) {
             print("Aaaaah I'm killing!!!!");
+            coll.SendMessage("LoseHealth", isRunning);
         }
     }
 }

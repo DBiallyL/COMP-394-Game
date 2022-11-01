@@ -28,6 +28,11 @@ public class EnemyScript : MonoBehaviour
     Vector3 lastPos;
     string lastDirection = "Left";
 
+    // Global variables to handle losing health
+    public int health = 2;
+    public int statAttackStrength = 1;
+    public int runAttackStrength = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +53,7 @@ public class EnemyScript : MonoBehaviour
         WalkPath();   
         ChangeWalkSprites();
         ChangeLightRotation();
+        CheckDead();
     }
 
     /**
@@ -160,6 +166,21 @@ public class EnemyScript : MonoBehaviour
                 pausing = false;
                 pauseTime = -1f;
             }
+        }
+    }
+
+    void LoseHealth(bool isRunning) {
+        if (isRunning) {
+            health -= runAttackStrength;
+        }
+        else {
+            health -= statAttackStrength;
+        }
+    }
+
+    void CheckDead() {
+        if (health <= 0) {
+            Destroy(gameObject);
         }
     }
 
