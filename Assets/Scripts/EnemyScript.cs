@@ -199,7 +199,14 @@ public class EnemyScript : MonoBehaviour
     }
 
     void GetAngry() {
-        followingPlayer = true;
+        Vector2 direction = player.transform.position - transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
+        if (!hit.collider.CompareTag("Player")) {
+            print(hit.distance);
+            print(hit.collider.name);
+            followingPlayer = true;
+        }
+            
     }
 
     void OnCollisionEnter2D(Collision2D collision) {

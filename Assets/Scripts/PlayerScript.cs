@@ -314,8 +314,8 @@ public class PlayerScript : MonoBehaviour
             // if not player loses health
         }
         if (collision.collider.CompareTag("Wall")) {
-            print("Colliding");
-            rigidBody.velocity = Vector2.zero;
+            // print("Colliding");
+            // rigidBody.velocity = Vector2.zero;
         }
     }
 
