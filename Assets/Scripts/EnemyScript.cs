@@ -179,10 +179,16 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    /**
+    * Handles how the 
+    */
     void FollowPlayer() {
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
     }
 
+    /**
+    * Handles how much health the enemy loses when attacked by the player
+    */
     void LoseHealth(bool isRunning) {
         if (isRunning) {
             health -= runAttackStrength;
@@ -192,23 +198,27 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    /**
+    * Checks if the enemy has died
+    */
     void CheckDead() {
         if (health <= 0) {
             Destroy(gameObject);
         }
     }
 
+    /**
+    * Handles how the enemy responds to the player entering their viewcone collider
+    */
     void GetAngry() {
         Vector2 direction = player.transform.position - transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
-        if (!hit.collider.CompareTag("Player")) {
-            print(hit.distance);
-            print(hit.collider.name);
+        RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, direction);
+        if (ray[2].collider.CompareTag("Player")) {
             followingPlayer = true;
         }
-            
     }
 
+    // TODO: Delete if continues being useless
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Purifier")) {
             // Freeze enemy (?)
