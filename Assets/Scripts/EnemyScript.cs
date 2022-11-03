@@ -183,7 +183,22 @@ public class EnemyScript : MonoBehaviour
     * Handles how the 
     */
     void FollowPlayer() {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
+        if (!pausing) {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
+            float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
+            if (distFromPlayer > -1f && distFromPlayer < 1f) {
+                player.SendMessage("TakeDamage");
+                pausing = true;
+                pauseTime = Time.time;
+            }
+        }
+        else {
+            float elapsedTime = Time.time - pauseTime;
+            if (elapsedTime > 1) {
+                pausing = false;
+                pauseTime = -1f;
+            }
+        }
     }
 
     /**

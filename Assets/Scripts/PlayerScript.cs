@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    public int health = 5;
     // Global variables used to handle movement
     float speed = 3f;
     float diagSpeed;
@@ -54,6 +55,7 @@ public class PlayerScript : MonoBehaviour
         if (canMove) CheckMvmt();
         CheckAction();
         DashTimers();
+        CheckDead();
     }
 
     void CheckMvmt() {
@@ -280,6 +282,16 @@ public class PlayerScript : MonoBehaviour
         EndAttack();
     }
 
+    void TakeDamage() {
+        health--;
+    }
+
+    void CheckDead() {
+        if (health <= 0) {
+            print("Ohg no you dieded! Ahhhhhh");
+        }
+    }
+
     /**
     * Keeps track of the timers for the dash duration and dash reloading
     * TODO: Test if it's good timing for actual gameplay
@@ -303,19 +315,6 @@ public class PlayerScript : MonoBehaviour
                     dashReloadTime = -1f;
                 }
             }
-        }
-    }
-
-    // // For attacks/healing there will probably be separate game object to handle collisions
-    // // attacks can be sword object (visible), purifier can be invisible object always in front of player?
-    void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.CompareTag("Enemy")) {
-            // Check if shielded or not
-            // if not player loses health
-        }
-        if (collision.collider.CompareTag("Wall")) {
-            // print("Colliding");
-            // rigidBody.velocity = Vector2.zero;
         }
     }
 
