@@ -200,9 +200,9 @@ public class EnemyScript : MonoBehaviour
             pausing = true;
             pauseTime = Time.time;
         }
-        // else if (distFromPlayer > 10f) {
-        //     followingPlayer = false;
-        // }
+        else if (distFromPlayer > 5f) {
+            followingPlayer = false;
+        }
     }
 
     /**
