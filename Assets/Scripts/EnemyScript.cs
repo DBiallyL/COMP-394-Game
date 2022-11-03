@@ -180,17 +180,11 @@ public class EnemyScript : MonoBehaviour
     }
 
     /**
-    * Handles how the 
+    * Handles how the enemy follows the player when enraged
     */
     void FollowPlayer() {
         if (!pausing) {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
-            float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
-            if (distFromPlayer > -1f && distFromPlayer < 1f) {
-                player.SendMessage("TakeDamage");
-                pausing = true;
-                pauseTime = Time.time;
-            }
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));         
         }
         else {
             float elapsedTime = Time.time - pauseTime;
@@ -199,6 +193,16 @@ public class EnemyScript : MonoBehaviour
                 pauseTime = -1f;
             }
         }
+
+        float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
+        if (distFromPlayer > -1f && distFromPlayer < 1f) {
+            player.SendMessage("TakeDamage");
+            pausing = true;
+            pauseTime = Time.time;
+        }
+        // else if (distFromPlayer > 10f) {
+        //     followingPlayer = false;
+        // }
     }
 
     /**
@@ -226,6 +230,7 @@ public class EnemyScript : MonoBehaviour
     * Handles how the enemy responds to the player entering their viewcone collider
     */
     void GetAngry() {
+        print("Get Angry");
         Vector2 direction = player.transform.position - transform.position;
         RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, direction);
         if (ray[2].collider.CompareTag("Player")) {
