@@ -36,6 +36,7 @@ public class EnemyScript : MonoBehaviour
 
     // Global variables to handle attacking player
     public GameObject player;
+    bool animationPlaying = false;
 
     // Start is called before the first frame update
     void Start()
@@ -188,7 +189,7 @@ public class EnemyScript : MonoBehaviour
         }
         else {
             float elapsedTime = Time.time - pauseTime;
-            if (elapsedTime > 1) {
+            if (!animationPlaying && elapsedTime > 1) {
                 pausing = false;
                 pauseTime = -1f;
             }
@@ -233,10 +234,18 @@ public class EnemyScript : MonoBehaviour
         print("Get Angry");
         Vector2 direction = player.transform.position - transform.position;
         RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, direction);
+        print(ray[2].collider.name);
         if (ray[2].collider.CompareTag("Player")) {
+            ChangeAnimationState("EnemyBecomingEnraged");
             followingPlayer = true;
+            pausing = true;
+            // animationPlaying = true;
         }
     }
+
+    // void Unpause() {
+    //     animationPlaying = false;
+    // }
 
     /**
     * Changes which animation the enemy is using
