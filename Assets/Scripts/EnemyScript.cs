@@ -233,14 +233,6 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    // TODO: Delete if continues being useless
-    void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.collider.CompareTag("Purifier")) {
-            // Freeze enemy (?)
-            // Maybe start timer for purification
-        }
-    }
-
     /**
     * Changes which animation the enemy is using
     */
