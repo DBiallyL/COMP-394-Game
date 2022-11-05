@@ -18,11 +18,15 @@ public class EnemyLightScript : MonoBehaviour
     }
 
     // TODO: Finish code
-    void OnTriggerEnter2D(Collider2D collider) {
-        // print("Baller 1");
+    void OnTriggerStay2D(Collider2D collider) {
         if (collider.CompareTag("Player")) {
             transform.parent.SendMessage("GetAngry");
-            // print("Baller player");
+        }
+    }
+
+    void onTriggerExit2D(Collider2D collider) {
+        if (collider.CompareTag("Player")) {
+            transform.parent.SendMessage("CalmDown");
         }
     }
 }

@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour
     public int health = 5;
     // Global variables used to handle movement
     float speed = 3f;
+    float ogSpeed;
     float diagSpeed;
     Rigidbody2D rigidBody;
 
@@ -47,6 +48,7 @@ public class PlayerScript : MonoBehaviour
 
         diagSpeed = (float) Mathf.Sqrt((speed * speed) / 2); 
         maxDashes = dashes;
+        ogSpeed = speed;
     }
 
     // Update is called once per frame
@@ -288,7 +290,7 @@ public class PlayerScript : MonoBehaviour
 
     void CheckDead() {
         if (health <= 0) {
-            print("Ohg no you dieded! Ahhhhhh");
+            // print("Ohg no you dieded! Ahhhhhh");
         }
     }
 
@@ -300,7 +302,7 @@ public class PlayerScript : MonoBehaviour
         if (dashTimer != -1f) {
             float elapsedTime = Time.time - dashTimer;
             if (elapsedTime >= dashLength) {
-                speed /= dashMultiplier;
+                speed = ogSpeed;
                 dashTimer = -1f;
             }
         }

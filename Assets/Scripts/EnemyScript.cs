@@ -56,8 +56,8 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         if (!followingPlayer) WalkPath();  
-        else FollowPlayer(); 
-        ChangeWalkSprites(followingPlayer);
+        else if (!animationPlaying) FollowPlayer(); 
+        if (!animationPlaying) ChangeWalkSprites(followingPlayer);
         ChangeLightRotation();
         CheckDead();
     }
@@ -184,26 +184,53 @@ public class EnemyScript : MonoBehaviour
     * Handles how the enemy follows the player when enraged
     */
     void FollowPlayer() {
-        if (!pausing) {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));         
-        }
-        else {
-            float elapsedTime = Time.time - pauseTime;
-            if (!animationPlaying && elapsedTime > 1) {
-                pausing = false;
-                pauseTime = -1f;
+            if (!pausing) {
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));         
+            }
+            else {
+                float elapsedTime = Time.time - pauseTime;
+                if (elapsedTime > 1) {
+                    pausing = false;
+                    pauseTime = -1f;
+                }
+            }
+
+            float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
+            if (distFromPlayer > -1f && distFromPlayer < 1f) {
+                player.SendMessage("TakeDamage");
+                pausing = true;
+                pauseTime = Time.time;
+            }
+    }
+
+    void CalmDown() {
+        print("Called");
+        if (!animationPlaying) {
+            float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
+            if (distFromPlayer > 5f) {
+                followingPlayer = false;
             }
         }
+    }
 
-        float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
-        if (distFromPlayer > -1f && distFromPlayer < 1f) {
-            player.SendMessage("TakeDamage");
-            pausing = true;
-            pauseTime = Time.time;
+    /**
+    * Handles how the enemy responds to the player entering their viewcone collider
+    */
+    void GetAngry() {
+        if (!followingPlayer) {
+            Vector2 direction = player.transform.position - transform.position;
+            RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, direction);
+            Debug.DrawRay(transform.position, direction, Color.green, 10f);
+            if ((ray.Length > 2 && ray[2].collider.CompareTag("Player")) || ray[1].collider.CompareTag("Player")) {
+                ChangeAnimationState("EnemyBecomingEnraged");
+                followingPlayer = true;
+                animationPlaying = true;
+            }
         }
-        else if (distFromPlayer > 5f) {
-            followingPlayer = false;
-        }
+    }
+
+    void Unpause() {
+        animationPlaying = false;
     }
 
     /**
@@ -226,26 +253,6 @@ public class EnemyScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    /**
-    * Handles how the enemy responds to the player entering their viewcone collider
-    */
-    void GetAngry() {
-        print("Get Angry");
-        Vector2 direction = player.transform.position - transform.position;
-        RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, direction);
-        print(ray[2].collider.name);
-        if (ray[2].collider.CompareTag("Player")) {
-            ChangeAnimationState("EnemyBecomingEnraged");
-            followingPlayer = true;
-            pausing = true;
-            // animationPlaying = true;
-        }
-    }
-
-    // void Unpause() {
-    //     animationPlaying = false;
-    // }
 
     /**
     * Changes which animation the enemy is using
