@@ -205,9 +205,12 @@ public class EnemyScript : MonoBehaviour
             }
     }
 
+    /**
+    * Handles checking to see if the player is out of range for the enemy, and returns it to a calm state if so
+    */
     void CalmDown() {
         checkingCalm = true;
-        print("Called");
+        // print("Called");
         if (!animationPlaying) {
             float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
             if (distFromPlayer > 5f) {
@@ -217,7 +220,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     /**
-    * Handles how the enemy responds to the player entering their viewcone collider
+    * Handles how the enemy responds to the player entering their viewcone collider and transitions into attack mode
     */
     void GetAngry() {
         if (!followingPlayer) {
@@ -233,6 +236,9 @@ public class EnemyScript : MonoBehaviour
         checkingCalm = false;
     }
 
+    /**
+    * Allows the enemy to start moving after the becoming enraged animation ends 
+    */
     void Unpause() {
         animationPlaying = false;
     }

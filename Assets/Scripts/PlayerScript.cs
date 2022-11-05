@@ -7,8 +7,13 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    // Global variables to deal with health and dying
     public int health = 5;
     bool dead = false;
+    float immuneLength = 0.4f;
+    float immuneTime = -1f;
+    Color defaultColor;
+
     // Global variables used to handle movement
     float speed = 3f;
     float ogSpeed;
@@ -46,6 +51,7 @@ public class PlayerScript : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();  
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        defaultColor = spriteRenderer.material.color;
 
         diagSpeed = (float) Mathf.Sqrt((speed * speed) / 2); 
         maxDashes = dashes;
@@ -58,11 +64,14 @@ public class PlayerScript : MonoBehaviour
         if (!dead) {
             if (canMove) CheckMvmt();
             CheckAction();
-            DashTimers();
+            Timers();
             CheckDead();
         }
     }
 
+    /**
+    * Handles the player and it's sprite as different keys are pressed
+    */
     void CheckMvmt() {
         Vector2 movement = new Vector2(0, 0);
         string spritePath = "Player";
@@ -92,6 +101,11 @@ public class PlayerScript : MonoBehaviour
         rigidBody.velocity = movement;
     }
 
+    /**
+    * Handles the player and it's animation when a movement key is pressed
+    * TODO: Maybe split up diagonal and non-diagonal into different methods
+    * TODO: See if I can factor it better
+    */
     Vector2 AnimateRunning() {
         Vector2 movement = new Vector2(0,0);
 
@@ -129,6 +143,7 @@ public class PlayerScript : MonoBehaviour
                 lastDirection = "Right";
             }
         }   
+
         // Moving diagonally     
         else {
             // Up and left
@@ -164,6 +179,9 @@ public class PlayerScript : MonoBehaviour
         return movement;
     }
 
+    /**
+    * Changes the player's animation based on some direction it's facing
+    */
     void ChangeToDirectionalAnimation(string spritePath) {
         spriteRenderer.flipX = false;
         // Left
@@ -233,7 +251,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     /**
-    * Yes these are hard coded no I don't care. I'm tired.
+    * Hard-coded translations so that attack animations line up with movement animations
     */
     void FixAttackPlacement() {
         if (lastDirection == "Up") {
@@ -247,6 +265,9 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    /**
+    * Resets any translations done during attack animations
+    */
     void ResetAttackPlacement() {
         if (lastDirection == "Up") {
             transform.Translate(new Vector3(-.25f, -.4f, 0f));
@@ -287,10 +308,20 @@ public class PlayerScript : MonoBehaviour
         EndAttack();
     }
 
+    /**
+    * Handles the player taking damage and temporary immunity
+    */
     void TakeDamage() {
-        health--;
+        if (immuneTime == -1f) {
+            health--;
+            spriteRenderer.material.SetColor("_Color", Color.red);
+            immuneTime = Time.time;
+        }
     }
 
+    /**
+    * Checks if the player's health is at or below 0, and carries out the appropriate actions 
+    */
     void CheckDead() {
         if (health <= 0) {
             ChangeAnimationState("PlayerDying");
@@ -299,19 +330,21 @@ public class PlayerScript : MonoBehaviour
     }
 
     /**
-    * Keeps track of the timers for the dash duration and dash reloading
+    * Keeps track of all timers (for dash duration, dash reloading, and immunity)
     * TODO: Test if it's good timing for actual gameplay
     */
-    void DashTimers() {
+    void Timers() {
+        float time = Time.time;
+
         if (dashTimer != -1f) {
-            float elapsedTime = Time.time - dashTimer;
+            float elapsedTime = time - dashTimer;
             if (elapsedTime >= dashLength) {
                 speed = ogSpeed;
                 dashTimer = -1f;
             }
         }
         if (dashReloadTime != -1f) {
-            float elapsedTime = Time.time - dashReloadTime;
+            float elapsedTime = time - dashReloadTime;
             if (elapsedTime >= dashReloadLength) {
                 dashes++;
                 if (dashes < maxDashes) {
@@ -320,6 +353,14 @@ public class PlayerScript : MonoBehaviour
                 else {
                     dashReloadTime = -1f;
                 }
+            }
+        }
+
+        if (immuneTime != -1f) {
+            float elapsedTime = time - immuneTime;
+            if (elapsedTime >= immuneLength) {
+                immuneTime = -1f;
+                spriteRenderer.material.SetColor("_Color", defaultColor);
             }
         }
     }
