@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public int health = 5;
+    bool dead = false;
     // Global variables used to handle movement
     float speed = 3f;
     float ogSpeed;
@@ -54,10 +55,12 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove) CheckMvmt();
-        CheckAction();
-        DashTimers();
-        CheckDead();
+        if (!dead) {
+            if (canMove) CheckMvmt();
+            CheckAction();
+            DashTimers();
+            CheckDead();
+        }
     }
 
     void CheckMvmt() {
@@ -290,7 +293,8 @@ public class PlayerScript : MonoBehaviour
 
     void CheckDead() {
         if (health <= 0) {
-            // print("Ohg no you dieded! Ahhhhhh");
+            ChangeAnimationState("PlayerDying");
+            dead = true;
         }
     }
 
