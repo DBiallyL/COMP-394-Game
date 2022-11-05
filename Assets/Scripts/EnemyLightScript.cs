@@ -24,7 +24,7 @@ public class EnemyLightScript : MonoBehaviour
         }
     }
 
-    void onTriggerExit2D(Collider2D collider) {
+    void OnTriggerExit2D(Collider2D collider) {
         if (collider.CompareTag("Player")) {
             transform.parent.SendMessage("CalmDown");
         }

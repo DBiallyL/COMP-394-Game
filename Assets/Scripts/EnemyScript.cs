@@ -37,6 +37,7 @@ public class EnemyScript : MonoBehaviour
     // Global variables to handle attacking player
     public GameObject player;
     bool animationPlaying = false;
+    bool checkingCalm = false;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +59,7 @@ public class EnemyScript : MonoBehaviour
         if (!followingPlayer) WalkPath();  
         else if (!animationPlaying) FollowPlayer(); 
         if (!animationPlaying) ChangeWalkSprites(followingPlayer);
+        if (checkingCalm) CalmDown();
         ChangeLightRotation();
         CheckDead();
     }
@@ -204,6 +206,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     void CalmDown() {
+        checkingCalm = true;
         print("Called");
         if (!animationPlaying) {
             float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
@@ -227,6 +230,7 @@ public class EnemyScript : MonoBehaviour
                 animationPlaying = true;
             }
         }
+        checkingCalm = false;
     }
 
     void Unpause() {
