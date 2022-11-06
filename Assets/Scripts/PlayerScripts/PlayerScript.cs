@@ -41,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     bool michaelJacksonMode = false;
 
     // Global variables used to handle weapons and rituals
+    public GameObject HealthBar;
     public GameObject weapon;
     bool canMove = true;
     bool pressedC = false;
@@ -313,6 +314,7 @@ public class PlayerScript : MonoBehaviour
     */
     void TakeDamage() {
         if (immuneTime == -1f) {
+            HealthBar.SendMessage("LoseHealth", 0.2f);
             health--;
             spriteRenderer.material.SetColor("_Color", Color.red);
             immuneTime = Time.time;
