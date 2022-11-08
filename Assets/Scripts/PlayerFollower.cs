@@ -16,4 +16,8 @@ public class PlayerFollower : MonoBehaviour
     {
         transform.position = player.transform.position + change;
     }
+
+    void SendPlayerMessage(string message) {
+        player.SendMessage(message);
+    }
 }

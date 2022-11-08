@@ -23,15 +23,14 @@ public class PlayerScript : MonoBehaviour
 
     // Global variables used to handle dashes
     //                                                                                                TODO: Change back to 3 in Unity Editor
-    public int dashes = 3;
+    int dashes;
     int maxDashes;
+    public GameObject[] dashUIArray;
     // Will be greater than -1f if the player is dashing
     float dashTimer = -1f;
     // Will be greater than -1f if the player has less than the maximum number of dashes
-    float dashReloadTime = -1f;
     int dashMultiplier = 3;
     float dashLength = 0.3f;
-    float dashReloadLength = 4f;
 
     // Global variables used to handle animation
     Animator animator;
@@ -55,7 +54,9 @@ public class PlayerScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = spriteRenderer.material.color;
 
+
         diagSpeed = (float) Mathf.Sqrt((speed * speed) / 2); 
+        dashes = dashUIArray.Length;
         maxDashes = dashes;
         ogSpeed = speed;
     }
@@ -235,12 +236,36 @@ public class PlayerScript : MonoBehaviour
                 speed *= dashMultiplier;
                 dashTimer = Time.time;
                 dashes--;
-                dashReloadTime = dashTimer;
+                DecrementDashUI();
             }
         }
 
         if (Input.GetKeyDown(KeyCode.M)) {
             michaelJacksonMode = true;
+        }
+    }
+
+    /**
+    * Animates the Dash UI according to the amount of dashes remaining
+    */
+    void DecrementDashUI() {
+        if (dashes < maxDashes) {
+            dashUIArray[dashes].GetComponent<Animator>().Play("DashReload");
+            for (int i = dashes + 1; i < maxDashes; i++) {
+                dashUIArray[i].GetComponent<Animator>().Play("DashEmpty");
+            }
+        }
+    }
+
+    /**
+    * Increments the number of dashes (if player doesn't have the maximum) and animtes the UI appropriately
+    *
+    * Called upon the start of the loaded dash animation
+    */
+    void IncrementDashes() {
+        if (dashes < maxDashes) dashes++;
+        if (dashes < maxDashes) {
+            dashUIArray[dashes].GetComponent<Animator>().Play("DashReload");
         }
     }
 
@@ -262,18 +287,6 @@ public class PlayerScript : MonoBehaviour
             if (elapsedTime >= dashLength) {
                 speed = ogSpeed;
                 dashTimer = -1f;
-            }
-        }
-        if (dashReloadTime != -1f) {
-            float elapsedTime = time - dashReloadTime;
-            if (elapsedTime >= dashReloadLength) {
-                dashes++;
-                if (dashes < maxDashes) {
-                    dashReloadTime = Time.time;
-                }
-                else {
-                    dashReloadTime = -1f;
-                }
             }
         }
 
@@ -424,6 +437,7 @@ public class PlayerScript : MonoBehaviour
     void OnCollisionEnter2D(Collision2D coll) {
         if(coll.collider.CompareTag("Finish")) {
             SceneManager.LoadScene("GameOver");
+            // TODO: Put in right level
         }
     }
 }
