@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 1000
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,7 +105,280 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7680
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 418a76283c00a48ee8a10edec5e27e38
+      internalID: 1812234189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_1
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 7680
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f7d3dff4f8884ef1b38d284f74a3bd0
+      internalID: -1806687594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_2
+      rect:
+        serializedVersion: 2
+        x: 5800
+        y: 7680
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1efb6a8f5852405da6c208e2582e810
+      internalID: -554968858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5760
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6646b53ed3524a31b75a1153c74f02a
+      internalID: -570456545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_4
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 5760
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d94703a288761464e944edc517ef4f31
+      internalID: 1791532342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_5
+      rect:
+        serializedVersion: 2
+        x: 5800
+        y: 5760
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce764acba3502479d8784cc99e8b64fe
+      internalID: 794178254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3840
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0618807b9551b4b9696b3c52b25c298e
+      internalID: -1343368324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_7
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 3840
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3541d4b363b75401d99ad613f19f9298
+      internalID: -617435057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_8
+      rect:
+        serializedVersion: 2
+        x: 5800
+        y: 3840
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5823926d6f26a4ae9bf2d7c645475131
+      internalID: -28631394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1920
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4853a4e1ed8314e9f8d3613bde72dcc5
+      internalID: -1418035100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_10
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 1920
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cd06335f6f384e1cab2faa19e06d423
+      internalID: -1442870876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_11
+      rect:
+        serializedVersion: 2
+        x: 5800
+        y: 1920
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ada08d2e4213740f19151c10680210a1
+      internalID: 867535205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GatewayOpeningRed (3) (2)_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2900
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a90dec80fe7b49ac8f503149bdd7628
+      internalID: -1215399363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -116,7 +389,20 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      GatewayOpeningRed (3) (2)_11: 867535205
+      GatewayOpeningRed (3) (2)_0: 1812234189
+      GatewayOpeningRed (3) (2)_9: -1418035100
+      GatewayOpeningRed (3) (2)_10: -1442870876
+      GatewayOpeningRed (3) (2)_7: -617435057
+      GatewayOpeningRed (3) (2)_4: 1791532342
+      GatewayOpeningRed (3) (2)_3: -570456545
+      GatewayOpeningRed (3) (2)_8: -28631394
+      GatewayOpeningRed (3) (2)_2: -554968858
+      GatewayOpeningRed (3) (2)_1: -1806687594
+      GatewayOpeningRed (3) (2)_5: 794178254
+      GatewayOpeningRed (3) (2)_6: -1343368324
+      GatewayOpeningRed (3) (2)_12: -1215399363
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

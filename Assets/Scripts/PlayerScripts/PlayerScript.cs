@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 // using System;
 using UnityEngine;
 
@@ -410,6 +411,19 @@ public class PlayerScript : MonoBehaviour
         if (currentState != state) {
             animator.Play(state);
             currentState = state;
+        }
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Changing Levels
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /**
+    * Changes the scene when colliding with portal with "Finish" tag.
+    */
+    void OnCollisionEnter2D(Collision2D coll) {
+        if(coll.collider.CompareTag("Finish")) {
+            SceneManager.LoadScene("GameOver");
         }
     }
 }
