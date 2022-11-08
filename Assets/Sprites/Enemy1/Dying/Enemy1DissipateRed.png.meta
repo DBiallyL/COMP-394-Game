@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2efe0242af46b8d44bd1b8050c27ab8c
+guid: dc26aa24668b08b49b61affc4f32ce9c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,13 +107,139 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy1Dead_0
+      name: Enemy1DissipateRed_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb31ffe62ebb7e445a3589abead7d357
+      internalID: -52096522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateRed_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 960
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 130eb154261eebd4ea3ca6376259b6af
+      internalID: 1464043711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateRed_2
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 960
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c8ec4f882de47c47a89c6ac6eb29ccf
+      internalID: -580495892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateRed_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 480
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8b7cdfaf3a22af4591d595ad5f84160
+      internalID: 1209708023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateRed_4
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 480
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c531949a918200488d82be886d4168a
+      internalID: 965163143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateRed_5
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 480
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 266d84a079e8a734f8d4a3dabe9dc745
+      internalID: -2140051163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateRed_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1536
-        height: 1536
+        width: 480
+        height: 480
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,113 +247,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed1395db4b86bfe408a0461e9c5be558
-      internalID: 903364235
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Dead_1
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0a2384c9822dd394eaa9774f754173fd
-      internalID: -1511385767
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Dead_2
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb5424dde5402264086d347b4f8f6972
-      internalID: -771835331
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Dead_3
-      rect:
-        serializedVersion: 2
-        x: 4608
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6b12c95e0f080084591e53f75c32a674
-      internalID: -153682750
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Dead_4
-      rect:
-        serializedVersion: 2
-        x: 6144
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ddcbd5d076e8f534bba9cfe11abd1ba5
-      internalID: 1142007288
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Dead_5
-      rect:
-        serializedVersion: 2
-        x: 7680
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 28430b4dcf2ea5f40bedb725f8f06ed8
-      internalID: -2016335991
+      spriteID: 4b4a0b7504fcd9b408b4faab6ce2102f
+      internalID: 1555765058
       vertices: []
       indices: 
       edges: []
@@ -243,12 +264,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Enemy1Dead_2: -771835331
-      Enemy1Dead_3: -153682750
-      Enemy1Dead_0: 903364235
-      Enemy1Dead_1: -1511385767
-      Enemy1Dead_5: -2016335991
-      Enemy1Dead_4: 1142007288
+      Enemy1DissipateRed_6: 1555765058
+      Enemy1DissipateRed_4: 965163143
+      Enemy1DissipateRed_3: 1209708023
+      Enemy1DissipateRed_5: -2140051163
+      Enemy1DissipateRed_0: -52096522
+      Enemy1DissipateRed_2: -580495892
+      Enemy1DissipateRed_1: 1464043711
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ee52e445cab35864eb170d714270556c
+guid: f899fbdf67c1509499131cd2ea2f2449
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,13 +107,139 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy1Exorcised_0
+      name: Enemy1DissipateBlue_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb5ba0e73bbb9f34ba2a8d38a52f5d50
+      internalID: 733770449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateBlue_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 960
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c2559b0a7bba344cad897ebd366c6d0
+      internalID: 530255253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateBlue_2
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 960
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 691ce5258a8edba4e825345bbdd01046
+      internalID: -1378476629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateBlue_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 480
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23a69f02f3578d54386e40bce8a838d3
+      internalID: 753083140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateBlue_4
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 480
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e596f35700e0bf4eabca5467e960ebc
+      internalID: 1699677243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateBlue_5
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 480
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c176da17f26d9a4499ff41ae878283d0
+      internalID: 366863134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1DissipateBlue_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1536
-        height: 1536
+        width: 480
+        height: 480
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,113 +247,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 728bc769d1f3e1446978a47f80087c3e
-      internalID: -1736548528
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Exorcised_1
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b50d1766367af8b418131a50758060b0
-      internalID: 1719725246
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Exorcised_2
-      rect:
-        serializedVersion: 2
-        x: 3072
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 151c0c03ea3d27a46869684ab49080b7
-      internalID: -1952156778
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Exorcised_3
-      rect:
-        serializedVersion: 2
-        x: 4608
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7772df59b83d0fa4eaa91ec9bd8ed526
-      internalID: 110188301
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Exorcised_4
-      rect:
-        serializedVersion: 2
-        x: 6144
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41a02c4759293174aaca74f0b61e04b2
-      internalID: 1717253856
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1Exorcised_5
-      rect:
-        serializedVersion: 2
-        x: 7680
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2875a90aaded6dd4cae04e0ed56caee3
-      internalID: -91620703
+      spriteID: 6ddbed7f5cbec9144a3848ba84e9b48e
+      internalID: 1181384695
       vertices: []
       indices: 
       edges: []
@@ -243,12 +264,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Enemy1Exorcised_0: -1736548528
-      Enemy1Exorcised_3: 110188301
-      Enemy1Exorcised_1: 1719725246
-      Enemy1Exorcised_4: 1717253856
-      Enemy1Exorcised_5: -91620703
-      Enemy1Exorcised_2: -1952156778
+      Enemy1DissipateBlue_6: 1181384695
+      Enemy1DissipateBlue_3: 753083140
+      Enemy1DissipateBlue_5: 366863134
+      Enemy1DissipateBlue_1: 530255253
+      Enemy1DissipateBlue_0: 733770449
+      Enemy1DissipateBlue_2: -1378476629
+      Enemy1DissipateBlue_4: 1699677243
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

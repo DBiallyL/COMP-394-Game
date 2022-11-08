@@ -21,6 +21,7 @@ public class EnemyScript : MonoBehaviour
     public Texture leftLight, upLight, rightLight, downLight;
     Material lightMaterial;
     Transform lightCollider;
+    Transform lightChild;
 
     // Global variables used to keep track of direction and animation states
     Animator animator;
@@ -33,6 +34,7 @@ public class EnemyScript : MonoBehaviour
     public int health = 2;
     public int statAttackStrength = 1;
     public int runAttackStrength = 2;
+    bool dead = false;
 
     // Global variables to handle attacking player
     public GameObject player;
@@ -45,7 +47,7 @@ public class EnemyScript : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        Transform lightChild = transform.Find("Light2D");
+        lightChild = transform.Find("Light2D");
         lightCollider = transform.Find("EnemyLight_Collider");
 
         transform.position = waypoints[0].position;
@@ -56,12 +58,14 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!followingPlayer) WalkPath();  
-        else if (!animationPlaying) FollowPlayer(); 
-        if (!animationPlaying) ChangeWalkSprites(followingPlayer);
-        if (checkingCalm) CalmDown();
-        ChangeLightRotation();
-        CheckDead();
+        if (!dead) {
+            if (!followingPlayer) WalkPath();  
+            else if (!animationPlaying) FollowPlayer(); 
+            if (!animationPlaying) ChangeWalkSprites(followingPlayer);
+            if (checkingCalm) CalmDown();
+            ChangeLightRotation();
+            CheckDead();
+        }
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -284,12 +288,23 @@ public class EnemyScript : MonoBehaviour
     }
 
     /**
-    * Checks if the enemy has died
+    * Checks if the enemy has died and starts its death animation if so
     */
     void CheckDead() {
         if (health <= 0) {
-            Destroy(gameObject);
+            ChangeAnimationState("EnemyDying");
+            // Both need to be here or else the enemy can revive itself through the power of rage
+            Destroy(lightCollider.gameObject);
+            Destroy(lightChild.gameObject);
+            dead = true;
         }
+    }
+
+    /**
+    * Called by the dead animation to destroy the enemy's game object
+    */
+    void DestroyEnemy() {
+        Destroy(gameObject);
     }
 
      // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
