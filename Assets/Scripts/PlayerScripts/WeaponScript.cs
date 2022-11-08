@@ -21,6 +21,9 @@ public class WeaponScript : MonoBehaviour
 
     }
 
+    /**
+    * Sets the appropriate position/scale for the weapon collider if the attack is a running attack
+    */
     void RunningAttack(string lastDirection) {
         weaponCollider.enabled = true;
         if (lastDirection == "Right") {
@@ -39,6 +42,9 @@ public class WeaponScript : MonoBehaviour
         isRunning = true;
     }
 
+    /**
+    * Sets the appropriate position/scale for the weapon collider if the attack is a stationary attack
+    */
     void StationaryAttack(string lastDirection) {
         weaponCollider.enabled = true;
         if (lastDirection == "Right") {
@@ -61,15 +67,20 @@ public class WeaponScript : MonoBehaviour
         isRunning = false;
     }
 
+    /**
+    * Resets the weapon to its default parameters
+    */
     void ResetWeapon() {
         weaponCollider.enabled = false;
         weaponCollider.offset = Vector2.zero;
         weaponCollider.size = new Vector2(0.5f, 0.4f);
     }
     
+    /**
+    * If collided with the enemy, tell the enemy to lose some health
+    */
     void OnTriggerEnter2D(Collider2D coll) {
         if (coll.CompareTag("Enemy")) {
-            print("Aaaaah I'm killing!!!!");
             coll.SendMessage("LoseHealth", isRunning);
         }
     }

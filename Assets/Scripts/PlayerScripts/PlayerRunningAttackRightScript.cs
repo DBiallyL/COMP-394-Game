@@ -16,11 +16,13 @@ public class PlayerRunningAttackRightScript : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // Slide function is only called at each animatino frame
         if (timeRemaining <= 0) {
             animator.SendMessageUpwards("SlowToStop");
             timeRemaining = timeBetweenFrames;
             lastTime = Time.time;
         }
+        // Counts down the timer to the next time the call function should be called
         else {
             float timePassed = Time.time - lastTime;
             timeRemaining -= timePassed;

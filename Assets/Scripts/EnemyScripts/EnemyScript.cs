@@ -64,8 +64,12 @@ public class EnemyScript : MonoBehaviour
         CheckDead();
     }
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Common/Looping Animations
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     /**
-    * Changes the sprites to be idle or walk sprites based on the change in position in update
+    * Animates the enemy according to whether its moving and whether its enraged
     */
     void ChangeWalkSprites(bool followingPlayer) {
         float xChange = transform.position.x - lastPos.x;
@@ -153,8 +157,15 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Movement
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
     /**
     * Moves the enemy along the waypoints in a pre-created path
+    * 
+    * Only called if the enemy is calm
     */
     void WalkPath() {
         // Reach first waypoint
@@ -183,46 +194,58 @@ public class EnemyScript : MonoBehaviour
     }
 
     /**
-    * Handles how the enemy follows the player when enraged
+    * Moves the enemy towards the player, attacks the player if in range
+    *
+    * Only called if the enemy is enraged
     */
     void FollowPlayer() {
-            if (!pausing) {
-                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));         
+        // Moves the enemy normally
+        if (!pausing) {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));         
+        }
+        // Counts down the timer to keep moving, occurs after the enemy has attacked
+        else {
+            float elapsedTime = Time.time - pauseTime;
+            if (elapsedTime > 1) {
+                pausing = false;
+                pauseTime = -1f;
             }
-            else {
-                float elapsedTime = Time.time - pauseTime;
-                if (elapsedTime > 1) {
-                    pausing = false;
-                    pauseTime = -1f;
-                }
-            }
+        }
 
-            float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
-            if (distFromPlayer > -1f && distFromPlayer < 1f) {
-                player.SendMessage("TakeDamage");
-                pausing = true;
-                pauseTime = Time.time;
-            }
+        // Checks if the player is in range, and attacks if so
+        float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
+        if (distFromPlayer > -1f && distFromPlayer < 1f) {
+            player.SendMessage("TakeDamage");
+            pausing = true;
+            pauseTime = Time.time;
+        }
     }
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Enemy Enraged/Calm States
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     /**
-    * Handles checking to see if the player is out of range for the enemy, and returns it to a calm state if so
+    * Checks to see if the player is out of range for the enemy, and returns it to a calm state if so
     */
     void CalmDown() {
         checkingCalm = true;
-        // print("Called");
+        // Can't calm down if still becoming enraged
         if (!animationPlaying) {
             float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
             if (distFromPlayer > 5f) {
                 followingPlayer = false;
+                checkingCalm = false;
             }
         }
     }
 
     /**
-    * Handles how the enemy responds to the player entering their viewcone collider and transitions into attack mode
+    * Handles how the enemy responds to the player entering their viewcone collider 
+    * and transitions into attack mode if the player is not behind another collider
     */
     void GetAngry() {
+        // Won't look for player if already angry
         if (!followingPlayer) {
             Vector2 direction = player.transform.position - transform.position;
             RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, direction);
@@ -242,6 +265,11 @@ public class EnemyScript : MonoBehaviour
     void Unpause() {
         animationPlaying = false;
     }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Health/Damage
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
     /**
     * Handles how much health the enemy loses when attacked by the player
@@ -263,6 +291,10 @@ public class EnemyScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Widely Used Helper Methods
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /**
     * Changes which animation the enemy is using

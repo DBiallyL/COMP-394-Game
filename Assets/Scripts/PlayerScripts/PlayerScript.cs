@@ -70,8 +70,13 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Movement/Idle Animation
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
     /**
-    * Handles the player and it's sprite as different keys are pressed
+    * Checks if the player is moving based on keys pressed, and changes the animation as appropriate
     */
     void CheckMvmt() {
         Vector2 movement = new Vector2(0, 0);
@@ -103,7 +108,9 @@ public class PlayerScript : MonoBehaviour
     }
 
     /**
-    * Handles the player and it's animation when a movement key is pressed
+    * Helper function for CheckMvmt()
+    *
+    * Moves the player according to keys pressed, and changes the animation as appropriate
     * TODO: Maybe split up diagonal and non-diagonal into different methods
     * TODO: See if I can factor it better
     */
@@ -180,29 +187,14 @@ public class PlayerScript : MonoBehaviour
         return movement;
     }
 
-    /**
-    * Changes the player's animation based on some direction it's facing
-    */
-    void ChangeToDirectionalAnimation(string spritePath) {
-        spriteRenderer.flipX = false;
-        // Left
-        if (lastDirection == "Left") { 
-            ChangeAnimationState(spritePath + "Right");
-            spriteRenderer.flipX = !michaelJacksonMode; 
-        }
-        // Right
-        else if (lastDirection == "Right") {
-            ChangeAnimationState(spritePath + "Right");
-            spriteRenderer.flipX = michaelJacksonMode;
-        }
-        // Up and Down
-        else {
-            ChangeAnimationState(spritePath + lastDirection);
-        }
-    }
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Key Actions
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
     /**
     * Checks if the player hit a key for some non-movement action
+    * Handles: Attacks, Rituals, Dashes, Micheal Jackson Mode
     */
     void CheckAction() {
         // Attack
@@ -251,88 +243,14 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    /**
-    * Hard-coded translations so that attack animations line up with movement animations
-    */
-    void FixAttackPlacement() {
-        if (lastDirection == "Up") {
-            transform.Translate(new Vector3(.25f, .4f, 0f));
-        }
-        else if (lastDirection == "Right") {
-            transform.Translate(new Vector3(.4f, .2f, 0f));
-        }
-        else if (lastDirection == "Left") {
-            transform.Translate(new Vector3(-.4f, .2f, 0f));
-        }
-    }
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Timers
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
     /**
-    * Resets any translations done during attack animations
-    */
-    void ResetAttackPlacement() {
-        if (lastDirection == "Up") {
-            transform.Translate(new Vector3(-.25f, -.4f, 0f));
-        }
-        else if (lastDirection == "Right") {
-            transform.Translate(new Vector3(-.4f, -.2f, 0f));
-        }
-        else if (lastDirection == "Left") {
-            transform.Translate(new Vector3(.4f, -.2f, 0f));
-        }
-    }
-
-    /**
-    * Divides the velocity by 1.5
-    */
-    void SlowToStop() {
-        float newXVel = rigidBody.velocity.x / 1.5f;
-        float newYVel = rigidBody.velocity.y / 1.5f;
-        rigidBody.velocity = new Vector2(newXVel,newYVel);
-    }
-
-    /**
-    * Used at the end of any attack animation to re-allow movement and reset the weapon
-    */
-    void EndAttack() {
-        canMove = true;
-        weapon.SendMessage("ResetWeapon");
-    }
-
-    /**
-    * Used at the end of the horizontal running attack animation, allows the player to move and moves the player back a
-    * little so the animation looks smoother
-    *
-    * Looks good at least with base speed 3f
-    */
-    void EndRightRunAttack() {
-        transform.position = new Vector2(transform.position.x - rigidBody.velocity.x, transform.position.y);
-        EndAttack();
-    }
-
-    /**
-    * Handles the player taking damage and temporary immunity
-    */
-    void TakeDamage() {
-        if (immuneTime == -1f) {
-            HealthBar.SendMessage("LoseHealth", 0.2f);
-            health--;
-            spriteRenderer.material.SetColor("_Color", Color.red);
-            immuneTime = Time.time;
-        }
-    }
-
-    /**
-    * Checks if the player's health is at or below 0, and carries out the appropriate actions 
-    */
-    void CheckDead() {
-        if (health <= 0) {
-            ChangeAnimationState("PlayerDying");
-            dead = true;
-        }
-    }
-
-    /**
-    * Keeps track of all timers (for dash duration, dash reloading, and immunity)
+    * Keeps track of all timers 
+    * Timers currently include: Dash duration, dash reloading, immunity (used after getting attacked to prevent insta deaths)
     * TODO: Test if it's good timing for actual gameplay
     */
     void Timers() {
@@ -364,6 +282,124 @@ public class PlayerScript : MonoBehaviour
                 immuneTime = -1f;
                 spriteRenderer.material.SetColor("_Color", defaultColor);
             }
+        }
+    }
+
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Attacking
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /**
+    * Hard-coded translations so that attack animations line up with movement animations
+    */
+    void FixAttackPlacement() {
+        if (lastDirection == "Up") {
+            transform.Translate(new Vector3(.25f, .4f, 0f));
+        }
+        else if (lastDirection == "Right") {
+            transform.Translate(new Vector3(.4f, .2f, 0f));
+        }
+        else if (lastDirection == "Left") {
+            transform.Translate(new Vector3(-.4f, .2f, 0f));
+        }
+    }
+
+    /**
+    * Resets any translations done during attack animations
+    */
+    void ResetAttackPlacement() {
+        if (lastDirection == "Up") {
+            transform.Translate(new Vector3(-.25f, -.4f, 0f));
+        }
+        else if (lastDirection == "Right") {
+            transform.Translate(new Vector3(-.4f, -.2f, 0f));
+        }
+        else if (lastDirection == "Left") {
+            transform.Translate(new Vector3(.4f, -.2f, 0f));
+        }
+    }
+
+    /**
+    * Used at the end of the horizontal running attack animation, allows the player to move and moves the player back a
+    * little so the animation looks smoother
+    *
+    * Looks good at least with base speed 3f
+    */
+    void EndRightRunAttack() {
+        transform.position = new Vector2(transform.position.x - rigidBody.velocity.x, transform.position.y);
+        EndAttack();
+    }
+
+    
+    /**
+    * Divides the velocity by 1.5
+    * Used as moving attack animations play
+    */
+    void SlowToStop() {
+        float newXVel = rigidBody.velocity.x / 1.5f;
+        float newYVel = rigidBody.velocity.y / 1.5f;
+        rigidBody.velocity = new Vector2(newXVel,newYVel);
+    }
+
+    /**
+    * Used at the end of any attack animation to re-allow key movement and reset the weapon
+    */
+    void EndAttack() {
+        canMove = true;
+        weapon.SendMessage("ResetWeapon");
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Health/Damage
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /**
+    * Handles the player taking damage and temporary immunity
+    */
+    void TakeDamage() {
+        if (immuneTime == -1f) {
+            HealthBar.SendMessage("LoseHealth", 0.2f);
+            health--;
+            spriteRenderer.material.SetColor("_Color", Color.red);
+            immuneTime = Time.time;
+        }
+    }
+
+    /**
+    * Checks if the player's health is at or below 0, and carries out the appropriate actions 
+    */
+    void CheckDead() {
+        if (health <= 0) {
+            ChangeAnimationState("PlayerDying");
+            dead = true;
+        }
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Widely Used Helper Methods
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+    /**
+    * Changes the player's animation based on some direction it's facing
+    * @param spritePath  The file path of some player sprite which has Up/Down/Right options, without Up/Down/Right on the end
+    */
+    void ChangeToDirectionalAnimation(string spritePath) {
+        spriteRenderer.flipX = false;
+        // Left
+        if (lastDirection == "Left") { 
+            ChangeAnimationState(spritePath + "Right");
+            spriteRenderer.flipX = !michaelJacksonMode; 
+        }
+        // Right
+        else if (lastDirection == "Right") {
+            ChangeAnimationState(spritePath + "Right");
+            spriteRenderer.flipX = michaelJacksonMode;
+        }
+        // Up and Down
+        else {
+            ChangeAnimationState(spritePath + lastDirection);
         }
     }
 
