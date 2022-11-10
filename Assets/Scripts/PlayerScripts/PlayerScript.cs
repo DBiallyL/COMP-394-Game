@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     float dashTimer = -1f;
     // Will be greater than -1f if the player has less than the maximum number of dashes
     int dashMultiplier = 3;
-    float dashLength = 0.3f;
+    float dashLength = 0.5f;
 
     // Global variables used to handle animation
     Animator animator;
@@ -43,6 +43,7 @@ public class PlayerScript : MonoBehaviour
     // Global variables used to handle weapons and rituals
     public GameObject HealthBar;
     public GameObject weapon;
+    public GameObject camera;
     bool canMove = true;
     bool pressedC = false;
 
@@ -200,14 +201,15 @@ public class PlayerScript : MonoBehaviour
     */
     void CheckAction() {
         // Attack
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z) && canMove)
         {
             string motion = "";
-            if (rigidBody.velocity != Vector2.zero) {
+            if (dashTimer != -1f) {
                 motion = "Running";
             }
             else {
                 motion = "Stationary";
+                rigidBody.velocity = Vector2.zero;
             }
             ChangeToDirectionalAnimation("Player" + motion + "Attack");
             weapon.SendMessage(motion + "Attack", lastDirection);
@@ -317,6 +319,7 @@ public class PlayerScript : MonoBehaviour
         else if (lastDirection == "Left") {
             transform.Translate(new Vector3(-.4f, .2f, 0f));
         }
+        camera.SendMessage("DontFollow");
     }
 
     /**
@@ -332,6 +335,7 @@ public class PlayerScript : MonoBehaviour
         else if (lastDirection == "Left") {
             transform.Translate(new Vector3(.4f, -.2f, 0f));
         }
+        camera.SendMessage("Follow");
     }
 
     /**
@@ -341,7 +345,9 @@ public class PlayerScript : MonoBehaviour
     * Looks good at least with base speed 3f
     */
     void EndRightRunAttack() {
-        transform.position = new Vector2(transform.position.x - rigidBody.velocity.x, transform.position.y);
+        // TODO: Currently commented out cause it will shake the entire camera at the cost of animation lookin a bit funky
+        //       is there a better way to fix it?
+        // transform.position = new Vector2(transform.position.x - rigidBody.velocity.x, transform.position.y);
         EndAttack();
     }
 
