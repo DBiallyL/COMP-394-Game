@@ -64,7 +64,7 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         if (!dead) {
-            if (!followingPlayer) WalkPath();  
+            if (!followingPlayer && !animationPlaying) WalkPath();  
             else if (!animationPlaying) FollowPlayer(); 
             if (!animationPlaying) ChangeWalkSprites(followingPlayer);
             if (checkingCalm) CalmDown();
@@ -266,6 +266,8 @@ public class EnemyScript : MonoBehaviour
     /**
     * Handles how the enemy responds to the player entering their viewcone collider 
     * and transitions into attack mode if the player is not behind another collider
+    *
+    * TODO: Make raycast thing a different method so it can be used on calmdown too
     */
     void GetAngry() {
         // Won't look for player if already angry
@@ -296,6 +298,8 @@ public class EnemyScript : MonoBehaviour
 
     /**
     * Handles how much health the enemy loses when attacked by the player
+    *
+    * TODO: Change rage stuff into one widely used method for both functions if possible
     */
     void LoseHealth(bool isRunning) {
         if (immuneTime == -1f) {
@@ -335,7 +339,20 @@ public class EnemyScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    void StartRitual() {
+        ChangeAnimationState("EnemyTrappedInRitual");
+        animationPlaying = true;
+    }
+
+    void StopRitualPremature() {
+        animationPlaying = false;
+    }
+
+    void RitualEnd() {
+        ChangeAnimationState("EnemyBecomingExorcised");
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //                                                Widely Used Helper Methods
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

@@ -8,6 +8,10 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    // Ritual TODOs: Call premature stop on C up
+    //               - access enemies from ritual list (get ritual child then access list?)
+    //                Time out ritual and call finished ritual once done
+
     // Global variables to deal with health and dying
     public int health = 5;
     bool dead = false;
@@ -43,7 +47,7 @@ public class PlayerScript : MonoBehaviour
     // Global variables used to handle weapons and rituals
     public GameObject HealthBar;
     public GameObject weapon;
-    public GameObject camera;
+    public GameObject mainCamera;
     bool canMove = true;
     bool pressedC = false;
 
@@ -319,7 +323,7 @@ public class PlayerScript : MonoBehaviour
         else if (lastDirection == "Left") {
             transform.Translate(new Vector3(-.4f, .2f, 0f));
         }
-        camera.SendMessage("DontFollow");
+        mainCamera.SendMessage("DontFollow");
     }
 
     /**
@@ -335,7 +339,7 @@ public class PlayerScript : MonoBehaviour
         else if (lastDirection == "Left") {
             transform.Translate(new Vector3(.4f, -.2f, 0f));
         }
-        camera.SendMessage("Follow");
+        mainCamera.SendMessage("Follow");
     }
 
     /**
