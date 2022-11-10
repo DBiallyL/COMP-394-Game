@@ -46748,7 +46748,7 @@ MonoBehaviour:
   - {fileID: 1147248861}
   - {fileID: 470347669}
   - {fileID: 809025592}
-  HealthBar: {fileID: 184016248}
+  HealthBar: {fileID: 250891551}
   weapon: {fileID: 1073535855}
   mainCamera: {fileID: 0}
 --- !u!50 &1765197761
