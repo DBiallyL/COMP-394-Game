@@ -31,10 +31,14 @@ public class EnemyScript : MonoBehaviour
     string lastDirection = "Left";
 
     // Global variables to handle losing health
-    public int health = 2;
+    int health = 4;
     public int statAttackStrength = 1;
     public int runAttackStrength = 2;
     bool dead = false;
+    float immuneLength = 0.8f;
+    float immuneTime = -1f;
+    Color defaultColor;
+
 
     // Global variables to handle attacking player
     public GameObject player;
@@ -46,6 +50,7 @@ public class EnemyScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        defaultColor = spriteRenderer.material.color;
 
         lightChild = transform.Find("Light2D");
         lightCollider = transform.Find("EnemyLight_Collider");
@@ -63,10 +68,23 @@ public class EnemyScript : MonoBehaviour
             else if (!animationPlaying) FollowPlayer(); 
             if (!animationPlaying) ChangeWalkSprites(followingPlayer);
             if (checkingCalm) CalmDown();
+            Timers();
             ChangeLightRotation();
             CheckDead();
         }
     }
+
+    void Timers(){
+        float time = Time.time;
+        if (immuneTime != -1f) {
+            float elapsedTime = time - immuneTime;
+            if (elapsedTime >= immuneLength) {
+                immuneTime = -1f;
+                spriteRenderer.material.SetColor("_Color", defaultColor);
+            }
+        }
+    }
+    
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //                                                Code for Common/Looping Animations
@@ -172,6 +190,7 @@ public class EnemyScript : MonoBehaviour
     * Only called if the enemy is calm
     */
     void WalkPath() {
+        
         // Reach first waypoint
         if (waypointIndex >= waypoints.Length) {
             waypointIndex = 0;
@@ -279,11 +298,18 @@ public class EnemyScript : MonoBehaviour
     * Handles how much health the enemy loses when attacked by the player
     */
     void LoseHealth(bool isRunning) {
-        if (isRunning) {
-            health -= runAttackStrength;
-        }
-        else {
-            health -= statAttackStrength;
+        if (immuneTime == -1f) {
+            ChangeAnimationState("EnemyBecomingEnraged");
+            animationPlaying=true;
+            followingPlayer=true;
+            spriteRenderer.material.SetColor("_Color", Color.red);
+            immuneTime = Time.time;
+            if (isRunning) {
+                health -= runAttackStrength;
+            }
+            else {
+                health -= statAttackStrength;
+            }
         }
     }
 
