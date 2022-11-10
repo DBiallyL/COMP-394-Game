@@ -299,9 +299,11 @@ public class EnemyScript : MonoBehaviour
     */
     void LoseHealth(bool isRunning) {
         if (immuneTime == -1f) {
-            ChangeAnimationState("EnemyBecomingEnraged");
-            animationPlaying=true;
-            followingPlayer=true;
+            if(!followingPlayer){
+                ChangeAnimationState("EnemyBecomingEnraged");
+                animationPlaying=true;
+                followingPlayer=true;
+            }
             spriteRenderer.material.SetColor("_Color", Color.red);
             immuneTime = Time.time;
             if (isRunning) {
