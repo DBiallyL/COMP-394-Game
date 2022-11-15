@@ -207,7 +207,7 @@ public class PlayerScript : MonoBehaviour
     */
     void CheckAction() {
         // Attack
-        if (Input.GetKey(KeyCode.Z) && canMove)
+        if (Input.GetKey(KeyCode.Q) && canMove)
         {
             string motion = "";
             if (dashTimer != -1f) {
@@ -226,7 +226,7 @@ public class PlayerScript : MonoBehaviour
             canMove = false;
         }
         // Ritual
-        else if (Input.GetKey(KeyCode.C))
+        else if (Input.GetKey(KeyCode.R))
         {
             if (!pressedC) {
                 canMove = false;
@@ -236,7 +236,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // Stop Ritual
-        if (Input.GetKeyUp(KeyCode.C)) {
+        if (Input.GetKeyUp(KeyCode.R)) {
             pressedC = false;
             canMove = true;
         }
