@@ -9316,7 +9316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlueSouls: 2
-  SoulsCounterText: {fileID: 0}
 --- !u!95 &220344393
 Animator:
   serializedVersion: 4
@@ -46750,7 +46749,7 @@ MonoBehaviour:
   - {fileID: 809025592}
   HealthBar: {fileID: 250891551}
   weapon: {fileID: 1073535855}
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 1217735545}
 --- !u!50 &1765197761
 Rigidbody2D:
   serializedVersion: 4
@@ -47638,7 +47637,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RedSouls: 2
-  SoulsCounterText: {fileID: 0}
 --- !u!95 &1846478896
 Animator:
   serializedVersion: 4

@@ -50,6 +50,8 @@ public class PlayerScript : MonoBehaviour
     public GameObject mainCamera;
     bool canMove = true;
     bool pressedC = false;
+    string attackString = "Attack";
+    int nextStationaryAttack = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -210,12 +212,16 @@ public class PlayerScript : MonoBehaviour
             string motion = "";
             if (dashTimer != -1f) {
                 motion = "Running";
+                attackString = "Attack";
             }
             else {
                 motion = "Stationary";
                 rigidBody.velocity = Vector2.zero;
+                attackString = "Attack" + (nextStationaryAttack % 3);
+                nextStationaryAttack++;
             }
-            ChangeToDirectionalAnimation("Player" + motion + "Attack");
+            print("Player" + motion + attackString);
+            ChangeToDirectionalAnimation("Player" + motion + attackString);
             weapon.SendMessage(motion + "Attack", lastDirection);
             canMove = false;
         }
