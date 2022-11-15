@@ -220,7 +220,6 @@ public class PlayerScript : MonoBehaviour
                 attackString = "Attack" + (nextStationaryAttack % 3);
                 nextStationaryAttack++;
             }
-            print("Player" + motion + attackString);
             ChangeToDirectionalAnimation("Player" + motion + attackString);
             weapon.SendMessage(motion + "Attack", lastDirection);
             canMove = false;
@@ -244,7 +243,7 @@ public class PlayerScript : MonoBehaviour
         // Dash
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
-            if (dashes > 0 && (rigidBody.velocity.x == 0 || rigidBody.velocity.y == 0)) {
+            if (dashes > 0 && (rigidBody.velocity.x == 0 || rigidBody.velocity.y == 0) && dashTimer == -1f) {
                 speed *= dashMultiplier;
                 dashTimer = Time.time;
                 dashes--;
