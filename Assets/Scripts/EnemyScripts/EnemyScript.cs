@@ -238,7 +238,7 @@ public class EnemyScript : MonoBehaviour
         // Checks if the player is in range, and attacks if so
         float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
         if (distFromPlayer > -1f && distFromPlayer < 1f) {
-            player.SendMessage("TakeDamage");
+            player.SendMessage("TakeDamage", lastDirection);
             pausing = true;
             pauseTime = Time.time;
         }

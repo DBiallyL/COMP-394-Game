@@ -386,12 +386,18 @@ public class PlayerScript : MonoBehaviour
     /**
     * Handles the player taking damage and temporary immunity
     */
-    void TakeDamage() {
+    void TakeDamage(string knockback) {
         if (immuneTime == -1f) {
             HealthBar.SendMessage("LoseHealth", 0.2f);
             health--;
             spriteRenderer.material.SetColor("_Color", Color.red);
             immuneTime = Time.time;
+
+            Vector3 knockbackChange;
+            if (knockback == "Down") {
+                knockbackChange = new Vector3(0f, -0.5f, 0f);
+                transform.position += knockbackChange;
+            }
         }
     }
 
