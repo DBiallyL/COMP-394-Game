@@ -402,6 +402,7 @@ public class PlayerScript : MonoBehaviour
         if (health <= 0) {
             ChangeAnimationState("PlayerDying");
             dead = true;
+            rigidBody.velocity = Vector2.zero;
         }
     }
 
