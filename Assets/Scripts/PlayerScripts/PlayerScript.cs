@@ -18,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     float immuneLength = 0.4f;
     float immuneTime = -1f;
     Color defaultColor;
+    public GameObject HealthBar;
 
     // Global variables used to handle movement
     float speed = 3f;
@@ -45,13 +46,13 @@ public class PlayerScript : MonoBehaviour
     bool michaelJacksonMode = false;
 
     // Global variables used to handle weapons and rituals
-    public GameObject HealthBar;
     public GameObject weapon;
     public GameObject mainCamera;
     bool canMove = true;
     bool pressedC = false;
     string attackString = "Attack";
     int nextStationaryAttack = 1;
+    float knockbackDistance = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -393,11 +394,20 @@ public class PlayerScript : MonoBehaviour
             spriteRenderer.material.SetColor("_Color", Color.red);
             immuneTime = Time.time;
 
-            Vector3 knockbackChange;
+            Vector3 knockbackChange = Vector3.zero;
             if (knockback == "Down") {
-                knockbackChange = new Vector3(0f, -0.5f, 0f);
-                transform.position += knockbackChange;
+                knockbackChange = new Vector3(0f, -knockbackDistance, 0f);
             }
+            else if (knockback == "Up") {
+                knockbackChange = new Vector3(0f, knockbackDistance, 0f);
+            }
+            else if (knockback == "Left") {
+                knockbackChange = new Vector3(-knockbackDistance, 0f, 0f);
+            }
+            else {
+                knockbackChange = new Vector3(knockbackDistance, 0f, 0f);
+            }
+            transform.position += knockbackChange;
         }
     }
 
