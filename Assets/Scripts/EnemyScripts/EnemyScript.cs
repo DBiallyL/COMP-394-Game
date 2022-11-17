@@ -38,16 +38,20 @@ public class EnemyScript : MonoBehaviour
     float immuneLength = 0.8f;
     float immuneTime = -1f;
     Color defaultColor;
+    Rigidbody2D rigidBody;
+    float knockbackSpeed = 6f;
 
 
     // Global variables to handle attacking player
     public GameObject player;
     bool animationPlaying = false;
+    bool canMove = true;
     bool checkingCalm = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = spriteRenderer.material.color;
@@ -64,8 +68,8 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         if (!dead) {
-            if (!followingPlayer && !animationPlaying) WalkPath();  
-            else if (!animationPlaying) FollowPlayer(); 
+            if (!followingPlayer && !animationPlaying && canMove) WalkPath();  
+            else if (!animationPlaying && canMove) FollowPlayer(); 
             if (!animationPlaying) ChangeWalkSprites(followingPlayer);
             if (checkingCalm) CalmDown();
             Timers();
@@ -81,6 +85,14 @@ public class EnemyScript : MonoBehaviour
             if (elapsedTime >= immuneLength) {
                 immuneTime = -1f;
                 spriteRenderer.material.SetColor("_Color", defaultColor);
+            }
+            else if (elapsedTime >= (immuneLength / 2)) {
+                canMove = true;
+            }
+            else if (elapsedTime >= (immuneLength / 4)) {
+                if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.x == -knockbackSpeed 
+                    || rigidBody.velocity.y == knockbackSpeed || rigidBody.velocity.y == -knockbackSpeed)
+                    rigidBody.velocity = Vector2.zero;
             }
         }
     }
@@ -301,21 +313,40 @@ public class EnemyScript : MonoBehaviour
     *
     * TODO: Change rage stuff into one widely used method for both functions if possible
     */
-    void LoseHealth(bool isRunning) {
+    void LoseHealth(string[] lhParams) {
         if (immuneTime == -1f) {
             if(!followingPlayer){
                 ChangeAnimationState("EnemyBecomingEnraged");
-                animationPlaying=true;
                 followingPlayer=true;
+                animationPlaying = true;
             }
+
+            canMove=false;
             spriteRenderer.material.SetColor("_Color", Color.red);
             immuneTime = Time.time;
-            if (isRunning) {
+
+            if (lhParams[0] == "true") {
                 health -= runAttackStrength;
             }
             else {
                 health -= statAttackStrength;
             }
+
+            Vector2 knockbackVelocity = Vector2.zero;
+            if (lhParams[1] == "Down") {
+                knockbackVelocity.y = -knockbackSpeed;
+            }
+            else if (lhParams[1] == "Up") {
+                knockbackVelocity.y = knockbackSpeed;
+            }
+            else if (lhParams[1] == "Left") {
+                knockbackVelocity.x = -knockbackSpeed;
+            }
+            else {
+                knockbackVelocity.x = knockbackSpeed;
+            }
+            rigidBody.velocity = knockbackVelocity;
+            print("RBV: " + rigidBody.velocity);
         }
     }
 
@@ -329,6 +360,7 @@ public class EnemyScript : MonoBehaviour
             Destroy(lightCollider.gameObject);
             Destroy(lightChild.gameObject);
             dead = true;
+            rigidBody.velocity = Vector2.zero;
         }
     }
 

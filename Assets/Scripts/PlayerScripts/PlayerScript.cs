@@ -310,7 +310,8 @@ public class PlayerScript : MonoBehaviour
             }
             else if (elapsedTime >= (immuneLength / 2)) {
                 canMove = true;
-                if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.y == knockbackSpeed)
+                if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.x == -knockbackSpeed 
+                    || rigidBody.velocity.y == knockbackSpeed || rigidBody.velocity.y == -knockbackSpeed)
                     rigidBody.velocity = Vector2.zero;
             }
         }

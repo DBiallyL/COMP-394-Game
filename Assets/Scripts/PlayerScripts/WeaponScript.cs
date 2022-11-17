@@ -7,7 +7,8 @@ public class WeaponScript : MonoBehaviour
     // Global variables used to handle animation
     BoxCollider2D weaponCollider;
     SpriteRenderer spriteRenderer;
-    bool isRunning = false;
+    string isRunning = "false";
+    string lastDirec;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class WeaponScript : MonoBehaviour
     * Sets the appropriate position/scale for the weapon collider if the attack is a running attack
     */
     void RunningAttack(string lastDirection) {
+        lastDirec = lastDirection;
         weaponCollider.enabled = true;
         if (lastDirection == "Right") {
             weaponCollider.offset = new Vector2(0.2f, 0f);
@@ -39,13 +41,14 @@ public class WeaponScript : MonoBehaviour
         else {
             weaponCollider.offset = new Vector2(0f, -0.15f);
         }
-        isRunning = true;
+        isRunning = "true";
     }
 
     /**
     * Sets the appropriate position/scale for the weapon collider if the attack is a stationary attack
     */
     void StationaryAttack(string lastDirection) {
+        lastDirec = lastDirection;
         weaponCollider.enabled = true;
         if (lastDirection == "Right") {
             weaponCollider.offset = new Vector2(0.15f, 0f);
@@ -64,7 +67,7 @@ public class WeaponScript : MonoBehaviour
             weaponCollider.offset = new Vector2(0f, -0.15f);
             weaponCollider.size = new Vector2(0.8f, 0.4f);
         }
-        isRunning = false;
+        isRunning = "false";
     }
 
     /**
@@ -81,7 +84,8 @@ public class WeaponScript : MonoBehaviour
     */
     void OnTriggerEnter2D(Collider2D coll) {
         if (coll.CompareTag("Enemy")) {
-            coll.SendMessage("LoseHealth", isRunning);
+            string[] lhParams = {isRunning, lastDirec};
+            coll.SendMessage("LoseHealth", lhParams);
         }
     }
 }
