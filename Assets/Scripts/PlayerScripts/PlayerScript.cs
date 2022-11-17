@@ -52,7 +52,7 @@ public class PlayerScript : MonoBehaviour
     bool pressedC = false;
     string attackString = "Attack";
     int nextStationaryAttack = 1;
-    float knockbackDistance = 0.5f;
+    float knockbackSpeed = 6f;
 
     // Start is called before the first frame update
     void Start()
@@ -89,7 +89,7 @@ public class PlayerScript : MonoBehaviour
     * Checks if the player is moving based on keys pressed, and changes the animation as appropriate
     */
     void CheckMvmt() {
-        Vector2 movement = new Vector2(0, 0);
+        Vector2 movement = Vector2.zero;
         string spritePath = "Player";
 
         // Not moving
@@ -125,7 +125,7 @@ public class PlayerScript : MonoBehaviour
     * TODO: See if I can factor it better
     */
     Vector2 AnimateRunning() {
-        Vector2 movement = new Vector2(0,0);
+        Vector2 movement = Vector2.zero;
 
         // Only moving vertically
         if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
@@ -308,6 +308,11 @@ public class PlayerScript : MonoBehaviour
                 immuneTime = -1f;
                 spriteRenderer.material.SetColor("_Color", defaultColor);
             }
+            else if (elapsedTime >= (immuneLength / 2)) {
+                canMove = true;
+                if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.y == knockbackSpeed)
+                    rigidBody.velocity = Vector2.zero;
+            }
         }
     }
 
@@ -393,21 +398,22 @@ public class PlayerScript : MonoBehaviour
             health--;
             spriteRenderer.material.SetColor("_Color", Color.red);
             immuneTime = Time.time;
+            canMove = false;
 
-            Vector3 knockbackChange = Vector3.zero;
+            Vector2 knockbackVelocity = Vector2.zero;
             if (knockback == "Down") {
-                knockbackChange = new Vector3(0f, -knockbackDistance, 0f);
+                knockbackVelocity.y = -knockbackSpeed;
             }
             else if (knockback == "Up") {
-                knockbackChange = new Vector3(0f, knockbackDistance, 0f);
+                knockbackVelocity.y = knockbackSpeed;
             }
             else if (knockback == "Left") {
-                knockbackChange = new Vector3(-knockbackDistance, 0f, 0f);
+                knockbackVelocity.x = -knockbackSpeed;
             }
             else {
-                knockbackChange = new Vector3(knockbackDistance, 0f, 0f);
+                knockbackVelocity.x = knockbackSpeed;
             }
-            transform.position += knockbackChange;
+            rigidBody.velocity = knockbackVelocity;
         }
     }
 
