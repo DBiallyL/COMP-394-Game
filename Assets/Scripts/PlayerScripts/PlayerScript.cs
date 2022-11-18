@@ -48,6 +48,7 @@ public class PlayerScript : MonoBehaviour
     // Global variables used to handle weapons and rituals
     public GameObject weapon;
     public GameObject mainCamera;
+    public GameObject DamageOverlay;
     bool canMove = true;
     bool pressedC = false;
     string attackString = "Attack";
@@ -395,6 +396,7 @@ public class PlayerScript : MonoBehaviour
     */
     void TakeDamage(string knockback) {
         if (immuneTime == -1f) {
+            DamageOverlay.SendMessage("MakeVisible");
             HealthBar.SendMessage("LoseHealth", 0.2f);
             health--;
             spriteRenderer.material.SetColor("_Color", Color.red);
