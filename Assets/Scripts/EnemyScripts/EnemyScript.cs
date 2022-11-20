@@ -10,7 +10,6 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     // Global variables used to handle path walking
-    bool followingPlayer = false;
     public Transform[] waypoints;
     public float speed = 0.01f;
     int waypointIndex = 1;
@@ -22,6 +21,7 @@ public class EnemyScript : MonoBehaviour
     Material lightMaterial;
     Transform lightCollider;
     Transform lightChild;
+    MeshRenderer lightChildMesh;
 
     // Global variables used to keep track of direction and animation states
     Animator animator;
@@ -47,6 +47,7 @@ public class EnemyScript : MonoBehaviour
     bool animationPlaying = false;
     bool canMove = true;
     bool checkingCalm = false;
+    bool followingPlayer = false;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +59,7 @@ public class EnemyScript : MonoBehaviour
 
         lightChild = transform.Find("Light2D");
         lightCollider = transform.Find("EnemyLight_Collider");
+        lightChildMesh = lightChild.gameObject.GetComponent<MeshRenderer>();
 
         transform.position = waypoints[0].position;
         lastPos = transform.position;
@@ -371,17 +373,30 @@ public class EnemyScript : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /**
+    * Called by the ritual game object once the ritual is started to stop the enemy and start the ritual animation
+    */
     void StartRitual() {
         ChangeAnimationState("EnemyTrappedInRitual");
         animationPlaying = true;
+        lightChildMesh.enabled = false;
     }
 
+    /**
+    * Called by the player if the ritual is stopped prematurely to anger enemy and return enemy to normal
+    */
     void StopRitualPremature() {
         animationPlaying = false;
+        followingPlayer = true;
+        lightChildMesh.enabled = true;
     }
 
+    /**
+    * Called by the ritual game object once the ritual is over to start the process of destroying the enemy
+    */
     void RitualEnd() {
         ChangeAnimationState("EnemyBecomingExorcised");
+        dead = true;
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

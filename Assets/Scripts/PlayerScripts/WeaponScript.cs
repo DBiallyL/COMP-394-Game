@@ -6,7 +6,6 @@ public class WeaponScript : MonoBehaviour
 {
     // Global variables used to handle animation
     BoxCollider2D weaponCollider;
-    SpriteRenderer spriteRenderer;
     string isRunning = "false";
     string lastDirec;
 

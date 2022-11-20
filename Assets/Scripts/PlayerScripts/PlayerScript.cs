@@ -45,15 +45,18 @@ public class PlayerScript : MonoBehaviour
     // Michael Jackson Mode
     bool michaelJacksonMode = false;
 
-    // Global variables used to handle weapons and rituals
+    // Global variables used to handle attacking 
     public GameObject weapon;
     public GameObject mainCamera;
     public GameObject DamageOverlay;
     bool canMove = true;
-    bool pressedC = false;
     string attackString = "Attack";
     int nextStationaryAttack = 1;
     float knockbackSpeed = 6f;
+
+    // Global variables used to handle rituals
+    bool pressedR = false;
+    public GameObject ritual;
 
     // Start is called before the first frame update
     void Start()
@@ -229,17 +232,20 @@ public class PlayerScript : MonoBehaviour
         // Ritual
         else if (Input.GetKey(KeyCode.R))
         {
-            if (!pressedC) {
+            if (!pressedR) {
                 canMove = false;
                 ChangeAnimationState("PlayerRitualStartUp");
-                pressedC = true;
+                pressedR = true;
+                rigidBody.velocity = Vector2.zero;
+                ritual.SendMessage("StartRitual");
             }
         }
 
         // Stop Ritual
         if (Input.GetKeyUp(KeyCode.R)) {
-            pressedC = false;
+            pressedR = false;
             canMove = true;
+            ritual.SendMessage("StopPremature");
         }
 
         // Dash
