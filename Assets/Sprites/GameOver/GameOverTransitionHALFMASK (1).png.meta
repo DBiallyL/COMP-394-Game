@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c52b7637bea9b9146bbe3616610e0bba
+guid: e5ef50e6c19ba144eb4488b7ec5460e0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,7 +107,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameOverTransition_0
+      name: GameOverTransitionHALFMASK (1)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,14 +121,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 506892b01b6232145a126afa884ec294
-      internalID: 430368025
+      spriteID: 833891a9fa9d3d343a0fc5c3261bd91e
+      internalID: 778353514
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_1
+      name: GameOverTransitionHALFMASK (1)_1
       rect:
         serializedVersion: 2
         x: 1600
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6842f0d443f56843b2bcca85a43f393
-      internalID: 2085716298
+      spriteID: 203e0c3e232c4c7428ffe5bbae88885a
+      internalID: -1946512408
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_2
+      name: GameOverTransitionHALFMASK (1)_2
       rect:
         serializedVersion: 2
         x: 3200
@@ -163,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ecd3faf49987504da2671805138d9c0
-      internalID: -2082741600
+      spriteID: 427294d6545047b4ab9bab8e901271a1
+      internalID: 851486898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_3
+      name: GameOverTransitionHALFMASK (1)_3
       rect:
         serializedVersion: 2
         x: 4800
@@ -184,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a062135a489ca114d9b0ac482769840f
-      internalID: 644948805
+      spriteID: a9c411a7a9934f7449b820baea370dc9
+      internalID: 627848610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_4
+      name: GameOverTransitionHALFMASK (1)_4
       rect:
         serializedVersion: 2
         x: 6400
@@ -205,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b76043a41c8781d44b902420ecafecdf
-      internalID: -919477916
+      spriteID: 2fc1c09e035eebe439f4c5a9f5b8c1d4
+      internalID: 766699250
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_5
+      name: GameOverTransitionHALFMASK (1)_5
       rect:
         serializedVersion: 2
         x: 8000
@@ -226,14 +226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 775c290e422d6f34598ce0e2d0407d3b
-      internalID: 146784115
+      spriteID: 1ab8654139a9e8245baad7d9c458a200
+      internalID: 125552315
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_6
+      name: GameOverTransitionHALFMASK (1)_6
       rect:
         serializedVersion: 2
         x: 0
@@ -247,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 115cdc2feb62c14489b08022374394a0
-      internalID: -676006688
+      spriteID: c9ea8a1cfb349f5409dc35b893e33d9e
+      internalID: -1013293246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_7
+      name: GameOverTransitionHALFMASK (1)_7
       rect:
         serializedVersion: 2
         x: 1600
@@ -268,14 +268,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f450284f02120d74c93ad5430557243f
-      internalID: 235168591
+      spriteID: 95f28bbb9130574459536b8d3e30ef35
+      internalID: 1183704518
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_8
+      name: GameOverTransitionHALFMASK (1)_8
       rect:
         serializedVersion: 2
         x: 3200
@@ -289,14 +289,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d8ea46d62d9b6447b0ed0f5a55af4fc
-      internalID: 834898802
+      spriteID: 9568c60f878d9834bb09c50c94826e62
+      internalID: -1683055437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_9
+      name: GameOverTransitionHALFMASK (1)_9
       rect:
         serializedVersion: 2
         x: 4800
@@ -310,14 +310,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c161e27a4846842448d74771abfa171a
-      internalID: -961580698
+      spriteID: 5bb69f020ddeefc4a9023951379a4330
+      internalID: 1485004408
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_10
+      name: GameOverTransitionHALFMASK (1)_10
       rect:
         serializedVersion: 2
         x: 6400
@@ -331,14 +331,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1b9d9b6d44c6f04a9498710efacaf3d
-      internalID: -2079837813
+      spriteID: f109f5b5c8681be4cb832ea2c2413462
+      internalID: -608927537
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_11
+      name: GameOverTransitionHALFMASK (1)_11
       rect:
         serializedVersion: 2
         x: 8000
@@ -352,14 +352,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 440ac3cf3e566a743a3f7b041720cd9f
-      internalID: -924294759
+      spriteID: d9c13dbe29916624fb38a5809bd003e8
+      internalID: 1183902249
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_12
+      name: GameOverTransitionHALFMASK (1)_12
       rect:
         serializedVersion: 2
         x: 0
@@ -373,14 +373,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9ec46a05ef170b40b7cb2a72286ca0e
-      internalID: 2033046557
+      spriteID: 891abcd20062e5f40962bc6b493f3b35
+      internalID: 1494918332
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_13
+      name: GameOverTransitionHALFMASK (1)_13
       rect:
         serializedVersion: 2
         x: 1600
@@ -394,14 +394,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 439a27a7d62d3544eb468e93a6e7f07e
-      internalID: 374686053
+      spriteID: 2bfdc86c4b7fcb04dbb579b41d185e09
+      internalID: -1349651698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_14
+      name: GameOverTransitionHALFMASK (1)_14
       rect:
         serializedVersion: 2
         x: 3200
@@ -415,14 +415,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98f9757fac4115e4b99d6e6884a2458f
-      internalID: 132798656
+      spriteID: 400f77d10459ded449e3dfddb2d8f67e
+      internalID: -1244418917
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_15
+      name: GameOverTransitionHALFMASK (1)_15
       rect:
         serializedVersion: 2
         x: 4800
@@ -436,14 +436,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e60cec315fb83042a5af8771c3cd5f9
-      internalID: 47858664
+      spriteID: 49ca40b21fd28104eb2d84762e7e37ac
+      internalID: -1660809247
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_16
+      name: GameOverTransitionHALFMASK (1)_16
       rect:
         serializedVersion: 2
         x: 6400
@@ -457,14 +457,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8953eb10f66a9e4bb2e69656507f0d0
-      internalID: -63118105
+      spriteID: 138329118f44d7c4c9b2fd3954d6beb0
+      internalID: 1210484860
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_17
+      name: GameOverTransitionHALFMASK (1)_17
       rect:
         serializedVersion: 2
         x: 8000
@@ -478,14 +478,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b655ad1db74cfb4298df1f842d5955a
-      internalID: -705273658
+      spriteID: 859e59f7b236c654f9c0e051a8cc5d1a
+      internalID: 558214274
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_18
+      name: GameOverTransitionHALFMASK (1)_18
       rect:
         serializedVersion: 2
         x: 0
@@ -499,14 +499,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d1303124717e0b4bb22cc2443e52aa1
-      internalID: -87847302
+      spriteID: 6dae46638b4f625458bdde97650f6d7e
+      internalID: 461197689
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_19
+      name: GameOverTransitionHALFMASK (1)_19
       rect:
         serializedVersion: 2
         x: 1600
@@ -520,14 +520,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7108130b80b24694d87fd2625ec1591b
-      internalID: 1001518375
+      spriteID: d2f1e1e5ac4cf1f488d859bed6fb5d52
+      internalID: 1215078030
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_20
+      name: GameOverTransitionHALFMASK (1)_20
       rect:
         serializedVersion: 2
         x: 3200
@@ -541,14 +541,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f6a433853c6bc1418f717f8df7520b2
-      internalID: 579464405
+      spriteID: 861b6c6cd339eff4d9361c39cbd6354b
+      internalID: -925865152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_21
+      name: GameOverTransitionHALFMASK (1)_21
       rect:
         serializedVersion: 2
         x: 4800
@@ -562,14 +562,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a77b800420bc1a40b3532226eafee9e
-      internalID: 1854355538
+      spriteID: 1b10b4f8c3ed92e49b9a72792234acc0
+      internalID: -1196152634
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_22
+      name: GameOverTransitionHALFMASK (1)_22
       rect:
         serializedVersion: 2
         x: 6400
@@ -583,14 +583,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eaef0b435228deb42bb5c1fd9e851e08
-      internalID: -1561466296
+      spriteID: ff1451b389da01944adb0c0c80b41441
+      internalID: -399126073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverTransition_23
+      name: GameOverTransitionHALFMASK (1)_23
       rect:
         serializedVersion: 2
         x: 8000
@@ -604,8 +604,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78d6ac7b8e9f24f4a9ffebf00e8e9ea8
-      internalID: -2136001591
+      spriteID: 1aa0fe266c6c6314c92613b899c8b761
+      internalID: -381988146
       vertices: []
       indices: 
       edges: []
@@ -621,30 +621,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      GameOverTransition_11: -924294759
-      GameOverTransition_2: -2082741600
-      GameOverTransition_5: 146784115
-      GameOverTransition_0: 430368025
-      GameOverTransition_18: -87847302
-      GameOverTransition_3: 644948805
-      GameOverTransition_22: -1561466296
-      GameOverTransition_8: 834898802
-      GameOverTransition_14: 132798656
-      GameOverTransition_23: -2136001591
-      GameOverTransition_15: 47858664
-      GameOverTransition_1: 2085716298
-      GameOverTransition_16: -63118105
-      GameOverTransition_20: 579464405
-      GameOverTransition_6: -676006688
-      GameOverTransition_9: -961580698
-      GameOverTransition_4: -919477916
-      GameOverTransition_17: -705273658
-      GameOverTransition_7: 235168591
-      GameOverTransition_19: 1001518375
-      GameOverTransition_10: -2079837813
-      GameOverTransition_12: 2033046557
-      GameOverTransition_21: 1854355538
-      GameOverTransition_13: 374686053
+      GameOverTransitionHALFMASK (1)_5: 125552315
+      GameOverTransitionHALFMASK (1)_22: -399126073
+      GameOverTransitionHALFMASK (1)_4: 766699250
+      GameOverTransitionHALFMASK (1)_12: 1494918332
+      GameOverTransitionHALFMASK (1)_9: 1485004408
+      GameOverTransitionHALFMASK (1)_18: 461197689
+      GameOverTransitionHALFMASK (1)_19: 1215078030
+      GameOverTransitionHALFMASK (1)_14: -1244418917
+      GameOverTransitionHALFMASK (1)_20: -925865152
+      GameOverTransitionHALFMASK (1)_16: 1210484860
+      GameOverTransitionHALFMASK (1)_13: -1349651698
+      GameOverTransitionHALFMASK (1)_7: 1183704518
+      GameOverTransitionHALFMASK (1)_2: 851486898
+      GameOverTransitionHALFMASK (1)_6: -1013293246
+      GameOverTransitionHALFMASK (1)_8: -1683055437
+      GameOverTransitionHALFMASK (1)_17: 558214274
+      GameOverTransitionHALFMASK (1)_21: -1196152634
+      GameOverTransitionHALFMASK (1)_23: -381988146
+      GameOverTransitionHALFMASK (1)_3: 627848610
+      GameOverTransitionHALFMASK (1)_15: -1660809247
+      GameOverTransitionHALFMASK (1)_1: -1946512408
+      GameOverTransitionHALFMASK (1)_0: 778353514
+      GameOverTransitionHALFMASK (1)_10: -608927537
+      GameOverTransitionHALFMASK (1)_11: 1183902249
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

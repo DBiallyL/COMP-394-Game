@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 718236b47aba2404a984bb7706d1b1c0
+guid: 355413dfa4156bc4cbbe0ac0b734364e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,7 +107,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameOverIdle_0
+      name: GameOverIdleHALFMASK_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,14 +121,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f190c065125086e4bb384bb0279acef9
-      internalID: 1060194447
+      spriteID: e219373434d55ed478d566a79b86c9b3
+      internalID: 1330229927
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_1
+      name: GameOverIdleHALFMASK_1
       rect:
         serializedVersion: 2
         x: 1600
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0bc4b8bdada2222429c6dca699fc49d3
-      internalID: -265643927
+      spriteID: 1dcf03d0293710b41b69e9537ee05d68
+      internalID: -1301154771
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_2
+      name: GameOverIdleHALFMASK_2
       rect:
         serializedVersion: 2
         x: 3200
@@ -163,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3b155dd7a9365c41a0805d8f4365681
-      internalID: 878614602
+      spriteID: e67f391c645d80d49aa4ca9a30dfe178
+      internalID: 145710438
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_3
+      name: GameOverIdleHALFMASK_3
       rect:
         serializedVersion: 2
         x: 4800
@@ -184,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec567513dcd87e3418e51d316228e709
-      internalID: -530700992
+      spriteID: f7db28beb1ef0b347b5b294545e07f41
+      internalID: 1946529191
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_4
+      name: GameOverIdleHALFMASK_4
       rect:
         serializedVersion: 2
         x: 6400
@@ -205,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd4b9a81bb000114b809164f860be2e3
-      internalID: 1945877320
+      spriteID: db188081ff3d5e349bb4206080622726
+      internalID: 1438274467
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_5
+      name: GameOverIdleHALFMASK_5
       rect:
         serializedVersion: 2
         x: 8000
@@ -226,14 +226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 372edaf7441c3344687ccc6c893c9070
-      internalID: -843570907
+      spriteID: 027c76564da518241bed7161fc9914b3
+      internalID: 761782046
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_6
+      name: GameOverIdleHALFMASK_6
       rect:
         serializedVersion: 2
         x: 9600
@@ -247,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e158de25b3127d4ebe6ed3189b639cd
-      internalID: 974250172
+      spriteID: 33bef39bb9051424eaf296f3199b135b
+      internalID: 29453723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_7
+      name: GameOverIdleHALFMASK_7
       rect:
         serializedVersion: 2
         x: 11200
@@ -268,14 +268,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f8e2c6b060927c49b41fc3a2ddce066
-      internalID: -1213799557
+      spriteID: eb34ef749767e7a46acd8abe24c2d496
+      internalID: 1015842099
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_8
+      name: GameOverIdleHALFMASK_8
       rect:
         serializedVersion: 2
         x: 0
@@ -289,14 +289,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae72f44fd82ec4a4cbeaf1ef8ee7d788
-      internalID: -1771702917
+      spriteID: 7463b1c2fbf8b6943881c00962ac1fb2
+      internalID: -1559442355
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_9
+      name: GameOverIdleHALFMASK_9
       rect:
         serializedVersion: 2
         x: 1600
@@ -310,14 +310,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e4b15d34924aac4c9c73027ed4f9f82
-      internalID: 388471491
+      spriteID: 570dda2001fc4324cac25e058b50d618
+      internalID: 1602898677
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_10
+      name: GameOverIdleHALFMASK_10
       rect:
         serializedVersion: 2
         x: 3200
@@ -331,14 +331,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9d952048e90be44dad8979cfaa107ba
-      internalID: -1519037665
+      spriteID: 671aa29f36ec67c43b293a5f64df07f1
+      internalID: -182717948
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_11
+      name: GameOverIdleHALFMASK_11
       rect:
         serializedVersion: 2
         x: 4800
@@ -352,14 +352,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 822a39335c1f2c14c9da736f524edf23
-      internalID: -855167916
+      spriteID: 5a29e12f147a7e24d8eb1565ecfadf16
+      internalID: -566021241
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_12
+      name: GameOverIdleHALFMASK_12
       rect:
         serializedVersion: 2
         x: 6400
@@ -373,14 +373,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52bcdb13d9c32054286df5d961df6724
-      internalID: -2007189024
+      spriteID: 505113946e7e67145a4486067d45582e
+      internalID: 1096160145
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_13
+      name: GameOverIdleHALFMASK_13
       rect:
         serializedVersion: 2
         x: 8000
@@ -394,14 +394,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3327bc434da5ea4eb0ca7b6b6eb3fbd
-      internalID: -1884388649
+      spriteID: ea3b044db15410a489964e21f377c707
+      internalID: 751689986
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_14
+      name: GameOverIdleHALFMASK_14
       rect:
         serializedVersion: 2
         x: 9600
@@ -415,14 +415,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86d33e0c1556f104baef172bb2876f90
-      internalID: -1041138243
+      spriteID: e8caae23c65e3b14992b7ecf0ecee104
+      internalID: 795870191
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_15
+      name: GameOverIdleHALFMASK_15
       rect:
         serializedVersion: 2
         x: 11200
@@ -436,14 +436,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5107b86c21dc66468d19de990655403
-      internalID: -277190231
+      spriteID: 326544cf23f1d9545b807a4c1ba15608
+      internalID: -1214049979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_16
+      name: GameOverIdleHALFMASK_16
       rect:
         serializedVersion: 2
         x: 0
@@ -457,14 +457,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd97cf7c50ef0a54bb522478b57a69ed
-      internalID: 1017233550
+      spriteID: 97408622899ff544b84d484e890e9cef
+      internalID: -980794510
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_17
+      name: GameOverIdleHALFMASK_17
       rect:
         serializedVersion: 2
         x: 1600
@@ -478,14 +478,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a32f92f8259f3d1488056b0a8cc28dde
-      internalID: 1148205632
+      spriteID: cfb4da760f671814ab90a0f3589a7980
+      internalID: 1798261435
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_18
+      name: GameOverIdleHALFMASK_18
       rect:
         serializedVersion: 2
         x: 3200
@@ -499,14 +499,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d770a32632705dd4c89d4c904c60331d
-      internalID: -1765287454
+      spriteID: 96c6cd81c66faeb4989f65aef4acd56f
+      internalID: 1718972467
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_19
+      name: GameOverIdleHALFMASK_19
       rect:
         serializedVersion: 2
         x: 4800
@@ -520,14 +520,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0480ddf1f04af9429793d41018eaa6b
-      internalID: 821481361
+      spriteID: 43da89434ae2a3843a030007627eea36
+      internalID: -1178739487
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_20
+      name: GameOverIdleHALFMASK_20
       rect:
         serializedVersion: 2
         x: 6400
@@ -541,14 +541,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5eefa93c1fdd1664f97236175a57de5e
-      internalID: 1423405542
+      spriteID: 72f8cb85c824ea540999dda78fe900dc
+      internalID: 644801447
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_21
+      name: GameOverIdleHALFMASK_21
       rect:
         serializedVersion: 2
         x: 8000
@@ -562,14 +562,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0451d8c6eb41ac48a0168334991e0c1
-      internalID: 1537344204
+      spriteID: ca3612df0e7b06c48be37eb478561c36
+      internalID: 1329732739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_22
+      name: GameOverIdleHALFMASK_22
       rect:
         serializedVersion: 2
         x: 9600
@@ -583,14 +583,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7ddda5cf2c46d441a8d9677b62c04e9
-      internalID: 493900819
+      spriteID: 09bb6ac157eeadf42a03fbcbc5a8f403
+      internalID: -1295320773
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_23
+      name: GameOverIdleHALFMASK_23
       rect:
         serializedVersion: 2
         x: 11200
@@ -604,14 +604,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9911986e4a115fb4886404d31097af73
-      internalID: -126333792
+      spriteID: f1ad9f9abbb6ce547af0e4b471afac0c
+      internalID: 2144279796
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_24
+      name: GameOverIdleHALFMASK_24
       rect:
         serializedVersion: 2
         x: 0
@@ -625,14 +625,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 906de3db428152543a4035c651105c69
-      internalID: -1753270093
+      spriteID: 0a4c6056a22114c43a5759b39d6a1e9e
+      internalID: 238687732
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_25
+      name: GameOverIdleHALFMASK_25
       rect:
         serializedVersion: 2
         x: 1600
@@ -646,14 +646,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea3ad6b34a58b4642b0b286b3fa81d5e
-      internalID: 1073453547
+      spriteID: 07fde8d8408a4224caf59115266dfa89
+      internalID: -684079990
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_26
+      name: GameOverIdleHALFMASK_26
       rect:
         serializedVersion: 2
         x: 3200
@@ -667,14 +667,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb10027cc725b2e4d9be1463a3cb28fd
-      internalID: -178728888
+      spriteID: 3577e54c155af554783096103dcb280d
+      internalID: 1004804166
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_27
+      name: GameOverIdleHALFMASK_27
       rect:
         serializedVersion: 2
         x: 4800
@@ -688,14 +688,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d6fa28713590b041a4a105141b5abc8
-      internalID: 1659711730
+      spriteID: 040bd6e3ebe94504f93c0ec9a2ab33d8
+      internalID: 609714831
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_28
+      name: GameOverIdleHALFMASK_28
       rect:
         serializedVersion: 2
         x: 6400
@@ -709,14 +709,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 873361683b5630140baa283df69e1f50
-      internalID: -2113947396
+      spriteID: be552d7bb96c40e4da9d87968d5142bb
+      internalID: -421854611
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_29
+      name: GameOverIdleHALFMASK_29
       rect:
         serializedVersion: 2
         x: 8000
@@ -730,14 +730,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77cd7cdce1824f943a66331346a3206d
-      internalID: 462835566
+      spriteID: 04d07a250b5db4e4686a71602a230935
+      internalID: -1263345764
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_30
+      name: GameOverIdleHALFMASK_30
       rect:
         serializedVersion: 2
         x: 9600
@@ -751,14 +751,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3edefb716d5db024690bad5398caaa4e
-      internalID: 1841470214
+      spriteID: 8f01d24bc4c494c458a1eba958ce40f2
+      internalID: -675621304
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameOverIdle_31
+      name: GameOverIdleHALFMASK_31
       rect:
         serializedVersion: 2
         x: 11200
@@ -772,8 +772,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e520b5531bccfd4580cd6a1f68e829e
-      internalID: -115552468
+      spriteID: 367e9544620e32a4fb4e65f61302730b
+      internalID: 589947099
       vertices: []
       indices: 
       edges: []
@@ -789,38 +789,38 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      GameOverIdle_11: -855167916
-      GameOverIdle_23: -126333792
-      GameOverIdle_22: 493900819
-      GameOverIdle_24: -1753270093
-      GameOverIdle_13: -1884388649
-      GameOverIdle_18: -1765287454
-      GameOverIdle_31: -115552468
-      GameOverIdle_4: 1945877320
-      GameOverIdle_26: -178728888
-      GameOverIdle_19: 821481361
-      GameOverIdle_17: 1148205632
-      GameOverIdle_29: 462835566
-      GameOverIdle_20: 1423405542
-      GameOverIdle_25: 1073453547
-      GameOverIdle_7: -1213799557
-      GameOverIdle_28: -2113947396
-      GameOverIdle_30: 1841470214
-      GameOverIdle_2: 878614602
-      GameOverIdle_27: 1659711730
-      GameOverIdle_5: -843570907
-      GameOverIdle_6: 974250172
-      GameOverIdle_10: -1519037665
-      GameOverIdle_16: 1017233550
-      GameOverIdle_1: -265643927
-      GameOverIdle_21: 1537344204
-      GameOverIdle_8: -1771702917
-      GameOverIdle_14: -1041138243
-      GameOverIdle_3: -530700992
-      GameOverIdle_15: -277190231
-      GameOverIdle_0: 1060194447
-      GameOverIdle_12: -2007189024
-      GameOverIdle_9: 388471491
+      GameOverIdleHALFMASK_11: -566021241
+      GameOverIdleHALFMASK_5: 761782046
+      GameOverIdleHALFMASK_24: 238687732
+      GameOverIdleHALFMASK_2: 145710438
+      GameOverIdleHALFMASK_19: -1178739487
+      GameOverIdleHALFMASK_23: 2144279796
+      GameOverIdleHALFMASK_22: -1295320773
+      GameOverIdleHALFMASK_4: 1438274467
+      GameOverIdleHALFMASK_26: 1004804166
+      GameOverIdleHALFMASK_20: 644801447
+      GameOverIdleHALFMASK_27: 609714831
+      GameOverIdleHALFMASK_15: -1214049979
+      GameOverIdleHALFMASK_3: 1946529191
+      GameOverIdleHALFMASK_21: 1329732739
+      GameOverIdleHALFMASK_7: 1015842099
+      GameOverIdleHALFMASK_30: -675621304
+      GameOverIdleHALFMASK_10: -182717948
+      GameOverIdleHALFMASK_6: 29453723
+      GameOverIdleHALFMASK_9: 1602898677
+      GameOverIdleHALFMASK_13: 751689986
+      GameOverIdleHALFMASK_0: 1330229927
+      GameOverIdleHALFMASK_8: -1559442355
+      GameOverIdleHALFMASK_25: -684079990
+      GameOverIdleHALFMASK_28: -421854611
+      GameOverIdleHALFMASK_16: -980794510
+      GameOverIdleHALFMASK_1: -1301154771
+      GameOverIdleHALFMASK_29: -1263345764
+      GameOverIdleHALFMASK_17: 1798261435
+      GameOverIdleHALFMASK_31: 589947099
+      GameOverIdleHALFMASK_12: 1096160145
+      GameOverIdleHALFMASK_18: 1718972467
+      GameOverIdleHALFMASK_14: 795870191
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 
