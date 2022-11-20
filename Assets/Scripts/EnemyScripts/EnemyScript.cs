@@ -80,6 +80,9 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    /**
+    * Takes care of timers for immunity after taking damage
+    */
     void Timers(){
         float time = Time.time;
         if (immuneTime != -1f) {
@@ -87,10 +90,11 @@ public class EnemyScript : MonoBehaviour
             if (elapsedTime >= immuneLength) {
                 immuneTime = -1f;
                 spriteRenderer.material.SetColor("_Color", defaultColor);
-            }
-            else if (elapsedTime >= (immuneLength / 2)) {
                 canMove = true;
             }
+            // else if (elapsedTime >= (immuneLength / 2)) {
+            //     canMove = true;
+            // }
             else if (elapsedTime >= (immuneLength / 4)) {
                 if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.x == -knockbackSpeed 
                     || rigidBody.velocity.y == knockbackSpeed || rigidBody.velocity.y == -knockbackSpeed)
@@ -145,20 +149,22 @@ public class EnemyScript : MonoBehaviour
             spritePath += "Enraged";
         }
 
-        // Right
-        if (lastDirection == "Right") {
-            ChangeAnimationState(spritePath + "Left");
-            spriteRenderer.flipX = true;
-        }
-        // Left
-        else if (lastDirection == "Left") {
-            ChangeAnimationState(spritePath + "Left");
-            spriteRenderer.flipX = false;
-        }
-        // Up and Down
-        else {
-            ChangeAnimationState(spritePath + lastDirection);
-        }
+        ChangeToDirectionalAnimation(spritePath, lastDirection);
+
+        // // Right
+        // if (lastDirection == "Right") {
+        //     ChangeAnimationState(spritePath + "Left");
+        //     spriteRenderer.flipX = true;
+        // }
+        // // Left
+        // else if (lastDirection == "Left") {
+        //     ChangeAnimationState(spritePath + "Left");
+        //     spriteRenderer.flipX = false;
+        // }
+        // // Up and Down
+        // else {
+        //     ChangeAnimationState(spritePath + lastDirection);
+        // }
 
         lastPos = transform.position;
     }
@@ -347,9 +353,16 @@ public class EnemyScript : MonoBehaviour
             else {
                 knockbackVelocity.x = knockbackSpeed;
             }
+            // animationPlaying = true;
+            // ChangeToDirectionalAnimation("EnemyKnockback", lhParams[1]);
             rigidBody.velocity = knockbackVelocity;
             print("RBV: " + rigidBody.velocity);
         }
+    }
+
+    void StopKnockback() {
+        rigidBody.velocity = Vector2.zero;
+        animationPlaying = false;
     }
 
     /**
@@ -402,6 +415,23 @@ public class EnemyScript : MonoBehaviour
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //                                                Widely Used Helper Methods
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    void ChangeToDirectionalAnimation(string spritePath, string directionParameter) {
+        spriteRenderer.flipX = false;
+        // Left
+        if (directionParameter == "Left") { 
+            ChangeAnimationState(spritePath + "Left");
+            spriteRenderer.flipX = false; 
+        }
+        // Right
+        else if (directionParameter == "Right") {
+            ChangeAnimationState(spritePath + "Left");
+            spriteRenderer.flipX = true;
+        }
+        // Up and Down
+        else {
+            ChangeAnimationState(spritePath + directionParameter);
+        }
+    }
 
     /**
     * Changes which animation the enemy is using
