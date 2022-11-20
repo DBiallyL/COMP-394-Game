@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8011136f911cd5b45bfd1053ca140109
+guid: a13ae36e5fa9fa746824781dd73334f6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,13 +107,139 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy1BecomingExorcised_0
+      name: Enemy1TrappedInRitual(1)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5310cc68f8d8ba43a3c0e746800b2f9
+      internalID: 1068819911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1TrappedInRitual(1)_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 960
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c614aed75c2a734f90714a8669a2ef3
+      internalID: -1689513145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1TrappedInRitual(1)_2
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 960
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9005879f12a5aa48beecc672816e3bb
+      internalID: -1557744426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1TrappedInRitual(1)_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 480
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 446de741c99529d48babe78d0f4e3a7a
+      internalID: 312966208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1TrappedInRitual(1)_4
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 480
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9ac7fe9168b2e14aaa440ae19dc58b8
+      internalID: -1526059891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1TrappedInRitual(1)_5
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 480
+        width: 480
+        height: 480
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65074ac11286792449b6ee559e0abd10
+      internalID: 297246034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy1TrappedInRitual(1)_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1536
-        height: 1536
+        width: 480
+        height: 480
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,20 +247,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ef4075aba9860c4ab2be54d5ed22fc1
-      internalID: -1569176255
+      spriteID: 00b326f71d7cb504ab6d2431320a33ef
+      internalID: -1725799208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy1BecomingExorcised_1
+      name: Enemy1TrappedInRitual(1)_7
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 480
         y: 0
-        width: 1536
-        height: 1536
+        width: 480
+        height: 480
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,20 +268,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 153529850a90bd842a4d1c64c1e50075
-      internalID: -1233519517
+      spriteID: 6c6bd3a0d28450a4590151c03034a6e6
+      internalID: -34433111
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy1BecomingExorcised_2
+      name: Enemy1TrappedInRitual(1)_8
       rect:
         serializedVersion: 2
-        x: 3072
+        x: 960
         y: 0
-        width: 1536
-        height: 1536
+        width: 480
+        height: 480
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,134 +289,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f68b3026ae731604a958e1a766145967
-      internalID: 104355461
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1BecomingExorcised_3
-      rect:
-        serializedVersion: 2
-        x: 4608
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bc67d71b069a4b94d93a67a7a567c601
-      internalID: -1152615748
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1BecomingExorcised_4
-      rect:
-        serializedVersion: 2
-        x: 6144
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c42b84644d26ba449bf9d9f1898fe316
-      internalID: 214953605
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1BecomingExorcised_5
-      rect:
-        serializedVersion: 2
-        x: 7680
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e12bddd9a8991a44ade7775f27b2da9
-      internalID: 315759705
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1BecomingExorcised_6
-      rect:
-        serializedVersion: 2
-        x: 9216
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 432504f6db95ac04d848ded3e482faf8
-      internalID: -712708890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1BecomingExorcised_7
-      rect:
-        serializedVersion: 2
-        x: 10752
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9f6a6b1e104a24648bdb74dd115688c5
-      internalID: 1952108653
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Enemy1BecomingExorcised_8
-      rect:
-        serializedVersion: 2
-        x: 12288
-        y: 0
-        width: 1536
-        height: 1536
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c10a61f4bd55dc9489d6d20eba2f2dd8
-      internalID: -225366500
+      spriteID: 9760caa4011e3a043a6ac023a75a28ad
+      internalID: 716115088
       vertices: []
       indices: 
       edges: []
@@ -306,15 +306,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Enemy1BecomingExorcised_1: -1233519517
-      Enemy1BecomingExorcised_5: 315759705
-      Enemy1BecomingExorcised_7: 1952108653
-      Enemy1BecomingExorcised_8: -225366500
-      Enemy1BecomingExorcised_6: -712708890
-      Enemy1BecomingExorcised_4: 214953605
-      Enemy1BecomingExorcised_0: -1569176255
-      Enemy1BecomingExorcised_3: -1152615748
-      Enemy1BecomingExorcised_2: 104355461
+      Enemy1TrappedInRitual(1)_6: -1725799208
+      Enemy1TrappedInRitual(1)_0: 1068819911
+      Enemy1TrappedInRitual(1)_2: -1557744426
+      Enemy1TrappedInRitual(1)_4: -1526059891
+      Enemy1TrappedInRitual(1)_3: 312966208
+      Enemy1TrappedInRitual(1)_1: -1689513145
+      Enemy1TrappedInRitual(1)_8: 716115088
+      Enemy1TrappedInRitual(1)_5: 297246034
+      Enemy1TrappedInRitual(1)_7: -34433111
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

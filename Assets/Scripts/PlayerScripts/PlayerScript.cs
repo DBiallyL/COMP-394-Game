@@ -244,8 +244,11 @@ public class PlayerScript : MonoBehaviour
         // Stop Ritual
         if (Input.GetKeyUp(KeyCode.R)) {
             pressedR = false;
-            canMove = true;
-            ritual.SendMessage("StopPremature");
+            if (!canMove) {
+                canMove = true;
+                ritual.SendMessage("ResetRitualObject", "StopRitualPremature");
+            }
+            
         }
 
         // Dash
@@ -262,6 +265,13 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M)) {
             michaelJacksonMode = true;
         }
+    }
+
+    /**
+    * Stops the player's ritual animation once the ritual has naturally ended
+    */
+    void StopRitual() {
+        canMove = true;
     }
 
     /**
