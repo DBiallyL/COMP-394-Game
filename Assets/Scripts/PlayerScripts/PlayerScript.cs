@@ -475,7 +475,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     /**
-    * Changes which animation the player is using
+    * Changes which animation the object is using
     */
     void ChangeAnimationState(string state) {
         if (currentState != state) {

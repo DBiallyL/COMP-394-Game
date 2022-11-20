@@ -326,7 +326,6 @@ public class EnemyScript : MonoBehaviour
             }
 
             Vector2 knockbackVelocity = Vector2.zero;
-            string knockbackDirection;
             if (lhParams[1] == "Down") {
                 knockbackVelocity.y = -knockbackSpeed;
             }
@@ -414,7 +413,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     /**
-    * Changes which animation the enemy is using
+    * Changes which animation the object is using
     */
     void ChangeAnimationState(string state) {
         if (currentState != state) {
