@@ -92,13 +92,13 @@ public class EnemyScript : MonoBehaviour
                 spriteRenderer.material.SetColor("_Color", defaultColor);
                 canMove = true;
             }
-            // else if (elapsedTime >= (immuneLength / 2)) {
-            //     canMove = true;
-            // }
             else if (elapsedTime >= (immuneLength / 4)) {
                 if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.x == -knockbackSpeed 
-                    || rigidBody.velocity.y == knockbackSpeed || rigidBody.velocity.y == -knockbackSpeed)
+                || rigidBody.velocity.y == knockbackSpeed || rigidBody.velocity.y == -knockbackSpeed) {
                     rigidBody.velocity = Vector2.zero;
+                    animationPlaying = false;
+                }
+                    
             }
         }
     }
@@ -149,22 +149,7 @@ public class EnemyScript : MonoBehaviour
             spritePath += "Enraged";
         }
 
-        ChangeToDirectionalAnimation(spritePath, lastDirection);
-
-        // // Right
-        // if (lastDirection == "Right") {
-        //     ChangeAnimationState(spritePath + "Left");
-        //     spriteRenderer.flipX = true;
-        // }
-        // // Left
-        // else if (lastDirection == "Left") {
-        //     ChangeAnimationState(spritePath + "Left");
-        //     spriteRenderer.flipX = false;
-        // }
-        // // Up and Down
-        // else {
-        //     ChangeAnimationState(spritePath + lastDirection);
-        // }
+        ChangeToDirectionalAnimation(spritePath);
 
         lastPos = transform.position;
     }
@@ -341,6 +326,7 @@ public class EnemyScript : MonoBehaviour
             }
 
             Vector2 knockbackVelocity = Vector2.zero;
+            string knockbackDirection;
             if (lhParams[1] == "Down") {
                 knockbackVelocity.y = -knockbackSpeed;
             }
@@ -353,16 +339,10 @@ public class EnemyScript : MonoBehaviour
             else {
                 knockbackVelocity.x = knockbackSpeed;
             }
-            // animationPlaying = true;
-            // ChangeToDirectionalAnimation("EnemyKnockback", lhParams[1]);
+            animationPlaying = true;
+            ChangeToDirectionalAnimation("EnemyKnockback");
             rigidBody.velocity = knockbackVelocity;
-            print("RBV: " + rigidBody.velocity);
         }
-    }
-
-    void StopKnockback() {
-        rigidBody.velocity = Vector2.zero;
-        animationPlaying = false;
     }
 
     /**
@@ -415,21 +395,21 @@ public class EnemyScript : MonoBehaviour
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //                                                Widely Used Helper Methods
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    void ChangeToDirectionalAnimation(string spritePath, string directionParameter) {
+    void ChangeToDirectionalAnimation(string spritePath) {
         spriteRenderer.flipX = false;
         // Left
-        if (directionParameter == "Left") { 
+        if (lastDirection == "Left") { 
             ChangeAnimationState(spritePath + "Left");
             spriteRenderer.flipX = false; 
         }
         // Right
-        else if (directionParameter == "Right") {
+        else if (lastDirection == "Right") {
             ChangeAnimationState(spritePath + "Left");
             spriteRenderer.flipX = true;
         }
         // Up and Down
         else {
-            ChangeAnimationState(spritePath + directionParameter);
+            ChangeAnimationState(spritePath + lastDirection);
         }
     }
 
