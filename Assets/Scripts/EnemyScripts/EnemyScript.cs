@@ -41,14 +41,13 @@ public class EnemyScript : MonoBehaviour
     Rigidbody2D rigidBody;
     float knockbackSpeed = 6f;
 
-
     // Global variables to handle attacking player
     public GameObject player;
     bool animationPlaying = false;
     bool canMove = true;
     bool checkingCalm = false;
     bool followingPlayer = false;
-    int nextStationaryAttack = 0; 
+    int nextAttack = 0; 
     bool attacking = false;
 
     // Start is called before the first frame update
@@ -123,7 +122,8 @@ public class EnemyScript : MonoBehaviour
         }
         // Walking Sprites
         else {
-            spritePath += "Walk";
+            if (!attacking) spritePath += "Walk";
+            else spritePath += ("Attack" + (nextAttack % 2));
             if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
                 // Right
                 if(xChange > 0) {
@@ -146,7 +146,7 @@ public class EnemyScript : MonoBehaviour
             }
         }
 
-        if (followingPlayer) {
+        if (followingPlayer && !attacking) {
             spritePath += "Enraged";
         }
 
@@ -243,14 +243,13 @@ public class EnemyScript : MonoBehaviour
 
         // Checks if the player is in range, and attacks if so
         float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
-        if (distFromPlayer > -1f && distFromPlayer < 1f) {
+        if (distFromPlayer > -4f && distFromPlayer < 4f) {
             // ChangeToDirectionalAnimation("EnemyAttack" + (nextStationaryAttack % 2));
             // nextStationaryAttack++;
             // attacksDone = 0;
             attacking = true;
-            player.SendMessage("TakeDamage", lastDirection);
-            pausing = true;
-            pauseTime = Time.time;
+            // pausing = true;
+            // pauseTime = Time.time;
         }
     }
 
@@ -299,6 +298,19 @@ public class EnemyScript : MonoBehaviour
     */
     void Unpause() {
         animationPlaying = false;
+    }
+
+    void StopAttack() {
+        attacking = false;
+        nextAttack++;
+        CheckHitPlayer();
+    }
+
+    void CheckHitPlayer() {
+        float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
+        if (distFromPlayer > -1f && distFromPlayer < 1f) {
+            player.SendMessage("TakeDamage", lastDirection);
+        }       
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
