@@ -48,6 +48,8 @@ public class EnemyScript : MonoBehaviour
     bool canMove = true;
     bool checkingCalm = false;
     bool followingPlayer = false;
+    int nextStationaryAttack = 0; 
+    bool attacking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -98,7 +100,6 @@ public class EnemyScript : MonoBehaviour
                     rigidBody.velocity = Vector2.zero;
                     animationPlaying = false;
                 }
-                    
             }
         }
     }
@@ -243,6 +244,10 @@ public class EnemyScript : MonoBehaviour
         // Checks if the player is in range, and attacks if so
         float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
         if (distFromPlayer > -1f && distFromPlayer < 1f) {
+            // ChangeToDirectionalAnimation("EnemyAttack" + (nextStationaryAttack % 2));
+            // nextStationaryAttack++;
+            // attacksDone = 0;
+            attacking = true;
             player.SendMessage("TakeDamage", lastDirection);
             pausing = true;
             pauseTime = Time.time;
