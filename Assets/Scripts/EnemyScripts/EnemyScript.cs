@@ -12,6 +12,8 @@ public class EnemyScript : MonoBehaviour
     // Global variables used to handle path walking
     public Transform[] waypoints;
     public float speed = 0.01f;
+    float attackSpeed;
+    float regSpeed;
     int waypointIndex = 1;
     bool pausing = false;
     float pauseTime = -1f;
@@ -65,6 +67,9 @@ public class EnemyScript : MonoBehaviour
         transform.position = waypoints[0].position;
         lastPos = transform.position;
         lightMaterial = lightChild.GetComponent<Renderer>().material;
+
+        attackSpeed = speed * 1.5f;
+        regSpeed = speed;
     }
 
     // Update is called once per frame
@@ -75,6 +80,7 @@ public class EnemyScript : MonoBehaviour
             else if (!animationPlaying && canMove) FollowPlayer(); 
             if (!animationPlaying) ChangeWalkSprites(followingPlayer);
             if (checkingCalm) CalmDown();
+            if (attacking) CheckHitPlayer();
             Timers();
             ChangeLightRotation();
             CheckDead();
@@ -116,14 +122,14 @@ public class EnemyScript : MonoBehaviour
         float yChange = transform.position.y - lastPos.y;
         string spritePath = "Enemy";
 
+        string prevDirection = lastDirection;
+
         // Idle Sprites
         if (xChange == 0 && yChange == 0) {
             spritePath += "Idle";
         }
         // Walking Sprites
         else {
-            if (!attacking) spritePath += "Walk";
-            else spritePath += ("Attack" + (nextAttack % 2));
             if (Mathf.Abs(xChange) > Mathf.Abs(yChange)) {
                 // Right
                 if(xChange > 0) {
@@ -143,6 +149,18 @@ public class EnemyScript : MonoBehaviour
                 else {
                     lastDirection = "Down";
                 }
+            }
+
+            if (attacking && lastDirection != prevDirection) {
+                // Used to prevent animation bug upon enemy changing directions
+                StopAttack();
+            }
+
+            if (!attacking) {
+                spritePath += "Walk";
+            }
+            else {
+                spritePath += ("Attack" + (nextAttack % 2));
             }
         }
 
@@ -243,13 +261,9 @@ public class EnemyScript : MonoBehaviour
 
         // Checks if the player is in range, and attacks if so
         float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
-        if (distFromPlayer > -4f && distFromPlayer < 4f) {
-            // ChangeToDirectionalAnimation("EnemyAttack" + (nextStationaryAttack % 2));
-            // nextStationaryAttack++;
-            // attacksDone = 0;
+        if (distFromPlayer > -3f && distFromPlayer < 3f && !attacking) {
             attacking = true;
-            // pausing = true;
-            // pauseTime = Time.time;
+            speed = attackSpeed;
         }
     }
 
@@ -303,7 +317,7 @@ public class EnemyScript : MonoBehaviour
     void StopAttack() {
         attacking = false;
         nextAttack++;
-        CheckHitPlayer();
+        speed = regSpeed;
     }
 
     void CheckHitPlayer() {

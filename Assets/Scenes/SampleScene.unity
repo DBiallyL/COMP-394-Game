@@ -436,7 +436,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlueSouls: 2
-  SoulsCounterText: {fileID: 1967828987}
 --- !u!1 &233385085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,15 +1012,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  HealthBar: {fileID: 233385085}
   dashUIArray:
   - {fileID: 140746345}
   - {fileID: 1616308236}
   - {fileID: 1571867305}
   - {fileID: 468919879}
   - {fileID: 551542382}
-  HealthBar: {fileID: 233385085}
   weapon: {fileID: 1242137317}
-  camera: {fileID: 519420028}
+  mainCamera: {fileID: 0}
+  DamageOverlay: {fileID: 0}
+  ritual: {fileID: 0}
 --- !u!95 &371954686
 Animator:
   serializedVersion: 4
@@ -3193,7 +3194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RedSouls: 2
-  SoulsCounterText: {fileID: 833856927}
 --- !u!1 &1242137317
 GameObject:
   m_ObjectHideFlags: 0
@@ -10257,6 +10257,7 @@ GameObject:
   - component: {fileID: 2113704890}
   - component: {fileID: 2113704893}
   - component: {fileID: 2113704894}
+  - component: {fileID: 2113704895}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -10476,6 +10477,27 @@ PolygonCollider2D:
       - {x: -0.22781251, y: 0.09914063}
       - {x: -0.23203126, y: 0.10335938}
   m_UseDelaunayMesh: 0
+--- !u!50 &2113704895
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113704889}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2138458549
 GameObject:
   m_ObjectHideFlags: 0
