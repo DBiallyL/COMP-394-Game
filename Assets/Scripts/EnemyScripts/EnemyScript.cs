@@ -47,10 +47,16 @@ public class EnemyScript : MonoBehaviour
     public GameObject player;
     bool animationPlaying = false;
     bool canMove = true;
-    bool checkingCalm = false;
+    // Also corresponds to being enraged
     bool followingPlayer = false;
     int nextAttack = 0; 
     bool attacking = false;
+
+    // Global variables to handle calming down
+    bool checkingCalm = false;
+    float calmingTime = -1f;
+    float calmingLength = 2f;
+    float calmCheckDistance = 6f;
 
     // Start is called before the first frame update
     void Start()
@@ -105,6 +111,15 @@ public class EnemyScript : MonoBehaviour
                     rigidBody.velocity = Vector2.zero;
                     animationPlaying = false;
                 }
+            }
+        }
+
+        if (calmingTime != -1f) {
+            float elapsedTime = time - calmingTime;
+            if (elapsedTime >= calmingLength) {
+                calmingTime = -1f;
+                checkingCalm = false;
+                followingPlayer = false;
             }
         }
     }
@@ -279,9 +294,13 @@ public class EnemyScript : MonoBehaviour
         // Can't calm down if still becoming enraged
         if (!animationPlaying) {
             float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
-            if (distFromPlayer > 5f) {
-                followingPlayer = false;
-                checkingCalm = false;
+            if (distFromPlayer > calmCheckDistance && calmingTime == -1f) {
+                // followingPlayer = false;
+                // checkingCalm = false;
+                calmingTime = Time.time;
+            }
+            else if (distFromPlayer < calmCheckDistance && calmingTime != -1f) {
+                calmingTime = -1f;
             }
         }
     }
