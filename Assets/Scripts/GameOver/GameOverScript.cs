@@ -19,6 +19,13 @@ public class GameOverScript : MonoBehaviour
     }
 
     /**
+    * Quits the game
+    */
+    public void QuitGame() {
+        Application.Quit();
+    }
+
+    /**
     * Starts the animation to retry the game
     */
     public void Retry() {

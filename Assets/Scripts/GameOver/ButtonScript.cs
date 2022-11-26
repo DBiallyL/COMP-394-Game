@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RetryButtonScript : MonoBehaviour
+public class ButtonScript : MonoBehaviour
 {
     Text text;
     Image sprite;
