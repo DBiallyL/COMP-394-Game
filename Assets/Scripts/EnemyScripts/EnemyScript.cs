@@ -94,7 +94,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     /**
-    * Takes care of timers for immunity after taking damage
+    * Takes care of timers for immunity after taking damage and calming down once enraged
     */
     void Timers(){
         float time = Time.time;
@@ -114,12 +114,25 @@ public class EnemyScript : MonoBehaviour
             }
         }
 
+        // Calm timer
         if (calmingTime != -1f) {
             float elapsedTime = time - calmingTime;
             if (elapsedTime >= calmingLength) {
                 calmingTime = -1f;
                 checkingCalm = false;
                 followingPlayer = false;
+            }
+        }
+
+        if (pausing) {
+            float elapsedTime = time - pauseTime;
+            if (elapsedTime > 3) {
+                pausing = false;
+                pauseTime = -1f;
+            }
+            else if (followingPlayer && elapsedTime > 1) {
+                pausing = false;
+                pauseTime = -1f;
             }
         }
     }
@@ -229,7 +242,6 @@ public class EnemyScript : MonoBehaviour
     * Only called if the enemy is calm
     */
     void WalkPath() {
-        
         // Reach first waypoint
         if (waypointIndex >= waypoints.Length) {
             waypointIndex = 0;
@@ -245,13 +257,13 @@ public class EnemyScript : MonoBehaviour
                 waypointIndex++;
             }
         }
-        // Count down pause on first waypoint
+        // Count down pause on first waypoint 
         else {
-            float elapsedTime = Time.time - pauseTime;
-            if (elapsedTime > 3) {
-                pausing = false;
-                pauseTime = -1f;
-            }
+            // float elapsedTime = Time.time - pauseTime;
+            // if (elapsedTime > 3) {
+            //     pausing = false;
+            //     pauseTime = -1f;
+            // }
         }
     }
 
@@ -263,23 +275,24 @@ public class EnemyScript : MonoBehaviour
     void FollowPlayer() {
         // Moves the enemy normally
         if (!pausing) {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));         
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
+
+            // Checks if the player is in range, and attacks if so
+            float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
+            if (distFromPlayer > -3f && distFromPlayer < 3f && !attacking) {
+                attacking = true;
+                speed = attackSpeed;
+            }         
         }
-        // Counts down the timer to keep moving, occurs after the enemy has attacked
+        // Counts down the timer to keep moving, occurs after the enemy has attacked three times
         else {
-            float elapsedTime = Time.time - pauseTime;
-            if (elapsedTime > 1) {
-                pausing = false;
-                pauseTime = -1f;
-            }
+            // float elapsedTime = Time.time - pauseTime;
+            // if (elapsedTime > 1) {
+            //     pausing = false;
+            //     pauseTime = -1f;
+            // }
         }
 
-        // Checks if the player is in range, and attacks if so
-        float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
-        if (distFromPlayer > -3f && distFromPlayer < 3f && !attacking) {
-            attacking = true;
-            speed = attackSpeed;
-        }
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -295,10 +308,9 @@ public class EnemyScript : MonoBehaviour
         if (!animationPlaying) {
             float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
             if (distFromPlayer > calmCheckDistance && calmingTime == -1f) {
-                // followingPlayer = false;
-                // checkingCalm = false;
                 calmingTime = Time.time;
             }
+            // Player is back in range
             else if (distFromPlayer < calmCheckDistance && calmingTime != -1f) {
                 calmingTime = -1f;
             }
@@ -317,6 +329,7 @@ public class EnemyScript : MonoBehaviour
             Vector2 direction = player.transform.position - transform.position;
             RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, direction);
             Debug.DrawRay(transform.position, direction, Color.green, 10f);
+            // In playtests the player would show up at index 1 or 2 of the ray array (enemy's own colliders would fill earlier spots)
             if ((ray.Length > 2 && ray[2].collider.CompareTag("Player")) || ray[1].collider.CompareTag("Player")) {
                 ChangeAnimationState("EnemyBecomingEnraged");
                 followingPlayer = true;
@@ -333,12 +346,23 @@ public class EnemyScript : MonoBehaviour
         animationPlaying = false;
     }
 
+    /**
+    * Handles the variable changes upon the end of a single attack
+    */
     void StopAttack() {
+        // Checking if three attacks are over to pause
+        if (nextAttack % 3 == 0) {
+            pausing = true;
+            pauseTime = Time.time;
+        }
         attacking = false;
         nextAttack++;
         speed = regSpeed;
     }
 
+    /**
+    * Checks the distance from the enemy to the player to see if the enemy actually damaged the player
+    */
     void CheckHitPlayer() {
         float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
         if (distFromPlayer > -1f && distFromPlayer < 1f) {
@@ -350,24 +374,26 @@ public class EnemyScript : MonoBehaviour
     //                                                Code for Health/Damage
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-
     /**
-    * Handles how much health the enemy loses when attacked by the player
+    * Handles what happens to the enemy when attacked by the player
     *
     * TODO: Change rage stuff into one widely used method for both functions if possible
     */
     void LoseHealth(string[] lhParams) {
         if (immuneTime == -1f) {
+            // Enrage enemy
             if(!followingPlayer){
                 ChangeAnimationState("EnemyBecomingEnraged");
                 followingPlayer=true;
                 animationPlaying = true;
             }
 
+            // Turn red and gain temporary immunity
             canMove=false;
             spriteRenderer.material.SetColor("_Color", Color.red);
             immuneTime = Time.time;
 
+            // Lose health
             if (lhParams[0] == "true") {
                 health -= runAttackStrength;
             }
@@ -375,6 +401,7 @@ public class EnemyScript : MonoBehaviour
                 health -= statAttackStrength;
             }
 
+            // Knockback
             Vector2 knockbackVelocity = Vector2.zero;
             if (lhParams[1] == "Down") {
                 knockbackVelocity.y = -knockbackSpeed;
@@ -400,7 +427,7 @@ public class EnemyScript : MonoBehaviour
     void CheckDead() {
         if (health <= 0) {
             ChangeAnimationState("EnemyDying");
-            // Both need to be here or else the enemy can revive itself through the power of rage
+            // Both need to be here or else the enemy can revive itself through the power of rage (aka collider finds the player again)
             Destroy(lightCollider.gameObject);
             Destroy(lightChild.gameObject);
             dead = true;
@@ -414,6 +441,10 @@ public class EnemyScript : MonoBehaviour
     void DestroyEnemy() {
         Destroy(gameObject);
     }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Rituals
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /**
     * Called by the ritual game object once the ritual is started to stop the enemy and start the ritual animation
