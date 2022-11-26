@@ -7,8 +7,9 @@ public class RitualScript : MonoBehaviour
     List<Collider2D> trappedEnemies;
     BoxCollider2D ritualCollider;
     float ritualTimer = -1f;
+
+    // Only allows enemies in range at very start of ritual to be affected
     float detectionLength = 0.1f;
-    // Only allows enemies in range at very start to be affected by ritual
     float ritualLength = 5f;
     bool canDetect = true;
 
@@ -43,15 +44,16 @@ public class RitualScript : MonoBehaviour
     }
 
     /**
-    * Resets the enemies, and all the variables the Ritual uses to keep track of the ritual 
-    * Called when a ritual is naturally or prematurally stopped
+    * Resets the enemies and all the variables the Ritual uses to keep track of the ritual 
+    * Called when a ritual is naturally or prematurally stopped - behavior determined by the enemyMessage param
     */
     void ResetRitualObject(string enemyMessage) {
-        ritualTimer = -1f;
         for (int i = 0; i < trappedEnemies.Count; i++) {
             trappedEnemies[i].SendMessage(enemyMessage);
         }
         trappedEnemies.Clear();
+
+        ritualTimer = -1f;
         canDetect = true;
         ritualCollider.enabled = false;
     }

@@ -101,11 +101,16 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Timers
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     /**
     * Takes care of timers 
     *
     * Timers:
     *   Immunity (after taking damage)
+    *   Knockback
     *   Calming down
     *   Pausing
     */
@@ -120,6 +125,7 @@ public class EnemyScript : MonoBehaviour
                 spriteRenderer.material.SetColor("_Color", defaultColor);
                 canMove = true;
             }
+            // Knockback timer
             else if (elapsedTime >= (immuneLength / 4)) {
                 if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.x == -knockbackSpeed 
                 || rigidBody.velocity.y == knockbackSpeed || rigidBody.velocity.y == -knockbackSpeed) {
@@ -474,6 +480,11 @@ public class EnemyScript : MonoBehaviour
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //                                                Widely Used Helper Methods
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    
+    /**
+    * Changes the enemy's animation based on some direction it's facing
+    * spritePath is the file path of some enemy sprite which has Up/Down/Left options, without Up/Down/Left on the end
+    */
     void ChangeToDirectionalAnimation(string spritePath) {
         spriteRenderer.flipX = false;
         // Left

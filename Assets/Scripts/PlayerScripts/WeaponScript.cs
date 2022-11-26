@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
 {
-    // Global variables used to handle animation
     BoxCollider2D weaponCollider;
     string isRunning = "false";
     string lastDirec;
@@ -23,6 +22,8 @@ public class WeaponScript : MonoBehaviour
 
     /**
     * Sets the appropriate position/scale for the weapon collider if the attack is a running attack
+    *
+    * Values are hard-coded
     */
     void RunningAttack(string lastDirection) {
         lastDirec = lastDirection;
@@ -45,6 +46,8 @@ public class WeaponScript : MonoBehaviour
 
     /**
     * Sets the appropriate position/scale for the weapon collider if the attack is a stationary attack
+    *
+    * Values are hard-coded
     */
     void StationaryAttack(string lastDirection) {
         lastDirec = lastDirection;

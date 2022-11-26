@@ -8,32 +8,27 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    // Ritual TODOs: Call premature stop on C up
-    //               - access enemies from ritual list (get ritual child then access list?)
-    //                Time out ritual and call finished ritual once done
-
-    // Global variables to deal with health and dying
+    // Global variables to deal with being attacked/health and dying
     public int health = 5;
+    public GameObject HealthBar;
     bool dead = false;
     float immuneLength = 0.4f;
     float immuneTime = -1f;
     Color defaultColor;
-    public GameObject HealthBar;
+    float knockbackSpeed = 6f;
 
     // Global variables used to handle movement
     float speed = 3f;
-    float ogSpeed;
+    float regSpeed;
     float diagSpeed;
     Rigidbody2D rigidBody;
 
     // Global variables used to handle dashes
-    //                                                                                                TODO: Change back to 3 in Unity Editor
     int dashes;
     int maxDashes;
     public GameObject[] dashUIArray;
     // Will be greater than -1f if the player is dashing
     float dashTimer = -1f;
-    // Will be greater than -1f if the player has less than the maximum number of dashes
     int dashMultiplier = 3;
     float dashLength = 0.5f;
 
@@ -42,7 +37,7 @@ public class PlayerScript : MonoBehaviour
     SpriteRenderer spriteRenderer;
     string currentState;
     string lastDirection = "Right";
-    // Michael Jackson Mode
+    // Michael Jackson Mode is an easter egg used to handle whether animations are flipping left/right correctly
     bool michaelJacksonMode = false;
 
     // Global variables used to handle attacking 
@@ -51,8 +46,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject DamageOverlay;
     bool canMove = true;
     string attackString = "Attack";
-    int nextStationaryAttack = 1;
-    float knockbackSpeed = 6f;
+    int nextStationaryAttack = 0;
 
     // Global variables used to handle rituals
     bool pressedR = false;
@@ -66,11 +60,11 @@ public class PlayerScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = spriteRenderer.material.color;
 
-
         diagSpeed = (float) Mathf.Sqrt((speed * speed) / 2); 
+        regSpeed = speed;
+
         dashes = dashUIArray.Length;
         maxDashes = dashes;
-        ogSpeed = speed;
     }
 
     // Update is called once per frame
@@ -87,7 +81,6 @@ public class PlayerScript : MonoBehaviour
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //                                                Code for Movement/Idle Animation
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 
     /**
     * Checks if the player is moving based on keys pressed, and changes the animation as appropriate
@@ -125,16 +118,48 @@ public class PlayerScript : MonoBehaviour
     * Helper function for CheckMvmt()
     *
     * Moves the player according to keys pressed, and changes the animation as appropriate
-    * TODO: Maybe split up diagonal and non-diagonal into different methods
-    * TODO: See if I can factor it better
     */
     Vector2 AnimateRunning() {
         Vector2 movement = Vector2.zero;
 
+        // Moving left
+        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))  {
+            lastDirection = "Left";
+            // Up and left
+            if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
+                movement.x = -diagSpeed;
+                movement.y = diagSpeed;
+            }
+            // Down and left
+            else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) {
+                movement.x = -diagSpeed;
+                movement.y = -diagSpeed;
+            }
+            // Just left
+            else {
+                movement.x = -speed;
+            }
+        }
+        // Moving right
+        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
+            lastDirection = "Right";
+            // Up and right
+            if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
+                movement.x = diagSpeed;
+                movement.y = diagSpeed;
+            }
+            // Down and right
+            else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) {
+                movement.x = diagSpeed;
+                movement.y = -diagSpeed;
+            }
+            // Just right
+            else {
+                (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S));
+            }
+        }
         // Only moving vertically
-        if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.A) &&
-            !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.D)){
-            movement.x = 0;
+        else {
             // Up
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
@@ -146,55 +171,6 @@ public class PlayerScript : MonoBehaviour
             {
                 movement.y = -speed;
                 lastDirection = "Down";
-            }
-        }
-        // Only moving horizontally
-        else if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.W) &&
-                 !Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.S)){
-            movement.y = 0;
-            // Left
-            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-            {
-                movement.x = -speed;
-                lastDirection = "Left";
-            }
-            // Right
-            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-            {
-                movement.x = speed;
-                lastDirection = "Right";
-            }
-        }   
-
-        // Moving diagonally     
-        else {
-            // Up and left
-            if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && 
-                (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
-                    movement.x = -diagSpeed;
-                    movement.y = diagSpeed;
-                    lastDirection = "Left";
-            }
-            // Up and right
-            else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
-                    (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
-                    movement.x = diagSpeed;
-                    movement.y = diagSpeed;
-                    lastDirection = "Right";
-            }
-            // Down and left
-            else if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && 
-                    (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
-                    movement.x = -diagSpeed;
-                    movement.y = -diagSpeed;
-                    lastDirection = "Left";
-            }
-            // Down and right
-            else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && 
-                    (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
-                    movement.x = diagSpeed;
-                    movement.y = -diagSpeed;
-                    lastDirection = "Right";
             }
         }
 
@@ -215,10 +191,12 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKey(KeyCode.Q) && canMove)
         {
             string motion = "";
+            // Running attack
             if (dashTimer != -1f) {
                 motion = "Running";
                 attackString = "Attack";
             }
+            // Stationary attack
             else {
                 motion = "Stationary";
                 rigidBody.velocity = Vector2.zero;
@@ -248,7 +226,6 @@ public class PlayerScript : MonoBehaviour
                 canMove = true;
                 ritual.SendMessage("ResetRitualObject", "StopRitualPremature");
             }
-            
         }
 
         // Dash
@@ -262,13 +239,14 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        // Michael Jackson Mode
         if (Input.GetKeyDown(KeyCode.M)) {
             michaelJacksonMode = true;
         }
     }
 
     /**
-    * Stops the player's ritual animation once the ritual has naturally ended
+    * Stops the player's ritual animation once the ritual has naturally ended (timer completed, enemies exorcised)
     */
     void StopRitual() {
         canMove = true;
@@ -287,13 +265,13 @@ public class PlayerScript : MonoBehaviour
     }
 
     /**
-    * Increments the number of dashes (if player doesn't have the maximum) and animtes the UI appropriately
+    * Increments the number of dashes (if player doesn't have the maximum) and animates the UI appropriately
     *
     * Called upon the start of the loaded dash animation
     */
     void IncrementDashes() {
-        if (dashes < maxDashes) dashes++;
         if (dashes < maxDashes) {
+            dashes++;
             dashUIArray[dashes].GetComponent<Animator>().Play("DashReload");
         }
     }
@@ -305,26 +283,32 @@ public class PlayerScript : MonoBehaviour
 
     /**
     * Keeps track of all timers 
-    * Timers currently include: Dash duration, dash reloading, immunity (used after getting attacked to prevent insta deaths)
-    * TODO: Test if it's good timing for actual gameplay
+    * 
+    * Timers: 
+    *  Dash duration
+    *  Immunity (after getting attacked)
+    *  Knockback
     */
     void Timers() {
         float time = Time.time;
 
+        // Dash duration
         if (dashTimer != -1f) {
             float elapsedTime = time - dashTimer;
             if (elapsedTime >= dashLength) {
-                speed = ogSpeed;
+                speed = regSpeed;
                 dashTimer = -1f;
             }
         }
 
+        // Immunity
         if (immuneTime != -1f) {
             float elapsedTime = time - immuneTime;
             if (elapsedTime >= immuneLength) {
                 immuneTime = -1f;
                 spriteRenderer.material.SetColor("_Color", defaultColor);
             }
+            // Knockback
             else if (elapsedTime >= (immuneLength / 2)) {
                 canMove = true;
                 if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.x == -knockbackSpeed 
@@ -341,6 +325,8 @@ public class PlayerScript : MonoBehaviour
 
     /**
     * Hard-coded translations so that attack animations line up with movement animations
+    *
+    * Numbers should align with those in the below method (ResetAttackPlacement)
     */
     void FixAttackPlacement() {
         if (lastDirection == "Up") {
@@ -352,11 +338,14 @@ public class PlayerScript : MonoBehaviour
         else if (lastDirection == "Left") {
             transform.Translate(new Vector3(-.4f, .2f, 0f));
         }
+        // Prevents camera weirdly jerking around during attack
         mainCamera.SendMessage("DontFollow");
     }
 
     /**
     * Resets any translations done during attack animations
+    *
+    * Numbers should align with those in the above method (FixAttackPlacement)
     */
     void ResetAttackPlacement() {
         if (lastDirection == "Up") {
@@ -375,7 +364,7 @@ public class PlayerScript : MonoBehaviour
     * Used at the end of the horizontal running attack animation, allows the player to move and moves the player back a
     * little so the animation looks smoother
     *
-    * Looks good at least with base speed 3f
+    * TODO: Remove and replace all individual right run stuff if never add back anything
     */
     void EndRightRunAttack() {
         // TODO: Currently commented out cause it will shake the entire camera at the cost of animation lookin a bit funky
@@ -386,8 +375,9 @@ public class PlayerScript : MonoBehaviour
 
     
     /**
-    * Divides the velocity by 1.5
     * Used as moving attack animations play
+    *
+    * Divides the velocity by 1.5
     */
     void SlowToStop() {
         float newXVel = rigidBody.velocity.x / 1.5f;
@@ -408,17 +398,20 @@ public class PlayerScript : MonoBehaviour
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /**
-    * Handles the player taking damage and temporary immunity
+    * Handles the player taking damage 
     */
     void TakeDamage(string knockback) {
         if (immuneTime == -1f) {
-            DamageOverlay.SendMessage("MakeVisible");
             HealthBar.SendMessage("LoseHealth", 0.2f);
             health--;
+
+            DamageOverlay.SendMessage("MakeVisible");
             spriteRenderer.material.SetColor("_Color", Color.red);
+
             immuneTime = Time.time;
             canMove = false;
 
+            // Knockback
             Vector2 knockbackVelocity = Vector2.zero;
             if (knockback == "Down") {
                 knockbackVelocity.y = -knockbackSpeed;
@@ -437,7 +430,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     /**
-    * Checks if the player's health is at or below 0, and carries out the appropriate actions 
+    * Checks if the player's health is at or below 0, and kills the player if so 
     */
     void CheckDead() {
         if (health <= 0) {
@@ -454,7 +447,7 @@ public class PlayerScript : MonoBehaviour
 
     /**
     * Changes the player's animation based on some direction it's facing
-    * @param spritePath  The file path of some player sprite which has Up/Down/Right options, without Up/Down/Right on the end
+    * spritePath is the file path of some player sprite which has Up/Down/Right options, without Up/Down/Right on the end
     */
     void ChangeToDirectionalAnimation(string spritePath) {
         spriteRenderer.flipX = false;

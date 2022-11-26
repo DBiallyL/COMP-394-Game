@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class PlayerRunningAttackRightScript : StateMachineBehaviour
 {
-        float timeRemaining = 0.25f;
+    float timeRemaining = 0.25f;
     float timeBetweenFrames = 0.25f;
     float lastTime = -1f;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
@@ -17,13 +18,13 @@ public class PlayerRunningAttackRightScript : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Slide function is only called at each animatino frame
+        // Slide function is called at each animation frame
         if (timeRemaining <= 0) {
             animator.SendMessageUpwards("SlowToStop");
             timeRemaining = timeBetweenFrames;
             lastTime = Time.time;
         }
-        // Counts down the timer to the next time the call function should be called
+        // Counts down the timer to the next time the slide function should be called
         else {
             float timePassed = Time.time - lastTime;
             timeRemaining -= timePassed;
