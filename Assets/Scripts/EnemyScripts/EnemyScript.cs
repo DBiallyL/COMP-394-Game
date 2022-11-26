@@ -9,14 +9,18 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    // Global variables used to handle path walking
-    public Transform[] waypoints;
+    // Global variables used to handle movement
     public float speed = 0.01f;
     float attackSpeed;
     float regSpeed;
-    int waypointIndex = 1;
     bool pausing = false;
     float pauseTime = -1f;
+
+
+    // Global variables used to handle path walking
+    public Transform[] waypoints;
+    int waypointIndex = 1;
+    float pathPauseLength = 3f;
     
     // Global variables used to handle light cone
     public Texture leftLight, upLight, rightLight, downLight;
@@ -32,7 +36,7 @@ public class EnemyScript : MonoBehaviour
     Vector3 lastPos;
     string lastDirection = "Left";
 
-    // Global variables to handle losing health
+    // Global variables to handle losing health/getting hit
     int health = 4;
     public int statAttackStrength = 1;
     public int runAttackStrength = 2;
@@ -43,14 +47,15 @@ public class EnemyScript : MonoBehaviour
     Rigidbody2D rigidBody;
     float knockbackSpeed = 6f;
 
-    // Global variables to handle attacking player
+    // Global variables to handle attacking player/being enraged
     public GameObject player;
     bool animationPlaying = false;
     bool canMove = true;
-    // Also corresponds to being enraged
+    // followingPLayer also corresponds to being enraged
     bool followingPlayer = false;
     int nextAttack = 0; 
     bool attacking = false;
+    float tiredPauseLength = 1;
 
     // Global variables to handle calming down
     bool checkingCalm = false;
@@ -69,10 +74,10 @@ public class EnemyScript : MonoBehaviour
         lightChild = transform.Find("Light2D");
         lightCollider = transform.Find("EnemyLight_Collider");
         lightChildMesh = lightChild.gameObject.GetComponent<MeshRenderer>();
+        lightMaterial = lightChild.GetComponent<Renderer>().material;
 
         transform.position = waypoints[0].position;
         lastPos = transform.position;
-        lightMaterial = lightChild.GetComponent<Renderer>().material;
 
         attackSpeed = speed * 1.5f;
         regSpeed = speed;
@@ -82,9 +87,12 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         if (!dead) {
-            if (!followingPlayer && !animationPlaying && canMove) WalkPath();  
-            else if (!animationPlaying && canMove) FollowPlayer(); 
-            if (!animationPlaying) ChangeWalkSprites(followingPlayer);
+            if (!animationPlaying && canMove) {
+                if (followingPlayer && !pausing) FollowPlayer();
+                else WalkPath();
+                ChangeWalkSprites();
+            }
+            // if (!animationPlaying) ChangeWalkSprites(followingPlayer);
             if (checkingCalm) CalmDown();
             if (attacking) CheckHitPlayer();
             Timers();
@@ -94,10 +102,17 @@ public class EnemyScript : MonoBehaviour
     }
 
     /**
-    * Takes care of timers for immunity after taking damage and calming down once enraged
+    * Takes care of timers 
+    *
+    * Timers:
+    *   Immunity (after taking damage)
+    *   Calming down
+    *   Pausing
     */
     void Timers(){
         float time = Time.time;
+
+        // Immunity timer
         if (immuneTime != -1f) {
             float elapsedTime = time - immuneTime;
             if (elapsedTime >= immuneLength) {
@@ -124,13 +139,15 @@ public class EnemyScript : MonoBehaviour
             }
         }
 
+        // Pause timer
         if (pausing) {
             float elapsedTime = time - pauseTime;
-            if (elapsedTime > 3) {
+            if (elapsedTime > pathPauseLength) {
+                // pathPauseLength should be greater than tiredPauseLength, so this should apply to both
                 pausing = false;
                 pauseTime = -1f;
             }
-            else if (followingPlayer && elapsedTime > 1) {
+            else if (followingPlayer && elapsedTime > tiredPauseLength) {
                 pausing = false;
                 pauseTime = -1f;
             }
@@ -139,13 +156,13 @@ public class EnemyScript : MonoBehaviour
     
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    //                                                Code for Common/Looping Animations
+    //                                                Code for Default Animations
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /**
-    * Animates the enemy according to whether its moving and whether its enraged
+    * Animates the enemy appropriately
     */
-    void ChangeWalkSprites(bool followingPlayer) {
+    void ChangeWalkSprites() {
         float xChange = transform.position.x - lastPos.x;
         float yChange = transform.position.y - lastPos.y;
         string spritePath = "Enemy";
@@ -179,19 +196,22 @@ public class EnemyScript : MonoBehaviour
                 }
             }
 
+            // Used to prevent attack animation bug upon enemy changing directions
             if (attacking && lastDirection != prevDirection) {
-                // Used to prevent animation bug upon enemy changing directions
                 StopAttack();
             }
 
+            // Non-attacking animation
             if (!attacking) {
                 spritePath += "Walk";
             }
+            // Attack animation
             else {
                 spritePath += ("Attack" + (nextAttack % 2));
             }
         }
 
+        // Enraged non-attacking animation
         if (followingPlayer && !attacking) {
             spritePath += "Enraged";
         }
@@ -239,7 +259,7 @@ public class EnemyScript : MonoBehaviour
     /**
     * Moves the enemy along the waypoints in a pre-created path
     * 
-    * Only called if the enemy is calm
+    * Only occurs if the enemy is calm
     */
     void WalkPath() {
         // Reach first waypoint
@@ -249,7 +269,7 @@ public class EnemyScript : MonoBehaviour
             pauseTime = Time.time;
         }
         // Walk to next waypoint
-        if (!pausing) {
+        else {
             Vector3 target = waypoints[waypointIndex].position;
 
             transform.position = Vector2.MoveTowards(transform.position, target, (speed * Time.deltaTime));
@@ -257,42 +277,22 @@ public class EnemyScript : MonoBehaviour
                 waypointIndex++;
             }
         }
-        // Count down pause on first waypoint 
-        else {
-            // float elapsedTime = Time.time - pauseTime;
-            // if (elapsedTime > 3) {
-            //     pausing = false;
-            //     pauseTime = -1f;
-            // }
-        }
     }
 
     /**
     * Moves the enemy towards the player, attacks the player if in range
     *
-    * Only called if the enemy is enraged
+    * Only occurs if the enemy is enraged
     */
     void FollowPlayer() {
-        // Moves the enemy normally
-        if (!pausing) {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
 
-            // Checks if the player is in range, and attacks if so
-            float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
-            if (distFromPlayer > -3f && distFromPlayer < 3f && !attacking) {
-                attacking = true;
-                speed = attackSpeed;
-            }         
-        }
-        // Counts down the timer to keep moving, occurs after the enemy has attacked three times
-        else {
-            // float elapsedTime = Time.time - pauseTime;
-            // if (elapsedTime > 1) {
-            //     pausing = false;
-            //     pauseTime = -1f;
-            // }
-        }
-
+        // Checks if the player is in range, and attacks if so
+        float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
+        if (distFromPlayer > -3f && distFromPlayer < 3f && !attacking) {
+            attacking = true;
+            speed = attackSpeed;
+        }         
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -300,13 +300,14 @@ public class EnemyScript : MonoBehaviour
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /**
-    * Checks to see if the player is out of range for the enemy, and returns it to a calm state if so
+    * Checks to see if the player is out of range for the enemy, and starts forgetting the playe (returning to a calm state) if so
     */
     void CalmDown() {
         checkingCalm = true;
         // Can't calm down if still becoming enraged
         if (!animationPlaying) {
             float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
+            // Player is out of range, start forgetting
             if (distFromPlayer > calmCheckDistance && calmingTime == -1f) {
                 calmingTime = Time.time;
             }
@@ -321,13 +322,14 @@ public class EnemyScript : MonoBehaviour
     * Handles how the enemy responds to the player entering their viewcone collider 
     * and transitions into attack mode if the player is not behind another collider
     *
-    * TODO: Make raycast thing a different method so it can be used on calmdown too
+    * TODO: Make raycast thing a different method so it can be used for calmdown too (so enemy loses player behind collider)
     */
     void GetAngry() {
         // Won't look for player if already angry
         if (!followingPlayer) {
             Vector2 direction = player.transform.position - transform.position;
             RaycastHit2D[] ray = Physics2D.RaycastAll(transform.position, direction);
+            // TODO: Remove debug line when no longer needed
             Debug.DrawRay(transform.position, direction, Color.green, 10f);
             // In playtests the player would show up at index 1 or 2 of the ray array (enemy's own colliders would fill earlier spots)
             if ((ray.Length > 2 && ray[2].collider.CompareTag("Player")) || ray[1].collider.CompareTag("Player")) {
@@ -339,18 +341,16 @@ public class EnemyScript : MonoBehaviour
         checkingCalm = false;
     }
 
-    /**
-    * Allows the enemy to start moving after the becoming enraged animation ends 
-    */
-    void Unpause() {
-        animationPlaying = false;
-    }
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Enemy Attacks
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /**
     * Handles the variable changes upon the end of a single attack
     */
     void StopAttack() {
         // Checking if three attacks are over to pause
+        // TODO: Make it so this is actually about consecutive attacks (may not be rn)
         if (nextAttack % 3 == 0) {
             pausing = true;
             pauseTime = Time.time;
@@ -377,16 +377,15 @@ public class EnemyScript : MonoBehaviour
     /**
     * Handles what happens to the enemy when attacked by the player
     *
-    * TODO: Change rage stuff into one widely used method for both functions if possible
+    * lhParams is an array with two strings contained: 
+    *   The first string is true or false, where true means the player did a running attack and false is a stationary attack
+    *   The second string is the direction the player was moving
     */
     void LoseHealth(string[] lhParams) {
+        // If not immune
         if (immuneTime == -1f) {
             // Enrage enemy
-            if(!followingPlayer){
-                ChangeAnimationState("EnemyBecomingEnraged");
-                followingPlayer=true;
-                animationPlaying = true;
-            }
+            followingPlayer=true;
 
             // Turn red and gain temporary immunity
             canMove=false;
@@ -422,7 +421,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     /**
-    * Checks if the enemy has died and starts its death animation if so
+    * Checks if the enemy has no health and starts killing enemy if so
     */
     void CheckDead() {
         if (health <= 0) {
@@ -501,5 +500,12 @@ public class EnemyScript : MonoBehaviour
             animator.Play(state);
             currentState = state;
         }
+    }
+
+    /**
+    * Allows the enemy to start moving again after an animation ends 
+    */
+    void Unpause() {
+        animationPlaying = false;
     }
 }
