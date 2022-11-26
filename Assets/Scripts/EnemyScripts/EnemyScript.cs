@@ -473,6 +473,9 @@ public class EnemyScript : MonoBehaviour
     * Called by the ritual game object once the ritual is over to start the process of destroying the enemy
     */
     void RitualEnd() {
+        // Both need to be here or else the enemy can revive itself through the power of rage (aka collider finds the player again)
+        Destroy(lightCollider.gameObject);
+        Destroy(lightChild.gameObject);
         ChangeAnimationState("EnemyBecomingExorcised");
         dead = true;
     }

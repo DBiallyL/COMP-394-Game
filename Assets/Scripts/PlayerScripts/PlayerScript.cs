@@ -123,10 +123,10 @@ public class PlayerScript : MonoBehaviour
         Vector2 movement = Vector2.zero;
 
         // Moving left
-        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))  {
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))  {
             lastDirection = "Left";
             // Up and left
-            if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
                 movement.x = -diagSpeed;
                 movement.y = diagSpeed;
             }
@@ -144,7 +144,7 @@ public class PlayerScript : MonoBehaviour
         else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
             lastDirection = "Right";
             // Up and right
-            if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))) {
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
                 movement.x = diagSpeed;
                 movement.y = diagSpeed;
             }
@@ -155,7 +155,7 @@ public class PlayerScript : MonoBehaviour
             }
             // Just right
             else {
-                (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S));
+                movement.x = speed;
             }
         }
         // Only moving vertically
@@ -270,10 +270,8 @@ public class PlayerScript : MonoBehaviour
     * Called upon the start of the loaded dash animation
     */
     void IncrementDashes() {
-        if (dashes < maxDashes) {
-            dashes++;
-            dashUIArray[dashes].GetComponent<Animator>().Play("DashReload");
-        }
+        if (dashes < maxDashes) dashes++;
+        if (dashes < maxDashes) dashUIArray[dashes].GetComponent<Animator>().Play("DashReload");
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -312,8 +310,9 @@ public class PlayerScript : MonoBehaviour
             else if (elapsedTime >= (immuneLength / 2)) {
                 canMove = true;
                 if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.x == -knockbackSpeed 
-                    || rigidBody.velocity.y == knockbackSpeed || rigidBody.velocity.y == -knockbackSpeed)
-                    rigidBody.velocity = Vector2.zero;
+                    || rigidBody.velocity.y == knockbackSpeed || rigidBody.velocity.y == -knockbackSpeed) {
+                        rigidBody.velocity = Vector2.zero;
+                    }
             }
         }
     }
