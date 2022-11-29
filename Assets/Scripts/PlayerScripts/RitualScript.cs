@@ -7,6 +7,7 @@ public class RitualScript : MonoBehaviour
     public GameObject ritualBar;
     List<Collider2D> trappedEnemies;
     BoxCollider2D ritualCollider;
+    SpriteRenderer spriteRenderer;
     float ritualTimer = -1f;
 
     // Only allows enemies in range at very start of ritual to be affected
@@ -19,6 +20,7 @@ public class RitualScript : MonoBehaviour
     {
         trappedEnemies = new List<Collider2D>();
         ritualCollider = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -41,6 +43,7 @@ public class RitualScript : MonoBehaviour
     */
     void StartRitual() {
         ritualCollider.enabled = true;
+        spriteRenderer.enabled = true;
         ritualTimer = Time.time;
     }
 
@@ -57,6 +60,7 @@ public class RitualScript : MonoBehaviour
         ritualTimer = -1f;
         canDetect = true;
         ritualCollider.enabled = false;
+        spriteRenderer.enabled = false;
         ritualBar.SendMessage("StopRitual");
     }
 
