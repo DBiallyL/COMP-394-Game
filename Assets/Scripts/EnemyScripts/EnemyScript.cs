@@ -409,7 +409,7 @@ public class EnemyScript : MonoBehaviour
                 GremlinMaker(Random.Range(5,8));
             }
             followingPlayer=true;
-            
+            player.SendMessage("GainHealth");
 
             // Turn red and gain temporary immunity
             canMove=false;
@@ -425,7 +425,7 @@ public class EnemyScript : MonoBehaviour
             }
 
             // Knockback
-            if(!attacking){
+            
             Vector2 knockbackVelocity = Vector2.zero;
             if (lhParams[1] == "Down") {
                 knockbackVelocity.y = -knockbackSpeed;
@@ -442,7 +442,7 @@ public class EnemyScript : MonoBehaviour
             animationPlaying = true;
             ChangeToDirectionalAnimation("EnemyKnockback");
             rigidBody.velocity = knockbackVelocity;
-            }
+            
         }
     }
 

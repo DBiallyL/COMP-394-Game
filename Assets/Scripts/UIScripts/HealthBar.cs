@@ -11,6 +11,7 @@ public class HealthBar : MonoBehaviour
     Vector3 originalPos;
     Vector3 originalRot;
     public float change;
+    public GameObject Player;
 
     // Start is called before the first frame update
     void Start()
@@ -58,13 +59,16 @@ public class HealthBar : MonoBehaviour
             if(HealthPercent+0.1f < BloodPercent){
             transform.localScale += new Vector3(3 * 0.1f, 0, 0);
             transform.position += new Vector3(1.46f * 0.1f,0,0);
+            Player.SendMessage("Heal",0.1f);
             } else {
                 change = BloodPercent - HealthPercent;
                 transform.localScale += new Vector3(3 * (change), 0, 0);
                 transform.position += new Vector3(1.46f * (change),0,0);
+                Player.SendMessage("Heal",change);
             }
     
             
         }
+        
     }
 }

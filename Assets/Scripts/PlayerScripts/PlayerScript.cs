@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     // Global variables to deal with being attacked/health and dying
-    public int health = 5;
+    public float health = 5f;
     public GameObject HealthBar;
     bool dead = false;
     float immuneLength = 0.4f;
@@ -399,6 +399,14 @@ public class PlayerScript : MonoBehaviour
     /**
     * Handles the player taking damage 
     */
+    void GainHealth(){
+        HealthBar.SendMessage("GainHealth");
+    }
+
+    void Heal(float percent){
+        health+= percent * 5f;
+    }
+
     void TakeDamage(string knockback) {
         if (immuneTime == -1f) {
             HealthBar.SendMessage("LoseHealth", 0.2f);
@@ -432,7 +440,7 @@ public class PlayerScript : MonoBehaviour
     * Checks if the player's health is at or below 0, and kills the player if so 
     */
     void CheckDead() {
-        if (health <= 0) {
+        if (health <= 0f) {
             ChangeAnimationState("PlayerDying");
             dead = true;
             rigidBody.velocity = Vector2.zero;

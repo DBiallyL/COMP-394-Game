@@ -63,7 +63,7 @@ public class GremlinBehavior : MonoBehaviour
     } 
 
     void OnTriggerEnter2D(Collider2D collision){
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && currentAction != "emerging")
         {
             xDif = player.transform.position.x - transform.position.x;
             yDif = player.transform.position.y - transform.position.y;
