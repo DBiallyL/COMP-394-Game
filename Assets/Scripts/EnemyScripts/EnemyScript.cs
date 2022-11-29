@@ -15,10 +15,12 @@ public class EnemyScript : MonoBehaviour
     float regSpeed;
     bool pausing = false;
     float pauseTime = -1f;
+    Vector3 GremlinPos;
 
 
     // Global variables used to handle path walking
     public Transform[] waypoints;
+    public GameObject Gremlin;
     int waypointIndex = 1;
     float pathPauseLength = 3f;
     
@@ -342,9 +344,21 @@ public class EnemyScript : MonoBehaviour
                 ChangeAnimationState("EnemyBecomingEnraged");
                 followingPlayer = true;
                 animationPlaying = true;
+                GremlinMaker(Random.Range(5,8));
+                
             }
         }
         checkingCalm = false;
+    }
+
+    void GremlinMaker(int number){
+        
+        for(int i=0; i< number; i++){
+            print("aha");
+            GremlinPos = transform.position + new Vector3(Random.Range(-3f,3f),Random.Range(-3f,3f),0);
+            Instantiate(Gremlin, GremlinPos, transform.rotation);
+        }
+
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -391,7 +405,11 @@ public class EnemyScript : MonoBehaviour
         // If not immune
         if (immuneTime == -1f) {
             // Enrage enemy
+            if(!followingPlayer){
+                GremlinMaker(Random.Range(5,8));
+            }
             followingPlayer=true;
+            
 
             // Turn red and gain temporary immunity
             canMove=false;
@@ -407,6 +425,7 @@ public class EnemyScript : MonoBehaviour
             }
 
             // Knockback
+            if(!attacking){
             Vector2 knockbackVelocity = Vector2.zero;
             if (lhParams[1] == "Down") {
                 knockbackVelocity.y = -knockbackSpeed;
@@ -423,6 +442,7 @@ public class EnemyScript : MonoBehaviour
             animationPlaying = true;
             ChangeToDirectionalAnimation("EnemyKnockback");
             rigidBody.velocity = knockbackVelocity;
+            }
         }
     }
 
