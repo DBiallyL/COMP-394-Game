@@ -51,7 +51,8 @@ public class PlayerScript : MonoBehaviour
 
     // Global variables used to handle rituals
     bool pressedR = false;
-    public GameObject ritual;
+    public GameObject ritualCircle;
+    public GameObject ritualBar;
 
     // Start is called before the first frame update
     void Start()
@@ -232,7 +233,8 @@ public class PlayerScript : MonoBehaviour
                 ChangeAnimationState("PlayerRitualStartUp");
                 pressedR = true;
                 rigidBody.velocity = Vector2.zero;
-                ritual.SendMessage("StartRitual");
+                ritualCircle.SendMessage("StartRitual");
+                ritualBar.SendMessage("StartRitual");
             }
         }
 
@@ -241,7 +243,7 @@ public class PlayerScript : MonoBehaviour
             pressedR = false;
             if (!canMove) {
                 canMove = true;
-                ritual.SendMessage("ResetRitualObject", "StopRitualPremature");
+                ritualCircle.SendMessage("ResetRitualObject", "StopRitualPremature");
             }
         }
 
