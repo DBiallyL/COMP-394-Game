@@ -74,7 +74,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (!dead) {
             if (canMove) CheckMvmt();
-            // water();
+            water();
             CheckAction();
             Timers();
             CheckDead();
@@ -117,11 +117,11 @@ public class PlayerScript : MonoBehaviour
         rigidBody.velocity = movement;
     }
 
-    // void water() {
-    //     if(touchingWater && speed == regSpeed) {
-    //         rigidBody.velocity = Vector2.zero;
-    //     }
-    // }
+    void water() {
+        if(touchingWater && speed == regSpeed) {
+            rigidBody.velocity = Vector2.zero;
+        }
+    }
 
     /**
     * Helper function for CheckMvmt()
@@ -192,6 +192,12 @@ public class PlayerScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D coll) {
         if (coll.CompareTag("Water")) {
             touchingWater = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D coll) {
+        if(coll.CompareTag("Water")) {
+            touchingWater = false;
         }
     }
 
