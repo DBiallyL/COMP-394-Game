@@ -39,6 +39,7 @@ public class PlayerScript : MonoBehaviour
     string lastDirection = "Right";
     // Michael Jackson Mode is an easter egg used to handle whether animations are flipping left/right correctly
     bool michaelJacksonMode = false;
+    bool touchingWater = false;
 
     // Global variables used to handle attacking 
     public GameObject weapon;
@@ -72,6 +73,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (!dead) {
             if (canMove) CheckMvmt();
+            // water();
             CheckAction();
             Timers();
             CheckDead();
@@ -113,6 +115,12 @@ public class PlayerScript : MonoBehaviour
 
         rigidBody.velocity = movement;
     }
+
+    // void water() {
+    //     if(touchingWater && speed == regSpeed) {
+    //         rigidBody.velocity = Vector2.zero;
+    //     }
+    // }
 
     /**
     * Helper function for CheckMvmt()
@@ -175,6 +183,15 @@ public class PlayerScript : MonoBehaviour
         }
 
         return movement;
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Detecting Water
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    void OnTriggerEnter2D(Collider2D coll) {
+        if (coll.CompareTag("Water")) {
+            touchingWater = true;
+        }
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
