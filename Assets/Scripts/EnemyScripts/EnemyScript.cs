@@ -90,8 +90,10 @@ public class EnemyScript : MonoBehaviour
     {
         if (!dead) {
             if (!animationPlaying && canMove) {
-                if (followingPlayer && !pausing) FollowPlayer();
-                else WalkPath();
+                if (!pausing) {
+                    if (followingPlayer) FollowPlayer();
+                    else WalkPath();
+                }
                 ChangeWalkSprites();
             }
             // if (!animationPlaying) ChangeWalkSprites(followingPlayer);
@@ -354,7 +356,6 @@ public class EnemyScript : MonoBehaviour
     void GremlinMaker(int number){
         
         for(int i=0; i< number; i++){
-            print("aha");
             GremlinPos = transform.position + new Vector3(Random.Range(-3f,3f),Random.Range(-3f,3f),0);
             Instantiate(Gremlin, GremlinPos, transform.rotation);
         }

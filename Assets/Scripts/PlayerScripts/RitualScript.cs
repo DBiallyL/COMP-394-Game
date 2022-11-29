@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RitualScript : MonoBehaviour
 {
+    public GameObject ritualBar;
     List<Collider2D> trappedEnemies;
     BoxCollider2D ritualCollider;
     float ritualTimer = -1f;
@@ -56,6 +57,7 @@ public class RitualScript : MonoBehaviour
         ritualTimer = -1f;
         canDetect = true;
         ritualCollider.enabled = false;
+        ritualBar.SendMessage("StopRitual");
     }
 
     /**

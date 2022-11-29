@@ -39,6 +39,7 @@ public class PlayerScript : MonoBehaviour
     string lastDirection = "Right";
     // Michael Jackson Mode is an easter egg used to handle whether animations are flipping left/right correctly
     bool michaelJacksonMode = false;
+    bool touchingWater = false;
 
     // Global variables used to handle attacking 
     public GameObject weapon;
@@ -50,7 +51,8 @@ public class PlayerScript : MonoBehaviour
 
     // Global variables used to handle rituals
     bool pressedR = false;
-    public GameObject ritual;
+    public GameObject ritualCircle;
+    public GameObject ritualBar;
 
     // Start is called before the first frame update
     void Start()
@@ -72,6 +74,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (!dead) {
             if (canMove) CheckMvmt();
+            water();
             CheckAction();
             Timers();
             CheckDead();
@@ -112,6 +115,12 @@ public class PlayerScript : MonoBehaviour
         ChangeToDirectionalAnimation(spritePath);
 
         rigidBody.velocity = movement;
+    }
+
+    void water() {
+        if(touchingWater && speed == regSpeed) {
+            rigidBody.velocity = Vector2.zero;
+        }
     }
 
     /**
@@ -178,6 +187,21 @@ public class PlayerScript : MonoBehaviour
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //                                                Code for Detecting Water
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    void OnTriggerEnter2D(Collider2D coll) {
+        if (coll.CompareTag("Water")) {
+            touchingWater = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D coll) {
+        if(coll.CompareTag("Water")) {
+            touchingWater = false;
+        }
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //                                                Code for Key Actions
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -215,7 +239,8 @@ public class PlayerScript : MonoBehaviour
                 ChangeAnimationState("PlayerRitualStartUp");
                 pressedR = true;
                 rigidBody.velocity = Vector2.zero;
-                ritual.SendMessage("StartRitual");
+                ritualCircle.SendMessage("StartRitual");
+                ritualBar.SendMessage("StartRitual");
             }
         }
 
@@ -224,7 +249,7 @@ public class PlayerScript : MonoBehaviour
             pressedR = false;
             if (!canMove) {
                 canMove = true;
-                ritual.SendMessage("ResetRitualObject", "StopRitualPremature");
+                ritualCircle.SendMessage("ResetRitualObject", "StopRitualPremature");
             }
         }
 
