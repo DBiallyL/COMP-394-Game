@@ -7,6 +7,9 @@ TagManager:
   - Waypoint
   - Weapon
   - Wall
+  - Enemy
+  - Water
+  - Ritual
   layers:
   - Default
   - TransparentFX
@@ -58,4 +61,7 @@ TagManager:
     locked: 0
   - name: Top
     uniqueID: 98480691
+    locked: 0
+  - name: Menu
+    uniqueID: 4067162973
     locked: 0

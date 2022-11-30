@@ -16,6 +16,8 @@ public class PlayerScript : MonoBehaviour
     float immuneTime = -1f;
     Color defaultColor;
     float knockbackSpeed = 6f;
+    public GameObject RedCounter;
+    public GameObject BlueCounter;
 
     // Global variables used to handle movement
     float speed = 3f;
@@ -73,7 +75,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         if (!dead) {
-            if (Input.GetKey(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if(Time.timeScale >= 1){
                     PauseGame();
@@ -83,7 +85,7 @@ public class PlayerScript : MonoBehaviour
             }
             if(Time.timeScale >= 1){
             if (canMove) CheckMvmt();
-            touchWater();
+            //touchWater();
             CheckAction();
             Timers();
             CheckDead();
@@ -560,6 +562,12 @@ public class PlayerScript : MonoBehaviour
     void ResumeGame ()
     {
         Time.timeScale = 1;
+    }
+    void AwardRedSoul(){
+        RedCounter.SendMessage("AddSoulAmount",1);
+    }
+    void AwardBlueSoul(){
+        BlueCounter.SendMessage("AddSoulAmount",1);
     }
 }
 

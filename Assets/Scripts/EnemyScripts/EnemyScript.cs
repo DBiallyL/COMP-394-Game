@@ -543,4 +543,11 @@ public class EnemyScript : MonoBehaviour
     void Unpause() {
         animationPlaying = false;
     }
+
+    void AwardRedSoul(){
+        player.SendMessage("AwardRedSoul");
+    }
+    void AwardBlueSoul(){
+        player.SendMessage("AwardBlueSoul");
+    }
 }
