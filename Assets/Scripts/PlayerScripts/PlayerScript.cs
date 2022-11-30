@@ -24,6 +24,7 @@ public class PlayerScript : MonoBehaviour
     float regSpeed;
     float diagSpeed;
     Rigidbody2D rigidBody;
+    GameObject[] waterColliders;
 
     // Global variables used to handle dashes
     int dashes;
@@ -41,7 +42,6 @@ public class PlayerScript : MonoBehaviour
     string lastDirection = "Right";
     // Michael Jackson Mode is an easter egg used to handle whether animations are flipping left/right correctly
     bool michaelJacksonMode = false;
-    bool touchingWater = false;
 
     // Global variables used to handle attacking 
     public GameObject weapon;
@@ -85,7 +85,6 @@ public class PlayerScript : MonoBehaviour
             }
             if(Time.timeScale >= 1){
             if (canMove) CheckMvmt();
-            //touchWater();
             CheckAction();
             Timers();
             CheckDead();
@@ -195,28 +194,16 @@ public class PlayerScript : MonoBehaviour
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //                                                Code for Detecting Water
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    void OnTriggerEnter2D(Collider2D coll) {
-        if (coll.CompareTag("Water")) {
-            touchingWater = true;
+    void disableWaterColliders() {
+        waterColliders = GameObject.FindGameObjectsWithTag("Water");
+        foreach (GameObject water in waterColliders) {
+            water.SetActive(false);
         }
     }
 
-    void OnTriggerExit2D(Collider2D coll) {
-        if(coll.CompareTag("Water")) {
-            touchingWater = false;
-        }
-    }
-
-    // void OnTriggerStay2D(Collider2D coll) {
-    //     if(coll.CompareTag("Water")) {
-    //         transform.position = transform.position +  Time.deltaTime * (new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, 0));
-    //     }
-    // }
-
-    void touchWater() {
-        if(touchingWater && speed == regSpeed) {
-            // transform.position = transform.position -  Time.deltaTime * (new Vector3(rigidBody.velocity.x, rigidBody.velocity.y, 0));
-            rigidBody.velocity = Vector2.zero;
+    void enableWaterColliders() {
+        foreach (GameObject water in waterColliders) {
+            water.SetActive(true);
         }
     }
 
@@ -289,6 +276,7 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             if (dashes > 0 && (rigidBody.velocity.x == 0 || rigidBody.velocity.y == 0) && dashTimer == -1f) {
+                disableWaterColliders();
                 speed *= dashMultiplier;
                 dashTimer = Time.time;
                 dashes--;
@@ -353,6 +341,7 @@ public class PlayerScript : MonoBehaviour
             if (elapsedTime >= dashLength) {
                 speed = regSpeed;
                 dashTimer = -1f;
+                enableWaterColliders();
             }
         }
 
