@@ -8,6 +8,7 @@ public class RitualScript : MonoBehaviour
     List<Collider2D> trappedEnemies;
     BoxCollider2D ritualCollider;
     SpriteRenderer spriteRenderer;
+    Renderer render;
     float ritualTimer = -1f;
 
     // Only allows enemies in range at very start of ritual to be affected
@@ -21,6 +22,8 @@ public class RitualScript : MonoBehaviour
         trappedEnemies = new List<Collider2D>();
         ritualCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        render = GetComponent<Renderer>();
+        render.material.SetColor("_Color", new Color(1.0f, 1.0f, 1.0f, 0.5f));
     }
 
     // Update is called once per frame
