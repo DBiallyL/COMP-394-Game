@@ -73,11 +73,21 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         if (!dead) {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                if(Time.timeScale >= 1){
+                    PauseGame();
+                } else {
+                    ResumeGame();
+                }
+            }
+            if(Time.timeScale >= 1){
             if (canMove) CheckMvmt();
             touchWater();
             CheckAction();
             Timers();
             CheckDead();
+            }
         }
     }
 
@@ -528,6 +538,15 @@ public class PlayerScript : MonoBehaviour
             SceneManager.LoadScene("GameOver");
             // TODO: Put in right level
         }
+    }
+
+    void PauseGame ()
+    {
+        Time.timeScale = 0;
+    }
+    void ResumeGame ()
+    {
+        Time.timeScale = 1;
     }
 }
 

@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 536455351}
   - component: {fileID: 536455350}
   - component: {fileID: 536455349}
+  - component: {fileID: 536455354}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -352,7 +353,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 536455354}
         m_TargetAssemblyTypeName: GameOverScript, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
@@ -402,6 +403,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 536455347}
   m_CullTransparentMesh: 1
+--- !u!114 &536455354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536455347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c952b8fbb1d2e54488dfd18f8c3a6cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &798688096
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +429,7 @@ GameObject:
   - component: {fileID: 798688100}
   - component: {fileID: 798688099}
   - component: {fileID: 798688098}
+  - component: {fileID: 798688103}
   m_Layer: 5
   m_Name: Retry Button
   m_TagString: Untagged
@@ -491,9 +505,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 798688098}
-          m_TargetAssemblyTypeName: RetryButtonScript, Assembly-CSharp
-          m_MethodName: InactivateButton
+        - m_Target: {fileID: 798688103}
+          m_TargetAssemblyTypeName: GoToDemo, Assembly-CSharp
+          m_MethodName: GoToDemos
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -547,9 +561,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11500000, guid: 9693b4a85bd250c40bdd618f59055aed, type: 3}
         m_TargetAssemblyTypeName: GameOverScript, Assembly-CSharp
-        m_MethodName: Retry
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -597,6 +611,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798688096}
   m_CullTransparentMesh: 1
+--- !u!114 &798688103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798688096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9693b4a85bd250c40bdd618f59055aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1087812047
 GameObject:
   m_ObjectHideFlags: 0
