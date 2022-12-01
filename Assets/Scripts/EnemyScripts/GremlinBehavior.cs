@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GremlinBehavior : MonoBehaviour
+public class GremlinBehavior : EnemyInterface
 {
     public GameObject player;
-    Animator animator;
-    SpriteRenderer spriteRenderer;
-    string currentState;
     Color defaultColor;
-    Rigidbody2D rigidBody;
-    float knockbackSpeed = 6f;
     string currentAction;
     Vector3 lastPos;
     public float speed;
@@ -35,6 +30,8 @@ public class GremlinBehavior : MonoBehaviour
         timer = 0;
         timer2=0;
         timersetter = Random.Range(120,480);
+
+        knockbackSpeed = 6f;
     }
 
     // Update is called once per frame
@@ -89,25 +86,11 @@ public class GremlinBehavior : MonoBehaviour
 
     void LoseHealth(string[] lhParams) {
         if(currentAction == "chasing" || currentAction=="detonating"){
-        spriteRenderer.material.SetColor("_Color", Color.red);
-        Vector2 knockbackVelocity = Vector2.zero;
-            if (lhParams[1] == "Down") {
-                knockbackVelocity.y = -knockbackSpeed;
-            }
-            else if (lhParams[1] == "Up") {
-                knockbackVelocity.y = knockbackSpeed;
-            }
-            else if (lhParams[1] == "Left") {
-                knockbackVelocity.x = -knockbackSpeed;
-            }
-            else {
-                knockbackVelocity.x = knockbackSpeed;
-            }
-            rigidBody.velocity = knockbackVelocity;
-        currentAction="flying";
-        timer2 = 150;
+            spriteRenderer.material.SetColor("_Color", Color.red);
+            EnemyKnockback(lhParams[1]);
+            currentAction="flying";
+            timer2 = 150;
         }
-
     }
            
 
@@ -151,18 +134,6 @@ public class GremlinBehavior : MonoBehaviour
     void InRange(){
         if(Vector3.Distance(transform.position, player.transform.position) <= 1){
             IsDetonating();
-        }
-    }
-
-    void DestroyEnemy(){
-        Destroy(gameObject);
-    }
-
-
-    void ChangeAnimationState(string state) {
-        if (currentState != state) {
-            animator.Play(state);
-            currentState = state;
         }
     }
 }

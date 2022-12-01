@@ -7,7 +7,7 @@ using UnityEngine;
 // Animation coded with help from: https://www.youtube.com/watch?v=nBkiSJ5z-hE, https://answers.unity.com/questions/952558/how-to-flip-sprite-horizontally-in-unity-2d.html
 // Enemy light cone uses asset HardLight2D: https://assetstore.unity.com/packages/tools/particles-effects/hard-light-2d-152208
 
-public class EnemyScript : MonoBehaviour
+public class EnemyScript : EnemyInterface
 {
     // Global variables used to handle movement
     public float speed = 0.01f;
@@ -32,11 +32,7 @@ public class EnemyScript : MonoBehaviour
     MeshRenderer lightChildMesh;
 
     // Global variables used to keep track of direction and animation states
-    Animator animator;
-    SpriteRenderer spriteRenderer;
-    string currentState;
     Vector3 lastPos;
-    string lastDirection = "Left";
 
     // Global variables to handle losing health/getting hit
     int health = 4;
@@ -46,8 +42,6 @@ public class EnemyScript : MonoBehaviour
     float immuneLength = 0.8f;
     float immuneTime = -1f;
     Color defaultColor;
-    Rigidbody2D rigidBody;
-    float knockbackSpeed = 6f;
 
     // Global variables to handle attacking player/being enraged
     public GameObject player;
@@ -67,7 +61,7 @@ public class EnemyScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {        
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -427,22 +421,9 @@ public class EnemyScript : MonoBehaviour
 
             // Knockback
             
-            Vector2 knockbackVelocity = Vector2.zero;
-            if (lhParams[1] == "Down") {
-                knockbackVelocity.y = -knockbackSpeed;
-            }
-            else if (lhParams[1] == "Up") {
-                knockbackVelocity.y = knockbackSpeed;
-            }
-            else if (lhParams[1] == "Left") {
-                knockbackVelocity.x = -knockbackSpeed;
-            }
-            else {
-                knockbackVelocity.x = knockbackSpeed;
-            }
+            EnemyKnockback(lhParams[1]);
             animationPlaying = true;
             ChangeToDirectionalAnimation("EnemyKnockback");
-            rigidBody.velocity = knockbackVelocity;
             
         }
     }
@@ -459,13 +440,6 @@ public class EnemyScript : MonoBehaviour
             dead = true;
             rigidBody.velocity = Vector2.zero;
         }
-    }
-
-    /**
-    * Called by the dead animation to destroy the enemy's game object
-    */
-    void DestroyEnemy() {
-        Destroy(gameObject);
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -504,38 +478,6 @@ public class EnemyScript : MonoBehaviour
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //                                                Widely Used Helper Methods
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    
-    /**
-    * Changes the enemy's animation based on some direction it's facing
-    * spritePath is the file path of some enemy sprite which has Up/Down/Left options, without Up/Down/Left on the end
-    */
-    void ChangeToDirectionalAnimation(string spritePath) {
-        spriteRenderer.flipX = false;
-        // Left
-        if (lastDirection == "Left") { 
-            ChangeAnimationState(spritePath + "Left");
-            spriteRenderer.flipX = false; 
-        }
-        // Right
-        else if (lastDirection == "Right") {
-            ChangeAnimationState(spritePath + "Left");
-            spriteRenderer.flipX = true;
-        }
-        // Up and Down
-        else {
-            ChangeAnimationState(spritePath + lastDirection);
-        }
-    }
-
-    /**
-    * Changes which animation the object is using
-    */
-    void ChangeAnimationState(string state) {
-        if (currentState != state) {
-            animator.Play(state);
-            currentState = state;
-        }
-    }
 
     /**
     * Allows the enemy to start moving again after an animation ends 

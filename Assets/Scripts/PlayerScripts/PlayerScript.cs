@@ -232,19 +232,21 @@ public class PlayerScript : MonoBehaviour
                 rigidBody.velocity = Vector2.zero;
                 attackString = "Attack" + (nextStationaryAttack % 3);
                 nextStationaryAttack++;
-                if(lastDirection == "Down"){
-                    transform.position+= new Vector3(0f, -.3f, 0f);
+                if (rigidBody.velocity.x == knockbackSpeed || rigidBody.velocity.x == -knockbackSpeed 
+                    || rigidBody.velocity.y == knockbackSpeed || rigidBody.velocity.y == -knockbackSpeed) {
+                    if(lastDirection == "Down"){
+                        transform.position+= new Vector3(0f, -.3f, 0f);
+                    }
+                    if(lastDirection == "Up"){
+                        transform.position+= new Vector3(0f, .3f, 0f);
+                    }
+                    if(lastDirection == "Left"){
+                        transform.position+= new Vector3(-.3f, 0f, 0f);
+                    }
+                    if(lastDirection == "Right"){
+                        transform.position+= new Vector3(.3f, 0f, 0f);
+                    }
                 }
-                if(lastDirection == "Up"){
-                    transform.position+= new Vector3(0f, .3f, 0f);
-                }
-                if(lastDirection == "Left"){
-                    transform.position+= new Vector3(-.3f, 0f, 0f);
-                }
-                if(lastDirection == "Right"){
-                    transform.position+= new Vector3(.3f, 0f, 0f);
-                }
-
             }
             ChangeToDirectionalAnimation("Player" + motion + attackString);
             weapon.SendMessage(motion + "Attack", lastDirection);
