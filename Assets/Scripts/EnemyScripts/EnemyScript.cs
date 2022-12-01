@@ -17,7 +17,6 @@ public class EnemyScript : EnemyInterface
     float pauseTime = -1f;
     Vector3 GremlinPos;
 
-
     // Global variables used to handle path walking
     public Transform[] waypoints;
     public GameObject Gremlin;
@@ -74,6 +73,8 @@ public class EnemyScript : EnemyInterface
 
         transform.position = waypoints[0].position;
         lastPos = transform.position;
+
+        knockbackSpeed = 6f;
 
         attackSpeed = speed * 1.5f;
         regSpeed = speed;
