@@ -451,9 +451,11 @@ public class EnemyScript : EnemyInterface
     * Called by the ritual game object once the ritual is started to stop the enemy and start the ritual animation
     */
     void StartRitual() {
-        ChangeAnimationState("EnemyTrappedInRitual");
-        animationPlaying = true;
-        lightChildMesh.enabled = false;
+        if (!followingPlayer) {
+            ChangeAnimationState("EnemyTrappedInRitual");
+            animationPlaying = true;
+            lightChildMesh.enabled = false;
+        }
     }
 
     /**
