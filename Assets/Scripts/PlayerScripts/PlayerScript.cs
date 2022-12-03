@@ -277,7 +277,7 @@ public class PlayerScript : MonoBehaviour
         // Dash
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
-            if (dashes > 0 && (rigidBody.velocity.x == 0 || rigidBody.velocity.y == 0) && dashTimer == -1f) {
+            if (dashes > 0 && (rigidBody.velocity.x == 0 ^ rigidBody.velocity.y == 0) && dashTimer == -1f) {
                 disableWaterColliders();
                 speed *= dashMultiplier;
                 dashTimer = Time.time;
