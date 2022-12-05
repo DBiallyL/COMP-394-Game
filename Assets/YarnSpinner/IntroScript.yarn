@@ -1,0 +1,44 @@
+﻿title: Start
+---
+
+Poor, unfortunate little thing...
+Cursed like the others to wander the night.
+Lost,
+Soulless,
+Blind.
+But you seem different from the others.
+Come to me, Sightless One. I can help you leave.
+For a price.
+
+<<jump Deal>>
+===
+title: Deal
+---
+Let's strike a deal. A soul is a precious commodity here--beautifully sweet and delectable.
+Bring me the souls the Dreamers hoard. In exchange, I will help you get your soul back to get you out of this place.
+I swear on my name as a Merchant. 
+Do we have a deal?
+
+-> Who are you and where am I?
+    <<jump Question>>
+-> Fine.
+    <<jump Done>>
+===
+title: Question
+---
+Questions, questions.
+I am called the Night Merchant by many, though few left are able to call me at all.
+Poor souls trapped here in the Nightmare have all but lost their minds. Pray you don't meet the same fate.
+But enough chit-chat. Have we a deal?
+
+-> Fine.
+    <<jump Done>>
+===
+title: Done
+---
+
+Ehehehehe......
+Excellent.
+Go forth then, Sightless One.
+Don't let the Bedbugs bite!
+===
