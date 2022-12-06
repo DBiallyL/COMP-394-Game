@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1730086038178007819}
   m_Layer: 0
   m_Name: Gremlin
-  m_TagString: Enemy
+  m_TagString: Enemy2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -233,6 +233,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335e9654def1e0c41b6f9fa431d74052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  lastDirection: 
+  animator: {fileID: 0}
+  currentState: 
+  knockbackSpeed: 0
+  rigidBody: {fileID: 0}
   player: {fileID: 0}
   speed: 2
   timer: 0

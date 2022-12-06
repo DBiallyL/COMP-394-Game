@@ -85,7 +85,7 @@ public class WeaponScript : MonoBehaviour
     * If collided with the enemy, tell the enemy to lose some health
     */
     void OnTriggerEnter2D(Collider2D coll) {
-        if (coll.CompareTag("Enemy")) {
+        if (coll.CompareTag("Enemy") || coll.CompareTag("Enemy2")) {
             string[] lhParams = {isRunning, lastDirec};
             coll.SendMessage("LoseHealth", lhParams);
         }
