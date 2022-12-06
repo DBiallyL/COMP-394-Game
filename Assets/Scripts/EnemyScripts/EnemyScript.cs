@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 // using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 // Paths coded with help from: https://www.youtube.com/watch?v=KoFDDp5W5p0 
 // Animation coded with help from: https://www.youtube.com/watch?v=nBkiSJ5z-hE, https://answers.unity.com/questions/952558/how-to-flip-sprite-horizontally-in-unity-2d.html
@@ -9,6 +10,7 @@ using UnityEngine;
 
 public class EnemyScript : EnemyInterface
 {
+    NavMeshAgent agent;
     // Global variables used to handle movement
     public float speed = 0.01f;
     float attackSpeed;
@@ -65,6 +67,10 @@ public class EnemyScript : EnemyInterface
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = spriteRenderer.material.color;
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
 
         lightChild = transform.Find("Light2D");
         lightCollider = transform.Find("EnemyLight_Collider");
@@ -290,7 +296,8 @@ public class EnemyScript : EnemyInterface
     * Only occurs if the enemy is enraged
     */
     void FollowPlayer() {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
+        // transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
+        agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z));
 
         // Checks if the player is in range, and attacks if so
         float distFromPlayer = Vector2.Distance(player.transform.position, transform.position); 
@@ -495,26 +502,4 @@ public class EnemyScript : EnemyInterface
     void AwardBlueSoul(){
         player.SendMessage("AwardBlueSoul");
     }
-
-        void OnTriggerEnter2D(Collider2D collision){
-        if (collision.gameObject.tag == "Wall")
-        {
-            print("Collides");
-            transform.position = lastPos;
-            if (lastDirection == "Left") {
-                transform.position = new Vector3(transform.position.x, transform.position.y + speed * Time.deltaTime,transform.position.z);
-            }
-            else if (lastDirection == "Right") {
-                transform.position = new Vector3(transform.position.x, transform.position.y - speed * Time.deltaTime,transform.position.z);
-            }
-            else if (lastDirection == "Up") {
-                transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y,transform.position.z);
-            }
-            else {
-                transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y,transform.position.z);
-            }            
-        }
-
-    }
-
 }
