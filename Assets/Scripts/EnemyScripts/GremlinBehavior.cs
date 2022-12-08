@@ -14,6 +14,7 @@ public class GremlinBehavior : EnemyInterface
     public float xDif;
     public float yDif;
     public int timer2;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class GremlinBehavior : EnemyInterface
         timer = 0;
         timer2=0;
         timersetter = Random.Range(120,480);
+        audioSource = GetComponent<AudioSource>();
 
         knockbackSpeed = 6f;
     }
@@ -100,10 +102,12 @@ public class GremlinBehavior : EnemyInterface
     }
     void IsExploding(){
         currentAction = "exploding";
+
     }
     void IsDetonating(){
         currentAction = "detonating";
         ChangeAnimationState("GremlinDetonationAnimation");
+        audioSource.Play(0);
     }
 
     void Move(){
