@@ -1,6 +1,6 @@
+
 using System.Collections;
 using System.Collections.Generic;
-// using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -282,9 +282,8 @@ public class EnemyScript : EnemyInterface
         // Walk to next waypoint
         else {
             Vector3 target = waypoints[waypointIndex].position;
-
-            transform.position = Vector2.MoveTowards(transform.position, target, (speed * Time.deltaTime));
-            if (transform.position.x == target.x && transform.position.y == target.y) {
+            agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
+            if (Mathf.Abs(transform.position.x - agent.destination.x) < 0.5f && Mathf.Abs(transform.position.y - agent.destination.y) < 0.5f) {
                 waypointIndex++;
             }
         }
@@ -296,7 +295,6 @@ public class EnemyScript : EnemyInterface
     * Only occurs if the enemy is enraged
     */
     void FollowPlayer() {
-        // transform.position = Vector2.MoveTowards(transform.position, player.transform.position, (speed * Time.deltaTime));
         agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z));
 
         // Checks if the player is in range, and attacks if so
