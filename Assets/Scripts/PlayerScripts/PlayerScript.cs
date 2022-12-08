@@ -42,6 +42,7 @@ public class PlayerScript : MonoBehaviour
     string lastDirection = "Right";
     // Michael Jackson Mode is an easter egg used to handle whether animations are flipping left/right correctly
     bool michaelJacksonMode = false;
+    AudioSource audioSource;
 
     // Global variables used to handle attacking 
     public GameObject weapon;
@@ -62,6 +63,7 @@ public class PlayerScript : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();  
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         defaultColor = spriteRenderer.material.color;
 
         diagSpeed = (float) Mathf.Sqrt((speed * speed) / 2); 
@@ -289,6 +291,7 @@ public class PlayerScript : MonoBehaviour
         // Michael Jackson Mode
         if (Input.GetKeyDown(KeyCode.M)) {
             michaelJacksonMode = true;
+            audioSource.Play(0);
         }
     }
 
