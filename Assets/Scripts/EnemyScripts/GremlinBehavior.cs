@@ -102,7 +102,6 @@ public class GremlinBehavior : EnemyInterface
     }
     void IsExploding(){
         currentAction = "exploding";
-
     }
     void IsDetonating(){
         currentAction = "detonating";
