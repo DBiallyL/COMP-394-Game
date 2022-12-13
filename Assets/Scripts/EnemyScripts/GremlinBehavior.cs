@@ -15,6 +15,9 @@ public class GremlinBehavior : EnemyInterface
     public float yDif;
     public int timer2;
     AudioSource audioSource;
+    public AudioClip splat;
+    public AudioClip explode;
+    public AudioClip scuttle;
 
     // Start is called before the first frame update
     void Start()
@@ -99,14 +102,19 @@ public class GremlinBehavior : EnemyInterface
     void IsChasing(){
         currentAction= "chasing";
         timer = timersetter;
+        audioSource.PlayOneShot(scuttle, 0.7f);
+        audioSource.loop = true;
     }
     void IsExploding(){
         currentAction = "exploding";
+        audioSource.PlayOneShot(explode, 0.7f);
+        audioSource.loop = false;
     }
     void IsDetonating(){
         currentAction = "detonating";
         ChangeAnimationState("GremlinDetonationAnimation");
-        audioSource.Play(0);
+        audioSource.PlayOneShot(splat, 0.7f);
+        audioSource.loop = false;
     }
 
     void Move(){
