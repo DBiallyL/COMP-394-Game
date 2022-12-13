@@ -60,6 +60,9 @@ public class EnemyScript : EnemyInterface
     float calmingLength = 2f;
     float calmCheckDistance = 6f;
 
+    // Global variables to handle audio
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {        
@@ -84,6 +87,8 @@ public class EnemyScript : EnemyInterface
 
         attackSpeed = speed * 1.5f;
         regSpeed = speed;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -347,7 +352,7 @@ public class EnemyScript : EnemyInterface
                 followingPlayer = true;
                 animationPlaying = true;
                 GremlinMaker(Random.Range(5,8));
-                
+                audioSource.Play(0);
             }
         }
         checkingCalm = false;
