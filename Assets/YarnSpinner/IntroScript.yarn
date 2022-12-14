@@ -10,6 +10,7 @@ But you seem different from the others.
 Come to me, Sightless One. I can help you leave.
 For a price.
 
+<<nm_appear NMEmerge NMEmerge>>
 <<jump Deal>>
 ===
 title: Deal
@@ -37,8 +38,11 @@ But enough chit-chat. Have we a deal?
 title: Done
 ---
 
+<<nm_appear NMEmerge NMLaugh>>
 Ehehehehe......
 Excellent.
 Go forth then, Sightless One.
 Don't let the Bedbugs bite!
+
+<<nm_appear NMEmerge IntroEnd>>
 ===
