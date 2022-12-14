@@ -32,8 +32,8 @@ public class PlayerScript : MonoBehaviour
     public GameObject[] dashUIArray;
     // Will be greater than -1f if the player is dashing
     float dashTimer = -1f;
-    int dashMultiplier = 3;
-    float dashLength = 0.5f;
+    int dashMultiplier = 5;
+    float dashLength = 0.3f;
 
     // Global variables used to handle animation
     Animator animator;
