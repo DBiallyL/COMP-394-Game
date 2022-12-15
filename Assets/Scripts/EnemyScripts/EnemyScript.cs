@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-// Paths coded with help from: https://www.youtube.com/watch?v=KoFDDp5W5p0 
-// Animation coded with help from: https://www.youtube.com/watch?v=nBkiSJ5z-hE, https://answers.unity.com/questions/952558/how-to-flip-sprite-horizontally-in-unity-2d.html
 // Enemy light cone uses asset HardLight2D: https://assetstore.unity.com/packages/tools/particles-effects/hard-light-2d-152208
+// NavMesh from https://github.com/h8man/NavMeshPlus
 
 public class EnemyScript : EnemyInterface
 {
