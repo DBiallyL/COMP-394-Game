@@ -2,7 +2,7 @@
 
 Mara is a roguelite fighting game about Encephalitis Lethargica, the sleeping sickness. The game was developed in one semester for Macalester College's class COMP 394 - Video Games: Narrative and Coding. 
 
-This github contains files for Unity, and two zip files containing builds of the game - one for Mac and one for Windows. To run a build, download the appropriate zip file, extract all files from the folder, and run the file named "COMP 394 Game" in the extracted folder. 
+This github contains files for Unity, and two zip files containing builds of the game (Builds folder is found in the Assets folder) - one for Mac and one for Windows. To run a build, download the appropriate zip file, extract all files from the folder, and run the file named "COMP 394 Game" in the extracted folder. 
 
 ### Gameplay notes/bugs
 Buttons on the pause screen do not work. 
